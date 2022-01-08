@@ -1,1 +1,14 @@
-﻿
+﻿global using System.Collections.Generic;
+global using System.Windows;
+global using System.Windows.Controls;
+global using MyStock.Core;
+global using MyStock.Core.Settings;
+global using Newtonsoft.Json;
+global using System.IO;
+global using MaterialDesignThemes.Wpf;
+global using System;
+global using MyStock.ViewModels;
+global using MyStock.Models;
+global using MyStock.Pages;
+global using MyStock.Commands;
+global using System.Windows.Navigation;

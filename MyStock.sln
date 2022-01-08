@@ -5,13 +5,9 @@ VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStock", "MyStock\MyStock.csproj", "{694C22E9-AC64-49A3-BD8A-4D8A55019188}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{8DDB3B86-FF63-47AF-92FA-31678B892B51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStock.Domain", "MyStock.Domain\MyStock.Domain.csproj", "{97A29175-5DE3-4407-B24C-8DA0F76A76AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStock.Domain", "MyStock.Domain\MyStock.Domain.csproj", "{97A29175-5DE3-4407-B24C-8DA0F76A76AA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistence", "Persistence", "{672313E6-555D-4399-81D5-A3CEB822631B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStock.Persistence", "MyStock.Persistence\MyStock.Persistence.csproj", "{D32375BF-7382-4E0F-ACA5-7192DA123869}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStock.Persistence", "MyStock.Persistence\MyStock.Persistence.csproj", "{D32375BF-7382-4E0F-ACA5-7192DA123869}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +30,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{97A29175-5DE3-4407-B24C-8DA0F76A76AA} = {8DDB3B86-FF63-47AF-92FA-31678B892B51}
-		{D32375BF-7382-4E0F-ACA5-7192DA123869} = {672313E6-555D-4399-81D5-A3CEB822631B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26D5457A-AF54-4617-99CB-5BDBEF3DB6A3}
