@@ -1,6 +1,9 @@
-﻿namespace MyStock.Domain;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-public class EntityBase : IEntity
+namespace MyStock.Domain;
+
+public class EntityBase : IEntity, INotifyPropertyChanged
 {
     private Guid _id;
 
@@ -15,4 +18,21 @@ public class EntityBase : IEntity
         }
         set => _id = value;
     }
+
+    #region INotifyPropertyChanged
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected bool SetProptery<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+    {
+        if (!EqualityComparer<T>.Default.Equals(field, newValue))
+        {
+            field = newValue;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
 }

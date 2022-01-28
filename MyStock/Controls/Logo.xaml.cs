@@ -11,7 +11,7 @@ public partial class Logo : UserControl, INotifyPropertyChanged
         InitializeComponent();
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     private Thickness _itemsMargin;
 

@@ -129,4 +129,100 @@
   <data name="WelcomeBack" xml:space="preserve">
     <value>Welcome back!</value>
   </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PersonName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="UOM" xml:space="preserve">
+    <value>Unit of measure</value>
+  </data>
+  <data name="UOMs" xml:space="preserve">
+    <value>Units of measure</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Product category</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="ProductCategories" xml:space="preserve">
+    <value>Product categories</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
+  <data name="AddNewCustomer" xml:space="preserve">
+    <value>Add new customer</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="UomCode" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="UomUsedInDocumentsAndProductsMessage" xml:space="preserve">
+    <value>{0} cannot be deleted because it is used in some documents and products</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ProductCategoryHasProductAndOrChildCategoriesMessage" xml:space="preserve">
+    <value>You cannot remove '{0}' category because it has products or child categories.</value>
+  </data>
+  <data name="ProductHasDocumentMessage" xml:space="preserve">
+    <value>You cannot remove '{0}' product because it is used on sales/purchase documents</value>
+  </data>
 </root>

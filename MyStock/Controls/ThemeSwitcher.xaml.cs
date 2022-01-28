@@ -5,7 +5,7 @@ public partial class ThemeSwitcher : UserControl
     public ThemeSwitcher()
     {
         InitializeComponent();
-        if (AppMananger.UISettings.Theme == UITheme.Dark)
+        if (AppManager.UISettings.Theme == UITheme.Dark)
         {
             ChangeToDarkBtn.Visibility = Visibility.Hidden;
             ChangeToLightBtn.Visibility = Visibility.Visible;
@@ -21,14 +21,14 @@ public partial class ThemeSwitcher : UserControl
 
     private void ChangeToDarkTheme(object sender, RoutedEventArgs e)
     {
-        AppMananger.ChangeTheme(UITheme.Dark);
+        AppManager.ChangeTheme(UITheme.Dark);
         ChangeToDarkBtn.Visibility = Visibility.Hidden;
         ChangeToLightBtn.Visibility = Visibility.Visible;
     }
 
     private void ChangeToLightTheme(object sender, RoutedEventArgs e)
     {
-        AppMananger.ChangeTheme(UITheme.Light);
+        AppManager.ChangeTheme(UITheme.Light);
         ChangeToDarkBtn.Visibility = Visibility.Visible;
         ChangeToLightBtn.Visibility = Visibility.Hidden;
     }

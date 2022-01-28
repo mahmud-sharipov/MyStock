@@ -129,4 +129,100 @@
   <data name="WelcomeBack" xml:space="preserve">
     <value>Добро пожаловать!</value>
   </data>
+  <data name="Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="PersonName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="UOM" xml:space="preserve">
+    <value>Единица измерения</value>
+  </data>
+  <data name="UOMs" xml:space="preserve">
+    <value>Единицы измерения</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Cost" xml:space="preserve">
+    <value>Стоимость</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Активный</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Товар</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Товары</value>
+  </data>
+  <data name="ProductCategory" xml:space="preserve">
+    <value>Категория товара</value>
+  </data>
+  <data name="ProductCategories" xml:space="preserve">
+    <value>Категории товаров</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Клиенты</value>
+  </data>
+  <data name="AddNewCustomer" xml:space="preserve">
+    <value>Добавить нового клиента</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Отчества</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="UomCode" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="UomUsedInDocumentsAndProductsMessage" xml:space="preserve">
+    <value>Вы не можете удалить {0}, так как он используется в некоторых документах и продуктах.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="ProductCategoryHasProductAndOrChildCategoriesMessage" xml:space="preserve">
+    <value>Вы не можете удалить категорию "{0}", так как в ней есть продукты или дочерние категории.</value>
+  </data>
+  <data name="ProductHasDocumentMessage" xml:space="preserve">
+    <value>Вы не можете удалить продукт "{0}", так как он используется в документах купли-продажи.</value>
+  </data>
 </root>

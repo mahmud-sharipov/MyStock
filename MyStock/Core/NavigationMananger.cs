@@ -2,16 +2,20 @@
 public class NavigationMananger
 {
     private static readonly object padlock = new object();
-    private static NavigationMananger? instance;
+    private static NavigationMananger instance;
 
     NavigationMananger()
     {
-        MainFrame = new Frame();
+        MainFrame = new Frame()
+        {
+            NavigationUIVisibility = NavigationUIVisibility.Hidden,
+            Source = Helper.MenuHelper.Dashboard.Url
+        };
     }
 
     public Frame MainFrame { get; }
 
-    public NavigationService NavigationService => Instance.MainFrame.NavigationService;
+    public static NavigationService NavigationService => Instance.MainFrame.NavigationService;
 
     public static NavigationMananger Instance
     {

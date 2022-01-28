@@ -1,37 +1,36 @@
-﻿namespace MyStock.ViewModels;
+﻿
+
+namespace MyStock.ViewModels;
 
 public class MainViewModel : BaseViewModel
 {
     public MainViewModel()
     {
-        //Router = new RoutingState();
-        Menu = new List<MenuItemModel>();
-        CreateMenu();
+        Menu = MenuHelper.GetMenu().OrderBy(m => m.Order).ToList();
     }
-
+    
     #region Properties
 
     public List<MenuItemModel> Menu { get; set; }
-    //public RoutingState Router { get; }
 
     #endregion
 
     #region Commands
 
-    public RelayCommand? Navigate { get; }
-    public RelayCommand? GoNext { get; }
-    public RelayCommand? GoBack { get; }
+    public RelayCommand Navigate => new RelayCommand(
+        param =>
+        {
+            if (param is MenuItemModel menu)
+                NavigationMananger.NavigationService.Navigate(menu.Url);
+        },
+        param =>
+        {
+            if (param is MenuItemModel menu)
+                return NavigationMananger.NavigationService.CurrentSource.ToString() != menu.Url?.ToString();
+
+            return true;
+        }
+    );
 
     #endregion
-
-    void CreateMenu()
-    {
-        Menu.Add(Helper.Menu.DashboardPage);
-        Menu.Add(Helper.Menu.Products);
-        Menu.Add(Helper.Menu.Orders);
-        Menu.Add(Helper.Menu.Sales);
-        Menu.Add(Helper.Menu.Purchases);
-        Menu.Add(Helper.Menu.Customers);
-        Menu.Add(Helper.Menu.Vendors);
-    }
 }

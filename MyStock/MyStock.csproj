@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <PackageIcon>logo-white.png</PackageIcon>
     <ApplicationIcon>Assets\Images\logo-white.ico</ApplicationIcon>
@@ -57,16 +56,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\Settings\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyStock.Domain\MyStock.Domain.csproj" />
+    <ProjectReference Include="..\MyStock.Persistence\MyStock.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,13 +85,13 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Assets\Lang\Lang.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>Assets</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace></CustomToolNamespace>
       <LastGenOutput>Lang.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Assets\Lang\Lang.ru-RU.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>Assets</CustomToolNamespace>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
 
@@ -94,5 +100,9 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Dialogs\" />
   </ItemGroup>
 </Project>

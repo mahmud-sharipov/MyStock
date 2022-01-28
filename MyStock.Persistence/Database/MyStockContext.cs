@@ -2,10 +2,11 @@
 
 public class MyStockContext : DbContext
 {
-    public MyStockContext() { }
+    public MyStockContext() : this(new DbContextOptions<MyStockContext>()) { }
 
     public MyStockContext(DbContextOptions<MyStockContext> dbContextOptions) : base(dbContextOptions)
     {
+        Database.Migrate();
         OptionBuilder = dbContextOptions;
     }
 
@@ -45,7 +46,6 @@ public class MyStockContext : DbContext
     {
         return await Set<T>().FirstOrDefaultAsync(e => e.Guid == id, cancellationToken);
     }
-
 
     public T GetById<T>(Guid guid) where T : class, IEntity
     {
@@ -112,14 +112,7 @@ public class MyStockContext : DbContext
 
     public override int SaveChanges()
     {
-
         return base.SaveChanges();
-    }
-
-    public override int SaveChanges(bool acceptAllChangesOnSuccess)
-    {
-
-        return SaveChanges(acceptAllChangesOnSuccess);
     }
 
     public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
@@ -160,6 +153,15 @@ public class MyStockContext : DbContext
                     break;
             }
         }
+    }
+
+    public void UndoChanges(EntityBase entity)
+    {
+        var changedEntries = ChangeTracker.Entries()
+            .Where(x => x.Entity == entity && x.State != EntityState.Unchanged).SingleOrDefault();
+
+        if (changedEntries != null)
+            changedEntries.CurrentValues.SetValues(changedEntries.OriginalValues);
     }
 
     IQueryable<T> GetQuery<T>(Expression<Func<T, bool>> predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null) where T : class, IEntity

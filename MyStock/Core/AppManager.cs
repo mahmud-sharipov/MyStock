@@ -2,26 +2,26 @@
 
 namespace MyStock.Core;
 
-public class AppMananger
+public class AppManager
 {
     private static readonly object padlock = new object();
-    private static AppMananger? instance;
+    private static AppManager instance;
     private readonly PaletteHelper paletteHelper = new PaletteHelper();
     private readonly string _settingsPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "", @"Assets/Settings/appsettings.json");
 
-    AppMananger()
+    AppManager()
     {
         AppSettings = JsonConvert.DeserializeObject<AppSettings>(File.ReadAllText(_settingsPath)) ?? new AppSettings();
     }
 
-    public static AppMananger Instance
+    public static AppManager Instance
     {
         get
         {
             lock (padlock)
             {
                 if (instance == null)
-                    instance = new AppMananger();
+                    instance = new AppManager();
                 return instance;
             }
         }

@@ -9,7 +9,7 @@
                 Title="Dashboard"
                 d:DesignHeight="450"
                 d:DesignWidth="800"
-                x:TypeArguments="viewModel:DashboarPageViewModel"
+                x:TypeArguments="viewModel:DashboarViewModel"
                 mc:Ignorable="d">
     <Grid>
         <ScrollViewer>

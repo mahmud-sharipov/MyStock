@@ -6,7 +6,7 @@ namespace MyStock.Windows
     {
         public LoginWindow()
         {
-            IsDarkTheme = AppMananger.UISettings.Theme == UITheme.Dark;
+            IsDarkTheme = AppManager.UISettings.Theme == UITheme.Dark;
             InitializeComponent();
             DataContext = this;
         }
@@ -15,7 +15,7 @@ namespace MyStock.Windows
 
         private void toggleTheme(object sender, RoutedEventArgs e)
         {
-            AppMananger.ChangeTheme(IsDarkTheme ? UITheme.Dark : UITheme.Light);
+            AppManager.ChangeTheme(IsDarkTheme ? UITheme.Dark : UITheme.Light);
         }
 
         private void exitApp(object sender, RoutedEventArgs e)

@@ -8,7 +8,9 @@
                  xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:models="clr-namespace:MyStock.Models"
-                 Title="Research notes manager"
+                 Title="My stock"
+                 MinWidth="600"
+                 MinHeight="700"
                  d:Height="600"
                  d:Width="700"
                  Background="{DynamicResource MaterialDesignPaper}"
@@ -46,79 +48,91 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignDivider}">
+    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Background="{DynamicResource MaterialDesignCheckBoxDisabled}">
+            <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignDivider}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <localControls:Logo Width="50"
-                                        Height="50"
-                                        Thickness="1" />
-                    <localControls:CompanyName Margin="5,0,0,0"
-                                               VerticalAlignment="Center"
-                                               FontSize="28" />
-                </StackPanel>
+                <Grid Background="{DynamicResource MaterialDesignCheckBoxDisabled}">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <localControls:Logo Width="50"
+                                            Height="50"
+                                            Thickness="1" />
+                        <localControls:CompanyName Margin="5,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="28" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl x:Name="MenuList"
+                                      Margin="0,10,0,0"
+                                      ItemsSource="{Binding Menu}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Height="40"
+                                            Margin="10,6"
+                                            Padding="0"
+                                            Command="{Binding ElementName=MenuList, Path=DataContext.Navigate}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                                        <Grid Width="150">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:PackIcon Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center"
+                                                                     Kind="{Binding Icon}" />
+                                            <TextBlock Grid.Column="1"
+                                                       Margin="15,0,0,0"
+                                                       VerticalAlignment="Center"
+                                                       FontFamily="Champagne &amp; Limousines"
+                                                       Text="{Binding Name, Converter={StaticResource StringToUpperConverter}}" />
+                                        </Grid>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <d:ItemsControl.ItemsSource>
+                                <x:Array Type="{x:Type models:MenuItemModel}">
+                                    <models:MenuItemModel Name="Dashboard" Icon="Home" />
+                                    <models:MenuItemModel Name="Products" Icon="Tag" />
+                                    <models:MenuItemModel Name="Sales" Icon="Book" />
+                                </x:Array>
+                            </d:ItemsControl.ItemsSource>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
 
-            <StackPanel Grid.Row="1">
-                <ItemsControl x:Name="MenuList"
-                              Margin="0,10,0,0"
-                              ItemsSource="{Binding Menu}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Height="40"
-                                    Margin="10,6"
-                                    Padding="0"
-                                    Command="{Binding ElementName=MenuList, Path=DataContext.Navigate}"
-                                    CommandParameter="{Binding}"
-                                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
-                                <Grid Width="150">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <materialDesign:PackIcon Width="25"
-                                                             Height="25"
-                                                             VerticalAlignment="Center"
-                                                             Kind="{Binding Icon}" />
-                                    <TextBlock Grid.Column="1"
-                                               Margin="15,0,0,0"
-                                               VerticalAlignment="Center"
-                                               FontFamily="Champagne &amp; Limousines"
-                                               Text="{Binding Name, Converter={StaticResource StringToUpperConverter}}" />
-                                </Grid>
-                            </Button>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <d:ItemsControl.ItemsSource>
-                        <x:Array Type="{x:Type models:MenuItemModel}">
-                            <models:MenuItemModel Name="Dashboard" Icon="Home" />
-                            <models:MenuItemModel Name="Products" Icon="Tag" />
-                            <models:MenuItemModel Name="Sales" Icon="Book" />
-                        </x:Array>
-                    </d:ItemsControl.ItemsSource>
-                </ItemsControl>
-            </StackPanel>
-        </Grid>
+            <Grid x:Name="ContentGrid"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="20,10" />
 
-        <Frame x:Name="MainFrame"
-               Grid.Row="1"
-               Grid.Column="1"
-               NavigationUIVisibility="Hidden" />
-    </Grid>
+            <materialDesign:Snackbar x:Name="MainSnackbar"
+                                     Grid.Row="1"
+                                     Grid.Column="1" />
+        </Grid>
+    </materialDesign:DialogHost>
 </mah:MetroWindow>

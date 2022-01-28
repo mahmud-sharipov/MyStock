@@ -9,13 +9,13 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        AppMananger.Start();
+        AppManager.Start();
         base.OnStartup(e);
     }
 
     protected override void OnExit(ExitEventArgs e)
     {
-        AppMananger.Stop();
+        AppManager.Stop();
         base.OnExit(e);
     }
 }

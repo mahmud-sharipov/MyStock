@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="MyStock.Dialogs.AddNewCustomerDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:langAsset="clr-namespace:MyStock.Assets.Lang"
+             xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             Width="300"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="60" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock x:Name="ErrorMessages"
+                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       Visibility="Collapsed" />
+        </StackPanel>
+        <TextBox Grid.Row="1"
+                 Margin="0,10"
+                 materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.LastName}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding LastName}" />
+        <TextBox Grid.Row="2"
+                 Margin="0,10"
+                 materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.FirstName}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding FirstName}" />
+        <TextBox Grid.Row="3"
+                 Margin="0,10"
+                 materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.MiddleName}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding MiddleName}" />
+        <TextBox Grid.Row="4"
+                 Margin="0,10"
+                 materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.Phone}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
+                 materialDesign:TextFieldAssist.PrefixText="(+992) "
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Phone}" />
+        <TextBox Grid.Row="5"
+                 Margin="0,10"
+                 materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.Address}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
+                 AcceptsReturn="True"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Text="{Binding Address}"
+                 TextWrapping="Wrap" />
+
+        <StackPanel Grid.Row="6"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Margin="10,0"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    Content="{x:Static langAsset:Lang.Add}"
+                    Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}">
+                <Button.CommandParameter>
+                    <system:Boolean>True</system:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                    Content="{x:Static langAsset:Lang.Cancel}"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}">
+                <Button.CommandParameter>
+                    <system:Boolean>False</system:Boolean>
+                </Button.CommandParameter>
+
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

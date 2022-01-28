@@ -18,7 +18,7 @@
   <Class Name="MyStock.Domain.Uom">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAgAAAAAAAABAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQACAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Uom.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -49,20 +49,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MyStock.Domain.Warehouse">
-    <Position X="3.75" Y="5" Width="1.5" />
+    <Position X="3.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAgAAAAAAAABAQAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQACAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Warehouse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyStock.Domain.Product">
     <Position X="3.75" Y="0.75" Width="1.5" />
-    <AssociationLine Name="UOM" Type="MyStock.Domain.Uom" FixedFromPoint="true">
-      <Path>
-        <Point X="5.25" Y="2.125" />
-        <Point X="6.5" Y="2.125" />
-      </Path>
-    </AssociationLine>
     <AssociationLine Name="Category" Type="MyStock.Domain.ProductCategory" FixedToPoint="true">
       <Path>
         <Point X="3.75" Y="2.125" />
@@ -70,12 +64,12 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEAAAAAAASAkAABAEAAgABQEAAAAAAAAAAAAAAAAiAA=</HashCode>
+      <HashCode>AEAAAAAAASAgAAAAEAAgABQACAAEAAAAAAAAAAAAiAA=</HashCode>
       <FileName>Product.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="UOM" />
       <Property Name="Category" />
+      <Property Name="Uom" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MyStock.Domain.ProductCategory">
@@ -102,8 +96,8 @@
     <AssociationLine Name="Product" Type="MyStock.Domain.Product" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="2.312" Y="4.5" />
-        <Point X="2.312" Y="4" />
-        <Point X="3.75" Y="4" />
+        <Point X="2.312" Y="3.827" />
+        <Point X="3.75" Y="3.827" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -117,15 +111,8 @@
   </Class>
   <Class Name="MyStock.Domain.Purchase">
     <Position X="8.75" Y="6.75" Width="1.5" />
-    <InheritanceLine Type="MyStock.Domain.Document" FixedToPoint="true">
-      <Path>
-        <Point X="11.5" Y="5.617" />
-        <Point X="11.5" Y="6.938" />
-        <Point X="10.25" Y="6.938" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Purchase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -134,13 +121,6 @@
   </Class>
   <Class Name="MyStock.Domain.Sales">
     <Position X="8.75" Y="0.5" Width="1.5" />
-    <InheritanceLine Type="MyStock.Domain.Document" FixedToPoint="true">
-      <Path>
-        <Point X="11.5" Y="4" />
-        <Point X="11.5" Y="1.938" />
-        <Point X="10.25" Y="1.938" />
-      </Path>
-    </InheritanceLine>
     <AssociationLine Name="Customer" Type="MyStock.Domain.Customer" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="10.25" Y="1.25" />
@@ -149,7 +129,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Sales.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -159,12 +139,9 @@
   <Class Name="MyStock.Domain.SalesDetail">
     <Position X="8.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SalesDetail.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Document" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="MyStock.Domain.Person">
     <Position X="13" Y="4.5" Width="1.5" />
@@ -176,31 +153,28 @@
   <Class Name="MyStock.Domain.Document">
     <Position X="10.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAABAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAhAAAAAAAAAAAAAAAAAAABAgAAAAAAAAA=</HashCode>
       <FileName>Document.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyStock.Domain.DocumentDetail">
     <Position X="6.5" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IEACAAAAAAAkIAIAAAAAAAAAAAAAAAAACAAAgAAAAAA=</HashCode>
+      <HashCode>IEACAAAAAAAgIAIAAAAAAAAAAAAEgAACCAAAgAAAAAA=</HashCode>
       <FileName>DocumentDetail.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Product" />
-      <Property Name="UOM" />
       <Property Name="Warehouse" />
+      <Property Name="Uom" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MyStock.Domain.PurchaseDetail">
     <Position X="8.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PurchaseDetail.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Document" />
-    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
