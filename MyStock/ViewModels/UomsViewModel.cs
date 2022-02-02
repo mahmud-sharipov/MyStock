@@ -14,7 +14,7 @@ public class UomsViewModel : BaseViewModel
         get
         {
             if (_uoms == null)
-                _uoms = new ObservableCollection<Uom>(Context.GetAll<Uom>());
+                _uoms = new ObservableCollection<Uom>(Context.Set<Uom>());
             return _uoms;
         }
     }

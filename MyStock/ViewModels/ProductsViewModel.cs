@@ -16,7 +16,7 @@ public class ProductsViewModel : BaseViewModel
         get
         {
             if (_products == null)
-                _products = new ObservableCollection<Product>(Context.GetAll<Product>());
+                _products = new ObservableCollection<Product>(Context.Set<Product>());
             return _products;
         }
     }
@@ -27,7 +27,7 @@ public class ProductsViewModel : BaseViewModel
         get
         {
             if (_productCategories == null)
-                _productCategories = new ObservableCollection<ProductCategory>(Context.GetAll<ProductCategory>());
+                _productCategories = new ObservableCollection<ProductCategory>(Context.Set<ProductCategory>());
             return _productCategories;
         }
     }
@@ -94,7 +94,7 @@ public class ProductsViewModel : BaseViewModel
         {
             IsActive = true,
             AvailableCategories = ProductCategories,
-            AvailableUoms = Context.GetAll<Uom>().ToList()
+            AvailableUoms = Context.Set<Uom>().ToList()
         };
 
         if (await DialogManger.Show<ProductDialog, ProductDto>(productDto))
@@ -113,7 +113,7 @@ public class ProductsViewModel : BaseViewModel
             var productDto = new ProductDto(product)
             {
                 AvailableCategories = ProductCategories,
-                AvailableUoms = Context.GetAll<Uom>().ToList()
+                AvailableUoms = Context.Set<Uom>().ToList()
             };
 
             if (await DialogManger.Show<ProductDialog, ProductDto>(productDto))

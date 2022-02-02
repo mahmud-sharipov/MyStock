@@ -1,0 +1,17 @@
+﻿global using Autofac;
+global using FluentValidation;
+global using FluentValidation.Results;
+global using MyStock.Core.Enums;
+global using MyStock.Core.Interfaces;
+global using MyStock.Domain;
+global using ReactiveUI;
+global using System;
+global using System.Collections;
+global using System.Collections.Generic;
+global using System.ComponentModel;
+global using System.Linq;
+global using System.Reactive.Concurrency;
+global using System.Reactive.Linq;
+global using System.Runtime.CompilerServices;
+global using System.Threading.Tasks;
+global using System.Windows.Input;

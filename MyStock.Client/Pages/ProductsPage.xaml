@@ -1,0 +1,181 @@
+﻿<pages:BasePage x:Class="MyStock.Pages.ProductsPage"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:domain="clr-namespace:MyStock.Domain;assembly=MyStock.Domain"
+                xmlns:langAsset="clr-namespace:MyStock.Assets.Lang"
+                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:pages="clr-namespace:MyStock.Pages"
+                xmlns:viewModel="clr-namespace:MyStock.ViewModels"
+                Title="ProductsPage"
+                d:DesignHeight="450"
+                d:DesignWidth="800"
+                x:TypeArguments="viewModel:ProductsViewModel"
+                FontFamily="{StaticResource MaterialDesignFont}"
+                TextElement.FontSize="13"
+                TextElement.FontWeight="Regular"
+                TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                TextOptions.TextFormattingMode="Ideal"
+                TextOptions.TextRenderingMode="Auto"
+                mc:Ignorable="d">
+    <Grid x:Name="thisPage">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Margin="15"
+                   Style="{DynamicResource MaterialDesignHeadline4TextBlock}"
+                   Text="{x:Static langAsset:Lang.Products}" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:Card MinWidth="250" Margin="15,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="15,15,0,0"
+                                   Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                   Text="{x:Static langAsset:Lang.Category}" />
+
+                        <Button Margin="10,3,0,0"
+                                Command="{Binding AddCategory}"
+                                Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="{x:Static langAsset:Lang.Add}">
+                            <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBody}" Kind="Plus" />
+                        </Button>
+
+                    </StackPanel>
+
+                    <TreeView x:Name="TreeTypes"
+                              Grid.Row="1"
+                              Margin="0"
+                              ItemsSource="{Binding ProductCategories}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <TreeView.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                                <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" />
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <MenuItem Command="{Binding PlacementTarget.Tag.UpdateCategory, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                      CommandParameter="{Binding}"
+                                                      Header="{x:Static langAsset:Lang.Edit}"
+                                                      Icon="{materialDesign:PackIcon Kind=Pencil}" />
+
+                                            <MenuItem Command="{Binding PlacementTarget.Tag.DeleteCategory, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                                      CommandParameter="{Binding}"
+                                                      Header="{x:Static langAsset:Lang.Delete}"
+                                                      Icon="{materialDesign:PackIcon Kind=Delete}" />
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                        <TreeView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </TreeView.ItemsPanel>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type domain:ProductCategory}" ItemsSource="{Binding ChildCategories}">
+                                <TextBlock Text="{Binding Name}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Column="1">
+                <Grid>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <DataGrid AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  HeadersVisibility="All"
+                                  ItemsSource="{Binding Products}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Name}"
+                                                    Header="{x:Static langAsset:Lang.Name}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridTextColumn MaxWidth="350"
+                                                    Binding="{Binding Description}"
+                                                    Header="{x:Static langAsset:Lang.Description}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridTextColumn Binding="{Binding Code}"
+                                                    Header="{x:Static langAsset:Lang.Code}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridTextColumn Binding="{Binding Price}"
+                                                    Header="{x:Static langAsset:Lang.Price}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridTextColumn Binding="{Binding Cost}"
+                                                    Header="{x:Static langAsset:Lang.Cost}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridCheckBoxColumn Binding="{Binding IsActive}"
+                                                        Header="{x:Static langAsset:Lang.Active}"
+                                                        IsReadOnly="True" />
+
+                                <DataGridTextColumn Binding="{Binding Uom.Name}"
+                                                    Header="{x:Static langAsset:Lang.UOM}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridTextColumn Binding="{Binding Category.Name}"
+                                                    Header="{x:Static langAsset:Lang.Code}"
+                                                    IsReadOnly="True" />
+
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Command="{Binding ElementName=thisPage, Path=DataContext.UpdateProduct}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Width="20"
+                                                                             Height="20"
+                                                                             Kind="Pencil" />
+                                                </Button>
+
+                                                <Button Command="{Binding ElementName=thisPage, Path=DataContext.DeleteProduct}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                                    <materialDesign:PackIcon Width="20"
+                                                                             Height="20"
+                                                                             Margin="5,0"
+                                                                             Kind="Delete" />
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                    <Button Margin="0,0,10,10"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding AddProduct}"
+                            Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                            ToolTip="{x:Static langAsset:Lang.Add}">
+                        <materialDesign:PackIcon Width="30"
+                                                 Height="30"
+                                                 Kind="Plus" />
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</pages:BasePage>

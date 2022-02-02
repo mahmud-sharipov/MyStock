@@ -1,0 +1,31 @@
+﻿using MyStock.Core.Enums;
+
+namespace MyStock.Application.Message
+{
+    public class Message : ReactiveObject, IMessage
+    {
+        public Message(string owner, SeverityLevel severity)
+        {
+            Guid = Guid.NewGuid();
+            Owner = owner;
+            Severity = severity;
+        }
+
+        public string Owner { get; }
+
+        public Guid Guid { get; }
+
+        public string Title { get; set; }
+
+        public string Solution { get; set; }
+
+        public string Detail { get; set; }
+
+        public SeverityLevel Severity { get; }
+
+        public void RemoveMessage()
+        {
+            MessageManager.Messages.Remove(this);
+        }
+    }
+}
