@@ -1,8 +1,13 @@
 ﻿namespace MyStock.Core;
 
-public abstract class EntityListPageViewModel<TEntity> : EntityListViewModel<TEntity>, IEntityListPageViewModel<TEntity>
+public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewModel<TEntity>, IEntityListPageViewModel<TEntity>
     where TEntity : class, IEntity, new()
+    where TPage : class, IEntityListPage
 {
+    TPage _entityPage;
+    int _collectionSize;
+    string _title;
+
     protected EntityListPageViewModel(IContext context) : base(context)
     {
         CanOpen = this.WhenAny(e => e.SelectedItem, si => si.Value != null);
@@ -28,18 +33,28 @@ public abstract class EntityListPageViewModel<TEntity> : EntityListViewModel<TEn
 
     public IObservable<bool> CanOpen { get; protected set; }
 
-    int _collectionSize;
     public int CollectionSize
     {
         get => _collectionSize;
         set => this.RaiseAndSetIfChanged(ref _collectionSize, value);
     }
 
-    string _title;
     public string Title
     {
         get => _title;
         set => this.RaiseAndSetIfChanged(ref _title, value);
+    }
+
+    public TPage EntityPage => _entityPage ??= Global.Container.Resolve<TPage>(new PositionalParameter(0, this));
+
+    IEntityListPage INavigatable.EntityPage => EntityPage;
+
+    IEnumerable IEntityListPageViewModel.Collection => Collection;
+
+    object IEntityListPageViewModel.SelectedItem
+    {
+        get => SelectedItem;
+        set => SelectedItem = value as TEntity;
     }
 
     protected virtual void BuildCommands()

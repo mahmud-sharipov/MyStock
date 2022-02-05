@@ -6,22 +6,13 @@ public abstract class EntityViewModel<TEntity, TValidator> : ViewModel, IEntityV
     where TEntity : class, IEntity
     where TValidator : class, IValidator
 {
-    private TValidator _validator;
-    private IEnumerable<ValidationFailure> Errors;
-    private bool _hasErrors;
-    private bool _isValid;
+    TValidator _validator;
+    IEnumerable<ValidationFailure> Errors;
+    bool _hasErrors;
+    bool _isValid;
     protected IObservable<bool> isValidObservable;
-    protected EntityViewModel(Guid guid, IContext context) : base(context)
-    {
-        SharedConstructor(context.Get<TEntity>(guid));
-    }
 
     protected EntityViewModel(TEntity entity, IContext context) : base(context)
-    {
-        SharedConstructor(entity);
-    }
-
-    void SharedConstructor(TEntity entity)
     {
         isValidObservable = this.WhenAny(v => v.IsValid, val => val.Value);
         _validator = Global.Container.Resolve<TValidator>();

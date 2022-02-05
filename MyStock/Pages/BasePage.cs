@@ -1,13 +1,16 @@
-﻿namespace MyStock.Pages;
+﻿using MyStock.Core.Interfaces;
 
-public class BasePage<TViewModel> : Page where TViewModel : BaseViewModel
+namespace MyStock.Pages;
+
+public class BasePage<TViewModel> : ReactiveUI.ReactiveUserControl<TViewModel>
+    where TViewModel : class, IViewModel
 {
-    public TViewModel ViewModel { get; set; }
+    public bool IsDisposed { get; set; }
 
     public BasePage(TViewModel viewModel)
     {
-        ViewModel = viewModel;
-        DataContext = ViewModel;
+        ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+        DataContext = viewModel;
         Loaded += OnPageLoad;
     }
 
@@ -17,6 +20,7 @@ public class BasePage<TViewModel> : Page where TViewModel : BaseViewModel
         Loaded -= OnPageLoad;
         ViewModel?.Dispose();
         ViewModel = null;
+        IsDisposed = true;
     }
 
     private void OnPageLoad(object sender, RoutedEventArgs e)

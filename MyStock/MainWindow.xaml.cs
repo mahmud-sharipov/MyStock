@@ -1,17 +1,21 @@
-﻿namespace MyStock;
+﻿using MyStock.ViewModels;
+using ReactiveUI;
 
-public partial class MainWindow
+namespace MyStock;
+
+public partial class MainWindow : IViewFor<MainViewModel>
 {
     public MainWindow()
     {
         InitializeComponent();
-        ContentGrid.Children.Add(NavigationMananger.Instance.MainFrame);
-        DataContext = new MainViewModel();
-        MainSnackbar.MessageQueue = NotificationManager.Instance.SnackbarMessageQueue;
+        ViewModel = new MainViewModel();
+        DataContext = ViewModel;
     }
 
-    private void ButtonFechar_Click(object sender, RoutedEventArgs e)
+    public MainViewModel ViewModel { get; set; }
+    object IViewFor.ViewModel
     {
-        Application.Current.Shutdown();
+        get => ViewModel;
+        set => ViewModel = value as MainViewModel;
     }
 }

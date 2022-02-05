@@ -7,12 +7,10 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:models="clr-namespace:MyStock.Models"
+                 xmlns:navigation="clr-namespace:MyStock.Common"
                  Title="My stock"
                  MinWidth="600"
                  MinHeight="700"
-                 d:Height="600"
-                 d:Width="700"
                  Background="{DynamicResource MaterialDesignPaper}"
                  FontFamily="{StaticResource MaterialDesignFont}"
                  TextElement.FontSize="13"
@@ -50,89 +48,52 @@
     </mah:MetroWindow.RightWindowCommands>
     <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" Background="{DynamicResource MaterialDesignDivider}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Grid Background="{DynamicResource MaterialDesignCheckBoxDisabled}">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <localControls:Logo Width="50"
-                                            Height="50"
-                                            Thickness="1" />
-                        <localControls:CompanyName Margin="5,0,0,0"
-                                                   VerticalAlignment="Center"
-                                                   FontSize="28" />
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="1">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <ItemsControl x:Name="MenuList"
-                                      Margin="0,10,0,0"
-                                      ItemsSource="{Binding Menu}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Height="40"
-                                            Margin="10,6"
-                                            Padding="0"
-                                            Command="{Binding ElementName=MenuList, Path=DataContext.Navigate}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignRaisedDarkButton}">
-                                        <Grid Width="150">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto" />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <materialDesign:PackIcon Width="25"
-                                                                     Height="25"
-                                                                     VerticalAlignment="Center"
-                                                                     Kind="{Binding Icon}" />
-                                            <TextBlock Grid.Column="1"
-                                                       Margin="15,0,0,0"
-                                                       VerticalAlignment="Center"
-                                                       FontFamily="Champagne &amp; Limousines"
-                                                       Text="{Binding Name, Converter={StaticResource StringToUpperConverter}}" />
-                                        </Grid>
-                                    </Button>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <d:ItemsControl.ItemsSource>
-                                <x:Array Type="{x:Type models:MenuItemModel}">
-                                    <models:MenuItemModel Name="Dashboard" Icon="Home" />
-                                    <models:MenuItemModel Name="Products" Icon="Tag" />
-                                    <models:MenuItemModel Name="Sales" Icon="Book" />
-                                </x:Array>
-                            </d:ItemsControl.ItemsSource>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </Grid>
-            </Grid>
-
-            <Grid x:Name="ContentGrid"
-                  Grid.Row="1"
-                  Grid.Column="1"
-                  Margin="20,10" />
-
-            <materialDesign:Snackbar x:Name="MainSnackbar"
-                                     Grid.Row="1"
-                                     Grid.Column="1" />
+            <Grid.Resources>
+                <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type navigation:MenuItem}">
+                    <Grid Height="48" TextElement.Foreground="{DynamicResource MaterialDesignDarkForeground}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Grid.Column="0"
+                                                 Width="25"
+                                                 Height="25"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                                                 Focusable="False"
+                                                 Kind="{Binding Icon}" />
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   Text="{Binding Label}" />
+                    </Grid>
+                </DataTemplate>
+            </Grid.Resources>
+            <mah:HamburgerMenu x:Name="HamburgerMenuControl"
+                               DisplayMode="CompactOverlay"
+                               ItemTemplate="{StaticResource MenuItemTemplate}"
+                               ItemsSource="{Binding Menu}"
+                               OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                               PaneForeground="{DynamicResource MaterialDesignDarkForeground}"
+                               VerticalScrollBarOnLeftSide="False">
+                <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Margin="30,0,0,0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   FontWeight="Medium"
+                                   Foreground="{DynamicResource MaterialDesignDarkForeground}"
+                                   Text="MENU" />
+                    </DataTemplate>
+                </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
+                <mah:HamburgerMenu.Content>
+                    <Grid DataContext="{Binding ElementName=HamburgerMenuControl, Path=DataContext}">
+                        <ContentControl Margin="20,0,10,0" Content="{Binding SelectedPage}" />
+                    </Grid>
+                </mah:HamburgerMenu.Content>
+            </mah:HamburgerMenu>
         </Grid>
     </materialDesign:DialogHost>
 </mah:MetroWindow>

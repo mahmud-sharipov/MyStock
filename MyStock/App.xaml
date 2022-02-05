@@ -7,15 +7,21 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <materialDesign:MahAppsBundledTheme BaseTheme="Inherit"
-                                                    PrimaryColor="DeepPurple"
-                                                    SecondaryColor="LightGreen" />
-
+                                                    PrimaryColor="LightBlue"
+                                                    SecondaryColor="LightBlue" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="UserControl">
+                <Setter Property="FontFamily" Value="{DynamicResource MaterialDesignFont}" />
+                <Setter Property="TextBlock.Foreground" Value="{DynamicResource MaterialDesignBody}" />
+                <Setter Property="TextBlock.FontSize" Value="13" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+                <Setter Property="TextOptions.TextRenderingMode" Value="Auto" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

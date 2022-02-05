@@ -1,6 +1,6 @@
 ﻿using MyStock.Core.Enums;
 
-namespace MyStock.Application.Message
+namespace MyStock.Application.UIComunication
 {
     public class Message : ReactiveObject, IMessage
     {

@@ -20,7 +20,7 @@ namespace MyStock.Windows
 
         private void exitApp(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿namespace MyStock.Application.Message
+﻿namespace MyStock.Application.UIComunication
 {
     public class QuestionChoice : IQuestionChoice
     {

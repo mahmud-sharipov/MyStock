@@ -19,3 +19,4 @@ global using System.Windows.Input;
 global using MyStock.Core;
 global using MyStock.Core.Enums;
 global using System.Collections.ObjectModel;
+global using MyStock.Application.Assets.Lang;

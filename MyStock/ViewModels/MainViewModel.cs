@@ -1,36 +1,57 @@
-﻿
+﻿using Autofac;
+using MyStock.Application.Uoms;
+using MyStock.Core.Interfaces;
+using MyStock.Pages.Uoms;
+using ReactiveUI;
+using System.Linq;
+using System.Reactive.Concurrency;
+using System.Windows.Input;
 
 namespace MyStock.ViewModels;
 
-public class MainViewModel : BaseViewModel
+public class MainViewModel : ReactiveObject
 {
+    private IEntityListPage contentControl;
+    public IEntityListPage SelectedPage
+    {
+        get => contentControl;
+        set => this.RaiseAndSetIfChanged(ref contentControl, value);
+    }
+
     public MainViewModel()
     {
-        Menu = MenuHelper.GetMenu().OrderBy(m => m.Order).ToList();
+        Router = new RoutingState();
+        BuildMenu();
     }
-    
-    #region Properties
 
-    public List<MenuItemModel> Menu { get; set; }
-
-    #endregion
-
-    #region Commands
-
-    public RelayCommand Navigate => new RelayCommand(
-        param =>
+    public ICommand Navigate => ReactiveCommand.Create<Type>(param =>
+    {
+        if (param is Type menu)
         {
-            if (param is MenuItemModel menu)
-                NavigationMananger.NavigationService.Navigate(menu.Url);
-        },
-        param =>
-        {
-            if (param is MenuItemModel menu)
-                return NavigationMananger.NavigationService.CurrentSource.ToString() != menu.Url?.ToString();
-
-            return true;
+            var viewModel = Global.Container.Resolve(menu, new PositionalParameter(0, Global.Container.Resolve<IContext>())) as INavigatable;
+            SelectedPage = viewModel.EntityPage;
         }
-    );
+    }, outputScheduler: Scheduler.CurrentThread);
 
-    #endregion
+    public List<Common.MenuItem> Menu { get; set; }
+
+    public RoutingState Router { get; }
+
+    void BuildMenu()
+    {
+        Menu = new List<Common.MenuItem>();
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Dashboard", "Home", 1, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Products", "PackageVariant", 2, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "UOMs", "Ruler", 3, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Orders", "FormatListChecks", 4, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Sales", "ClipboardList", 5, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Purchases", "Cart", 6, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Customers", "AccountGroup", 7, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Vendors", "AccountGroup", 8, ""));
+        Menu.ForEach(m =>
+        {
+            m.Command = Navigate;
+            m.CommandParameter = m.ViewModelType;
+        });
+    }
 }

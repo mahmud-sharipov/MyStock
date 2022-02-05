@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
+using MyStock.Application.Uoms;
 using MyStock.Core.Interfaces;
 using MyStock.Persistence.Database;
 
@@ -12,15 +13,22 @@ namespace MyStock.IoC
             BuildContext(builder);
             BuildValidation(builder);
             RegisterMaps(builder);
+            RegisterViewModels(builder);
         }
 
         static void BuildContext(ContainerBuilder builder)
         {
             builder.RegisterType<MyStockContext>().As<IContext>().InstancePerDependency();
         }
+
         private static void RegisterMaps(ContainerBuilder builder)
         {
             //builder.Register(c => AutoMapperConfig.RegisterMappings()).As<IMapper>().InstancePerLifetimeScope();
+        }
+
+        private static void RegisterViewModels(ContainerBuilder builder)
+        {
+            builder.RegisterType<UomListViewModel>().As<IUomListViewModel>().InstancePerDependency();
         }
 
         private static void BuildValidation(ContainerBuilder builder)

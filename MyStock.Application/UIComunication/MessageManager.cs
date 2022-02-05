@@ -1,4 +1,4 @@
-﻿namespace MyStock.Application.Message
+﻿namespace MyStock.Application.UIComunication
 {
 
     public static class MessageManager

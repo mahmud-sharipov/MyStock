@@ -10,18 +10,24 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\logo-210x210.ico" />
+    <None Remove="Assets\Images\logo-210x210.png" />
     <None Remove="Assets\Images\logo-dark.ico" />
     <None Remove="Assets\Images\logo-dark.png" />
     <None Remove="Assets\Images\logo-name-406x336.ico" />
     <None Remove="Assets\Images\logo-name-406x336.png" />
     <None Remove="Assets\Images\logo-name.ico" />
     <None Remove="Assets\Images\logo-name.png" />
+    <None Remove="Assets\Images\logo-white.ico" />
     <None Remove="Assets\Images\logo-white.png" />
+    <None Remove="Assets\Settings\appsettings.json" />
     <None Remove="SplashScreen1.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\Images\logo-210x210.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\logo-210x210.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\logo-dark.ico">
@@ -33,75 +39,54 @@
     <Content Include="Assets\Images\logo-name-406x336.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Images\logo-name.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Images\logo-white.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Images\logo-210x210.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Images\logo-name-406x336.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\logo-name.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\logo-name.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Images\logo-white.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+    <Content Include="Assets\Images\logo-white.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.3.6" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
-    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Content Include="Assets\Images\logo-white.png">
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>True</Pack>
+    </Content>
     <Content Include="Assets\Settings\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="17.1.17" />
+    <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.Themes.MaterialDarkBlue.WPF" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.Themes.MaterialLightBlue.WPF" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.Themes.Metro.WPF" Version="19.4.0.48" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="19.4.0.48" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MyStock.Domain\MyStock.Domain.csproj" />
+    <ProjectReference Include="..\MyStock.IoC\MyStock.IoC.csproj" />
     <ProjectReference Include="..\MyStock.Persistence\MyStock.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Assets\Lang\Lang.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Lang.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Assets\Lang\Lang.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace></CustomToolNamespace>
-      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Assets\Lang\Lang.ru-RU.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace></CustomToolNamespace>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Assets\Images\logo-210x210.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Dialogs\" />
+    <Folder Include="Menu\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>
