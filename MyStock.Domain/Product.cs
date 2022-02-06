@@ -2,7 +2,6 @@
 
 public class Product : EntityBase
 {
-    private string name;
     private string description;
     private string code;
     private decimal price;
@@ -17,11 +16,6 @@ public class Product : EntityBase
         DocumentDetails = new HashSet<DocumentDetail>();
     }
 
-    public string Name
-    {
-        get => name;
-        set => SetProptery(ref name, value);
-    }
     public string Description
     {
         get => description;

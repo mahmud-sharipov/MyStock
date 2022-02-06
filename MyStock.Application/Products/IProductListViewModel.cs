@@ -52,7 +52,7 @@ namespace MyStock.Application.Products
 
         protected override bool FilereItem(Product entity)
         {
-            return string.IsNullOrEmpty(NameSearchText) || entity.Name.Contains(NameSearchText, StringComparison.CurrentCultureIgnoreCase);
+            return string.IsNullOrEmpty(NameSearchText) || entity.Description.Contains(NameSearchText, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 
