@@ -120,7 +120,6 @@ public class EntityListPage<TViewModel> : BasePage<TViewModel>, IEntityListPage
         {
             dataGrid.Columns.Add(new MaterialDesignThemes.Wpf.DataGridTextColumn()
             {
-                
                 Header = column.Label,
                 Binding = new Binding(column.BindingPath),
                 IsReadOnly = true,

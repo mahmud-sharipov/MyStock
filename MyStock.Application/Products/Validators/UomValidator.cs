@@ -1,8 +1,10 @@
-﻿namespace MyStock.Application.Uoms.Validators;
+﻿using MyStock.Application.Products;
 
-public class UomValidator : AbstractValidator<UomViewModel>
+namespace MyStock.Application.Products.Validators;
+
+public class ProductValidator : AbstractValidator<ProductViewModel>
 {
-    public UomValidator()
+    public ProductValidator()
     {
         
         RuleFor(x => x.Name).Cascade(CascadeMode.Stop).NotEmpty().WithName(Translations.Name);

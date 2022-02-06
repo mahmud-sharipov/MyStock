@@ -28,4 +28,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Uoms\Mapping\" />
+    <Folder Include="Uoms\Pages\" />
+  </ItemGroup>
+
 </Project>

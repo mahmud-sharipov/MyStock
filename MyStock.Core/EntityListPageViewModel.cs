@@ -60,7 +60,6 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
         set => SelectedItem = value as TEntity;
     }
 
-
     protected virtual void BuildCommands()
     {
         Add = ReactiveCommand.Create(() =>
@@ -83,9 +82,14 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
 
         Delete = ReactiveCommand.Create<TEntity>((param) =>
         {
-            if (CanDeleteEntity(param, out string reason))
+            if (param is not TEntity entity) return;
+
+            if (CanDeleteEntity(entity, out string reason))
             {
-                Collection.Remove(param);
+                Context.Delete(entity);
+                Context.SaveChanges();
+                Collection.Remove(entity);
+                RaisePropertyChanged(new[] { nameof(Collection) });
             }
             else
             {
@@ -93,7 +97,6 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
                 message.Detail = reason;
                 message.Severity = SeverityLevel.Error;
                 message.Show();
-
             }
         }, outputScheduler: Scheduler.CurrentThread);
     }

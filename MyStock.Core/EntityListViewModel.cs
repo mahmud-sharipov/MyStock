@@ -11,7 +11,14 @@ public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewM
     {
         Source = context.Set<TEntity>();
     }
-    public ICollection<TEntity> Collection => new ObservableCollection<TEntity>(Source.Where(FilereItem));
+
+    public ObservableCollection<TEntity> Collection
+    {
+        get => new ObservableCollection<TEntity>(Source.Where(FilereItem));
+        set
+        {
+        }
+    }
 
     protected IQueryable<TEntity> Source { get; }
 

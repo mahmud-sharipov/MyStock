@@ -42,7 +42,7 @@ namespace MyStock.IoC
 
         private static void BuildValidation(ContainerBuilder builder)
         {
-            builder.RegisterType<UomValidator>().InstancePerDependency();
+            builder.RegisterType<ProductValidator>().InstancePerDependency();
         }
     }
 }

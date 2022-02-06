@@ -19,10 +19,5 @@ public class WarehouseConfiguration : BaseConfiguration<Warehouse>
             .HasForeignKey(s => s.WarehouseGuid)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasData(new[]
-        {
-            new Warehouse() { Name = "Главний", Description="Склад по умолчанию" }
-        });
     }
 }

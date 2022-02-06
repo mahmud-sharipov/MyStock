@@ -4,6 +4,8 @@ using MyStock.Application.Uoms.Pages;
 using MyStock.Core.Interfaces;
 using MyStock.IoC;
 using MyStock.Pages.Uoms;
+using MyStock.Persistence.Seed;
+using System.Windows.Navigation;
 
 namespace MyStock;
 
@@ -26,6 +28,7 @@ public partial class App : System.Windows.Application
         Global.Container = Container;
         GlobalContext = Container.Resolve<IContext>();
         AppManager.Start();
+        SeedDatabase.Seed(GlobalContext);
         base.OnStartup(e);
     }
 
@@ -42,6 +45,5 @@ public partial class App : System.Windows.Application
         builder.RegisterType<Common.DialogHost>().As<IDialogHost>().SingleInstance();
         builder.RegisterType<UomListPage>().As<IUomListEntityPage>().InstancePerDependency();
         builder.RegisterType<UomPage>().As<IUomEntityPage>().InstancePerDependency();
-
     }
 }
