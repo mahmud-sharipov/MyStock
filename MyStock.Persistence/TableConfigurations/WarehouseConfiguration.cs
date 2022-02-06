@@ -19,5 +19,12 @@ public class WarehouseConfiguration : BaseConfiguration<Warehouse>
             .HasForeignKey(s => s.WarehouseGuid)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasData(new[]
+        {
+            new Uom() { Name = "Штук", Code = "шт" },
+            new Uom() { Name = "Бутылка", Code = "бтл" },
+            new Uom() { Name = "Коробка", Code = "Коробка" },
+        });
     }
 }

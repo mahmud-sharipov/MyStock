@@ -12,6 +12,7 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
     {
         CanOpen = this.WhenAny(e => e.SelectedItem, si => si.Value != null);
         CanOpen = this.WhenAny(e => e.Context, si => true);
+        BuildCommands();
     }
 
     ICollection<ColumnViewModel> _colums;
@@ -28,6 +29,8 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
     public ICommand Add { get; set; }
 
     public ICommand Open { get; set; }
+
+    public ICommand Delete { get; set; }
 
     public IObservable<bool> CanAdd { get; protected set; }
 
@@ -57,6 +60,7 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
         set => SelectedItem = value as TEntity;
     }
 
+
     protected virtual void BuildCommands()
     {
         Add = ReactiveCommand.Create(() =>
@@ -67,11 +71,31 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
             viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);
         }, CanAdd, outputScheduler: Scheduler.CurrentThread);
 
-        Add = ReactiveCommand.Create(() =>
+        Open = ReactiveCommand.Create<TEntity>((param) =>
         {
-            var viewModel = CreateEntityViewModel(SelectedItem);
-            viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);
+            var entity = param ?? SelectedItem;
+            if (entity != null)
+            {
+                var viewModel = CreateEntityViewModel(entity);
+                viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);
+            }
         }, CanOpen, outputScheduler: Scheduler.CurrentThread);
+
+        Delete = ReactiveCommand.Create<TEntity>((param) =>
+        {
+            if (CanDeleteEntity(param, out string reason))
+            {
+                Collection.Remove(param);
+            }
+            else
+            {
+                var message = Global.Container.Resolve<IMessage>();
+                message.Detail = reason;
+                message.Severity = SeverityLevel.Error;
+                message.Show();
+
+            }
+        }, outputScheduler: Scheduler.CurrentThread);
     }
 
     protected abstract ICollection<ColumnViewModel> BuildColums();

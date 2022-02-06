@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FluentValidation;
 using MyStock.Application.Uoms.Pages;
 using MyStock.Core.Interfaces;
 using MyStock.IoC;
@@ -40,6 +41,7 @@ public partial class App : System.Windows.Application
     {
         builder.RegisterType<Common.DialogHost>().As<IDialogHost>().SingleInstance();
         builder.RegisterType<UomListPage>().As<IUomListEntityPage>().InstancePerDependency();
+        builder.RegisterType<UomPage>().As<IUomEntityPage>().InstancePerDependency();
 
     }
 }

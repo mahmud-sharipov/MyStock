@@ -1,4 +1,8 @@
-﻿namespace MyStock.Core;
+﻿using DynamicData;
+using System.Collections.ObjectModel;
+using System.Reactive;
+
+namespace MyStock.Core;
 
 public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewModel<TEntity>
     where TEntity : class, IEntity
@@ -7,9 +11,9 @@ public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewM
     {
         Source = context.Set<TEntity>();
     }
+    public ICollection<TEntity> Collection => new ObservableCollection<TEntity>(Source.Where(FilereItem));
 
     protected IQueryable<TEntity> Source { get; }
-    public IEnumerable<TEntity> Collection { get; protected set; }
 
     TEntity _selectedItem;
     public TEntity SelectedItem
@@ -18,5 +22,10 @@ public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewM
         set => this.RaiseAndSetIfChanged(ref _selectedItem, value);
     }
 
-    public abstract void Delete(TEntity entity);
+    public abstract bool CanDeleteEntity(TEntity entity, out string reason);
+
+    protected virtual bool FilereItem(TEntity entity)
+    {
+        return true;
+    }
 }

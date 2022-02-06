@@ -4,6 +4,11 @@ namespace MyStock.Application.UIComunication
 {
     public class Message : ReactiveObject, IMessage
     {
+        public Message()
+        {
+
+        }
+
         public Message(string owner, SeverityLevel severity)
         {
             Guid = Guid.NewGuid();
@@ -21,11 +26,10 @@ namespace MyStock.Application.UIComunication
 
         public string Detail { get; set; }
 
-        public SeverityLevel Severity { get; }
+        public SeverityLevel Severity { get; set; }
 
-        public void RemoveMessage()
-        {
-            MessageManager.Messages.Remove(this);
-        }
+        public void Remove() => MessageManager.Messages.Remove(this);
+
+        public void Show() => MessageManager.Show(this);
     }
 }

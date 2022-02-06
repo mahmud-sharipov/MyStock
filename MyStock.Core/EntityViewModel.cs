@@ -67,33 +67,6 @@ public abstract class EntityViewModel<TEntity, TValidator> : ViewModel, IEntityV
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(item));
     }
 
-    protected void RaisePropertyChanged(string[] dependentProperties)
-    {
-        for (int i = 0; i < dependentProperties.Length; i++)
-            this.RaisePropertyChanged(dependentProperties[i]);
-    }
-
-    protected bool RaiseAndSetIfChanged<T>(ref T backingField, T newValue, [CallerMemberName] string propertyName = null)
-    {
-        _ = propertyName ?? throw new ArgumentNullException(nameof(propertyName));
-
-        if (EqualityComparer<T>.Default.Equals(backingField, newValue))
-            return false;
-
-        this.RaisePropertyChanging(propertyName);
-        backingField = newValue;
-        this.RaisePropertyChanged(propertyName);
-        return true;
-    }
-
-    protected bool RaiseAndSetIfChanged<T>(ref T backingField, T newValue, string propertyName = null, params string[] dependentProperties)
-    {
-        var result = RaiseAndSetIfChanged(ref backingField, newValue, propertyName);
-        if (result)
-            RaisePropertyChanged(dependentProperties);
-        return result;
-    }
-
     protected bool RaiseAndSetAndValidateIfChanged<T>(ref T backingField, T newValue, [CallerMemberName] string propertyName = null)
     {
         var result = RaiseAndSetIfChanged(ref backingField, newValue, propertyName);

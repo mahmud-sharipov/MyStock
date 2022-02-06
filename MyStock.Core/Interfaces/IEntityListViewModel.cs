@@ -2,7 +2,7 @@
 
 public interface IEntityListViewModel<T> : IViewModel where T : class, IEntity
 {
-    void Delete(T entity);
-    IEnumerable<T> Collection { get; }
+    bool CanDeleteEntity(T entity, out string reason);
+    ICollection<T> Collection { get; }
     T SelectedItem { get; set; }
 }

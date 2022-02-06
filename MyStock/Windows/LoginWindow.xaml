@@ -68,14 +68,14 @@
                                HorizontalAlignment="Center"
                                FontSize="28"
                                FontWeight="Bold"
-                               Text="{x:Static langAsset:Lang.WelcomeBack}"
+                               Text="{x:Static langAsset:Translations.WelcomeBack}"
                                TextAlignment="Center"
                                TextWrapping="Wrap" />
 
                     <TextBox x:Name="txtUsername"
                              Width="300"
                              Margin="0,30,0,0"
-                             materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.EnterUsername}"
+                             materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.EnterUsername}"
                              BorderBrush="{DynamicResource MaterialDesignDivider}"
                              BorderThickness="2"
                              FontSize="18"
@@ -84,7 +84,7 @@
                     <PasswordBox x:Name="txtPassword"
                                  Width="300"
                                  Margin="0,20,0,0"
-                                 materialDesign:HintAssist.Hint="{x:Static langAsset:Lang.EnterPassword}"
+                                 materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.EnterPassword}"
                                  BorderBrush="{DynamicResource MaterialDesignDivider}"
                                  BorderThickness="2"
                                  FontSize="18"
@@ -97,7 +97,7 @@
                             materialDesign:ButtonAssist.CornerRadius="10"
                             materialDesign:ShadowAssist.ShadowDepth="Depth0"
                             Click="loginBtn_Click"
-                            Content="{Binding Source={x:Static langAsset:Lang.Login}, Converter={StaticResource StringToUpperConverter}}"
+                            Content="{Binding Source={x:Static langAsset:Translations.Login}, Converter={StaticResource StringToUpperConverter}}"
                             FontSize="18"
                             Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
 

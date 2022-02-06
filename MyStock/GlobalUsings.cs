@@ -1,12 +1,10 @@
 ﻿global using MaterialDesignThemes.Wpf;
 global using MyStock.Core;
 global using MyStock.Core.Settings;
-global using MyStock.Domain;
-global using MyStock.Common;
 global using Newtonsoft.Json;
+global using ReactiveUI;
 global using System;
 global using System.Collections.Generic;
 global using System.IO;
 global using System.Windows;
 global using System.Windows.Controls;
-global using System.Windows.Navigation;

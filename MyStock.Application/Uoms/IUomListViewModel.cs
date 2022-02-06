@@ -2,5 +2,5 @@
 
 public interface IUomListViewModel : IEntityListPageViewModel<Uom>
 {
-
+    string NameSearchText { get; set; }
 }

@@ -4,6 +4,7 @@
     {
         ICommand Add { get; }
         ICommand Open { get; }
+        ICommand Delete { get; }
         IObservable<bool> CanAdd { get; }
         IObservable<bool> CanOpen { get; }
         int CollectionSize { get; set; }

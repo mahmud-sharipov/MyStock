@@ -1,6 +1,9 @@
 ﻿using Autofac;
 using AutoMapper;
+using MyStock.Application.AutoMapper;
+using MyStock.Application.UIComunication;
 using MyStock.Application.Uoms;
+using MyStock.Application.Uoms.Validators;
 using MyStock.Core.Interfaces;
 using MyStock.Persistence.Database;
 
@@ -11,6 +14,7 @@ namespace MyStock.IoC
         public static void RegisterServices(ContainerBuilder builder)
         {
             BuildContext(builder);
+            BuildUIComunication(builder);
             BuildValidation(builder);
             RegisterMaps(builder);
             RegisterViewModels(builder);
@@ -21,9 +25,14 @@ namespace MyStock.IoC
             builder.RegisterType<MyStockContext>().As<IContext>().InstancePerDependency();
         }
 
+        static void BuildUIComunication(ContainerBuilder builder)
+        {
+            builder.RegisterType<Message>().As<IMessage>().InstancePerLifetimeScope();
+        }
+
         private static void RegisterMaps(ContainerBuilder builder)
         {
-            //builder.Register(c => AutoMapperConfig.RegisterMappings()).As<IMapper>().InstancePerLifetimeScope();
+            builder.Register(c => AutoMapperConfig.RegisterMappings()).As<IMapper>().InstancePerLifetimeScope();
         }
 
         private static void RegisterViewModels(ContainerBuilder builder)
@@ -33,19 +42,7 @@ namespace MyStock.IoC
 
         private static void BuildValidation(ContainerBuilder builder)
         {
-            //builder.RegisterType<AccountViewModelValidator>().As<IAccountViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<CategorizedEntityViewModelValidator>().As<ICategorizedEntityViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<CategoryViewModelValidator>().As<ICategoryViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<CategoryLinkViewModelValidator>().As<ICategoryLinkViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<ContactViewModelValidator>().As<IContactViewModelValidator>().InstancePerDependency();
-
-            //builder.RegisterType<VendorViewModelValidation>().As<IVendorViewModelValidation>().InstancePerDependency();
-            //builder.RegisterType<ProductViewModelValidator>().As<IProductViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<ProductAlternativeViewModelValidator>().As<IProductAlternativeViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<ProductCategoryViewModelValidator>().As<IProductCategoryViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<PriceFormulaViewModelValidator>().As<IPriceFormulaViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<UnitOfMeasureViewModelValidator>().As<IUnitOfMeasureViewModelValidator>().InstancePerDependency();
-            //builder.RegisterType<UserViewModelValidation>().As<IUserViewModelValidation>().InstancePerDependency();
+            builder.RegisterType<UomValidator>().InstancePerDependency();
         }
     }
 }

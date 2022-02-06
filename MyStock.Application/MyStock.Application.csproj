@@ -10,23 +10,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Assets\Lang\Lang.Designer.cs">
-      <DependentUpon>Lang.resx</DependentUpon>
+    <Compile Update="Assets\Lang\Translations.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DependentUpon>Translations.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Assets\Lang\Lang.resx">
-      <LastGenOutput>Lang.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>MyStock.Application.Assets.Lang;</CustomToolNamespace>
+    <EmbeddedResource Update="Assets\Lang\Translations.ru-RU.resx">
+      <LastGenOutput>Translations.ru-RU.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Assets\Lang\Lang.ru-RU.resx">
-      <SubType>Designer</SubType>
+    <EmbeddedResource Update="Assets\Lang\Translations.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <CustomToolNamespace>MyStock.Application.Assets.Lang;</CustomToolNamespace>
+      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

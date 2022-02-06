@@ -1,17 +1,10 @@
-﻿using Autofac;
-using MahApps.Metro.Controls;
-using MyStock.Core.Interfaces;
-using ReactiveUI;
+﻿using MahApps.Metro.Controls;
 using System.ComponentModel;
-using System.Reactive;
-using System.Reactive.Concurrency;
 
 namespace MyStock.Common;
 
 public class MenuItem : HamburgerMenuIconItem, IReactiveObject
 {
-    private IEntityListPage _content;
-
     public MenuItem(Type viewModelType, string label, string icon, int order, string toolTip)
     {
         Label = label;

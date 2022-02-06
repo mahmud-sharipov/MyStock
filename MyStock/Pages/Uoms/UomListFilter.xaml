@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="MyStock.Pages.Uoms.UomListFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:langAsset="clr-namespace:MyStock.Application.Assets.Lang;assembly=MyStock.Application"
+             xmlns:local="clr-namespace:MyStock.Pages.Uoms"
+             xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <Grid>
+        <materialDesign:Card>
+            <StackPanel Margin="10" HorizontalAlignment="Left">
+                <TextBlock Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="{x:Static langAsset:Translations.FiltersTitle}" />
+                <TextBox x:Name="NameSearchTextBox"
+                         Width="250"
+                         materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Name}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
