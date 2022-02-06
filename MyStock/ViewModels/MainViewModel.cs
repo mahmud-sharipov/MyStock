@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MyStock.Application.Products;
 using MyStock.Application.Uoms;
 using MyStock.Core.Interfaces;
 using MyStock.Pages.Uoms;
@@ -41,7 +42,7 @@ public class MainViewModel : ReactiveObject
     {
         Menu = new List<Common.MenuItem>();
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Dashboard", "Home", 1, ""));
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Products", "PackageVariant", 2, ""));
+        Menu.Add(new Common.MenuItem(typeof(IProductListViewModel), "Products", "PackageVariant", 2, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "UOMs", "Ruler", 3, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Orders", "FormatListChecks", 4, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Sales", "ClipboardList", 5, ""));

@@ -5,9 +5,9 @@ namespace MyStock.Common;
 
 public class DialogHost : IDialogHost
 {
-    public Task<object> Show(object content, object dialogIdentifier) =>
-        MaterialDesignThemes.Wpf.DialogHost.Show(content, dialogIdentifier);
+    public async Task<object> Show(object content, object dialogIdentifier) =>
+      await MaterialDesignThemes.Wpf.DialogHost.Show(content, dialogIdentifier);
 
-    public void Close(IEntityPage view) =>
-        MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(false, view as IInputElement);
+    public void Close(IEntityPage view, bool succeeded = false) =>
+        MaterialDesignThemes.Wpf.DialogHost.CloseDialogCommand.Execute(succeeded, view as IInputElement);
 }

@@ -10,6 +10,6 @@ public class BasePage<TViewModel> : ReactiveUserControl<TViewModel>
     public BasePage(TViewModel viewModel)
     {
         ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-        DataContext = viewModel;
+        DataContext = ViewModel;
     }
 }

@@ -10,7 +10,6 @@
         int CollectionSize { get; set; }
         string Title { get; }
         object SelectedItem { get; set; }
-        IEnumerable Collection { get; }
         ICollection<ColumnViewModel> Columns { get; }
     }
 

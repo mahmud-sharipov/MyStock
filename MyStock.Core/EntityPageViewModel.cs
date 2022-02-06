@@ -27,14 +27,14 @@ public abstract class EntityPageViewModel<TEntity, TValidator, TPage> : EntityVi
             {
                 ActionBeforeSave();
                 Context.SaveChanges();
-                DialogHost.Close(EntityPage);
+                DialogHost.Close(EntityPage, true);
             }
         }, isValidObservable, outputScheduler: Scheduler.CurrentThread);
 
         Close = ReactiveCommand.Create(() =>
         {
             Context.UndoChanges();
-            DialogHost.Close(EntityPage);
+            DialogHost.Close(EntityPage, false);
         }, outputScheduler: Scheduler.CurrentThread);
     }
 }

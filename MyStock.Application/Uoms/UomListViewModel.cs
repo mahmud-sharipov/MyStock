@@ -32,9 +32,9 @@ namespace MyStock.Application.Uoms
         {
             return new List<ColumnViewModel>()
             {
-                new ColumnViewModel(Translations.Name, nameof(IUomViewModel.Name),1),
-                new ColumnViewModel(Translations.Code, nameof(IUomViewModel.Code),2),
-                new ColumnViewModel(Translations.Description, nameof(IUomViewModel.Description),3),
+                new ColumnViewModel(Translations.Name, nameof(IUomViewModel.Name),0),
+                new ColumnViewModel(Translations.Code, nameof(IUomViewModel.Code),1),
+                new ColumnViewModel(Translations.Description, nameof(IUomViewModel.Description),2),
             };
         }
 

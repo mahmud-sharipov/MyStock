@@ -52,8 +52,6 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
 
     IEntityListPage INavigatable.EntityPage => EntityPage;
 
-    IEnumerable IEntityListPageViewModel.Collection => Collection;
-
     object IEntityListPageViewModel.SelectedItem
     {
         get => SelectedItem;
@@ -62,12 +60,14 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
 
     protected virtual void BuildCommands()
     {
-        Add = ReactiveCommand.Create(() =>
+        Add = ReactiveCommand.Create(async () =>
         {
             var entity = new TEntity();
             var viewModel = CreateEntityViewModel(entity);
             Context.AddToContext(entity);
-            viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);
+            var result = await viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);
+            if (true.Equals(result))
+                _collection.Add(entity);
         }, CanAdd, outputScheduler: Scheduler.CurrentThread);
 
         Open = ReactiveCommand.Create<TEntity>((param) =>
@@ -88,8 +88,7 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
             {
                 Context.Delete(entity);
                 Context.SaveChanges();
-                Collection.Remove(entity);
-                RaisePropertyChanged(new[] { nameof(Collection) });
+                _collection.Remove(entity);
             }
             else
             {

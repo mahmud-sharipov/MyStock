@@ -12,11 +12,14 @@ public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewM
         Source = context.Set<TEntity>();
     }
 
+    protected ObservableCollection<TEntity> _collection = new ObservableCollection<TEntity>();
     public ObservableCollection<TEntity> Collection
     {
-        get => new ObservableCollection<TEntity>(Source.Where(FilereItem));
-        set
+        get
         {
+            _collection.Clear();
+            _collection.AddRange(Source.Where(FilereItem));
+            return _collection;
         }
     }
 

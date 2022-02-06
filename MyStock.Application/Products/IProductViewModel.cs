@@ -5,7 +5,6 @@ namespace MyStock.Application.Products;
 
 public interface IProductViewModel : IEntityViewModel<Product>, IViewable
 {
-    string Name { get; set; }
     string Description { get; set; }
     string Code { get; set; }
     decimal Price { get; set; }
@@ -17,7 +16,6 @@ public interface IProductViewModel : IEntityViewModel<Product>, IViewable
 
 public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, IProductEntityPage>, IProductViewModel
 {
-    private string _name;
     private string _code;
     private string _description;
     private decimal price;
@@ -28,7 +26,6 @@ public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, I
 
     public ProductViewModel(Product entity, IContext context) : base(entity, context) { }
 
-    public string Name { get => _name; set => RaiseAndSetAndValidateIfChanged(ref _name, value); }
     public string Code { get => _code; set => RaiseAndSetAndValidateIfChanged(ref _code, value); }
     public string Description { get => _description; set => RaiseAndSetIfChanged(ref _description, value); }
     public decimal Price { get => price; set => RaiseAndSetIfChanged(ref price, value); }
@@ -42,8 +39,8 @@ public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, I
 
     protected override void InitializeAssociatedProperties()
     {
-        AvailableUoms = Context.Set<Uom>();
-        AvailableCategories = Context.Set<ProductCategory>();
+        AvailableUoms = Context.Set<Uom>().ToList();
+        AvailableCategories = Context.Set<ProductCategory>().ToList();
         base.InitializeAssociatedProperties();
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using FluentValidation;
+using MyStock.Application.Products.Pages;
 using MyStock.Application.Uoms.Pages;
 using MyStock.Core.Interfaces;
 using MyStock.IoC;
+using MyStock.Pages.Products;
 using MyStock.Pages.Uoms;
 using MyStock.Persistence.Seed;
 using System.Windows.Navigation;
@@ -45,5 +47,8 @@ public partial class App : System.Windows.Application
         builder.RegisterType<Common.DialogHost>().As<IDialogHost>().SingleInstance();
         builder.RegisterType<UomListPage>().As<IUomListEntityPage>().InstancePerDependency();
         builder.RegisterType<UomPage>().As<IUomEntityPage>().InstancePerDependency();
+
+        builder.RegisterType<ProductListPage>().As<IProductListEntityPage>().InstancePerDependency();
+        builder.RegisterType<ProductPage>().As<IProductEntityPage>().InstancePerDependency();
     }
 }
