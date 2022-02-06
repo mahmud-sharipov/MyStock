@@ -22,9 +22,7 @@ public class WarehouseConfiguration : BaseConfiguration<Warehouse>
 
         builder.HasData(new[]
         {
-            new Uom() { Name = "Штук", Code = "шт" },
-            new Uom() { Name = "Бутылка", Code = "бтл" },
-            new Uom() { Name = "Коробка", Code = "Коробка" },
+            new Warehouse() { Name = "Главний", Description="Склад по умолчанию" }
         });
     }
 }

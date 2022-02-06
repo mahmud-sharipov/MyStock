@@ -5,8 +5,6 @@
     <InheritanceLine Type="MyStock.Domain.Person" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="13.688" Y="4.5" />
-        <Point X="13.688" Y="3.809" />
-        <Point X="13.688" Y="3.809" />
         <Point X="13.688" Y="3.434" />
       </Path>
     </InheritanceLine>
@@ -17,8 +15,11 @@
   </Class>
   <Class Name="MyStock.Domain.Uom">
     <Position X="6.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQACAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAAAIAAgAAQAKAAEAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Uom.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -37,12 +38,6 @@
   </Class>
   <Class Name="MyStock.Domain.Vendor">
     <Position X="13" Y="7" Width="1.5" />
-    <InheritanceLine Type="MyStock.Domain.Person" ManuallyRouted="true" FixedFromPoint="true">
-      <Path>
-        <Point X="13.75" Y="6.502" />
-        <Point X="13.75" Y="7" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Vendor.cs</FileName>
@@ -57,6 +52,9 @@
   </Class>
   <Class Name="MyStock.Domain.Product">
     <Position X="3.75" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <AssociationLine Name="Category" Type="MyStock.Domain.ProductCategory" FixedToPoint="true">
       <Path>
         <Point X="3.75" Y="2.125" />
@@ -64,27 +62,18 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEAAAAAAASAgAAAAEAAgABQACAAEAAAAAAAAAAAAiAA=</HashCode>
+      <HashCode>AEABAAAAASAgAAAAMAAgABQAKAAUAAAAAAAIAAAAiAA=</HashCode>
       <FileName>Product.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Category" />
       <Property Name="Uom" />
+      <Property Name="Category" />
     </ShowAsAssociation>
   </Class>
   <Class Name="MyStock.Domain.ProductCategory">
     <Position X="0.75" Y="0.5" Width="1.5" />
-    <AssociationLine Name="Parent" Type="MyStock.Domain.ProductCategory" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.438" Y="2.761" />
-        <Point X="1.438" Y="3.136" />
-        <Point X="0.375" Y="3.136" />
-        <Point X="0.375" Y="1.438" />
-        <Point X="0.75" Y="1.438" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAAAAAQAQBAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAABAAAAAAABAAAAAQAQBAAAEAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>ProductCategory.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -96,8 +85,8 @@
     <AssociationLine Name="Product" Type="MyStock.Domain.Product" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="2.312" Y="4.5" />
-        <Point X="2.312" Y="3.827" />
-        <Point X="3.75" Y="3.827" />
+        <Point X="2.312" Y="2.919" />
+        <Point X="3.75" Y="2.919" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -111,6 +100,9 @@
   </Class>
   <Class Name="MyStock.Domain.Purchase">
     <Position X="8.75" Y="6.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>Purchase.cs</FileName>
@@ -136,45 +128,38 @@
       <Property Name="Customer" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="MyStock.Domain.SalesDetail">
-    <Position X="8.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SalesDetail.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="MyStock.Domain.Person">
     <Position X="13" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAAAAAAAQAAAAAAAAAAACAAAAIAAAAAg=</HashCode>
+      <HashCode>AAAAAEAAAAAAAIAAAAAQAAAAAAAAAAACAAAAIAAAAAg=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MyStock.Domain.Document">
-    <Position X="10.75" Y="4" Width="1.5" />
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAhAAAAAAAAAAAAAAAAAAABAgAAAAAAAAA=</HashCode>
       <FileName>Document.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Details" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="MyStock.Domain.DocumentDetail">
-    <Position X="6.5" Y="4" Width="1.5" />
+    <Position X="6.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IEACAAAAAAAgIAIAAAAAAAAAAAAEgAACCAAAgAAAAAA=</HashCode>
       <FileName>DocumentDetail.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Product" />
-      <Property Name="Warehouse" />
       <Property Name="Uom" />
+      <Property Name="Warehouse" />
+      <Property Name="Document" />
     </ShowAsAssociation>
-  </Class>
-  <Class Name="MyStock.Domain.PurchaseDetail">
-    <Position X="8.75" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PurchaseDetail.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

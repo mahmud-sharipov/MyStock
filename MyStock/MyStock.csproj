@@ -87,6 +87,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Customers\" />
+    <Folder Include="Pages\Expenses\" />
+    <Folder Include="Pages\Products\" />
+    <Folder Include="Pages\Sale\" />
+    <Folder Include="Pages\Vendors\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>
