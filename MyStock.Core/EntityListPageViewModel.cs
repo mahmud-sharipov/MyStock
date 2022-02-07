@@ -58,11 +58,13 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
         set => SelectedItem = value as TEntity;
     }
 
+    protected virtual TEntity CreateNewEntity() => new TEntity();
+
     protected virtual void BuildCommands()
     {
         Add = ReactiveCommand.Create(async () =>
         {
-            var entity = new TEntity();
+            var entity = CreateNewEntity();
             var viewModel = CreateEntityViewModel(entity);
             Context.AddToContext(entity);
             var result = await viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);

@@ -211,4 +211,19 @@
   <data name="Test" xml:space="preserve">
     <value>test</value>
   </data>
+  <data name="StockLevel" xml:space="preserve">
+    <value>Stock level</value>
+  </data>
+  <data name="MaxQuantity" xml:space="preserve">
+    <value>Max quantity</value>
+  </data>
+  <data name="MinQuantity" xml:space="preserve">
+    <value>Min. quantity</value>
+  </data>
+  <data name="Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="NetQuantity" xml:space="preserve">
+    <value>Net quantity</value>
+  </data>
 </root>

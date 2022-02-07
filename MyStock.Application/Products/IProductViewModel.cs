@@ -1,5 +1,4 @@
-﻿using MyStock.Application.Products.Pages;
-using MyStock.Application.Products.Validators;
+﻿using MyStock.Application.StockLevels;
 
 namespace MyStock.Application.Products;
 
@@ -12,35 +11,6 @@ public interface IProductViewModel : IEntityViewModel<Product>, IViewable
     bool IsActive { get; set; }
     Uom Uom { get; set; }
     ProductCategory Category { get; set; }
-}
+    List<ProductStockLevelViewModel> StockLevels { get; set; }
 
-public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, IProductEntityPage>, IProductViewModel
-{
-    private string _code;
-    private string _description;
-    private decimal price;
-    private decimal cost;
-    private bool isActive;
-    private Uom uom;
-    private ProductCategory category;
-
-    public ProductViewModel(Product entity, IContext context) : base(entity, context) { }
-
-    public string Code { get => _code; set => RaiseAndSetAndValidateIfChanged(ref _code, value); }
-    public string Description { get => _description; set => RaiseAndSetIfChanged(ref _description, value); }
-    public decimal Price { get => price; set => RaiseAndSetIfChanged(ref price, value); }
-    public decimal Cost { get => cost; set => RaiseAndSetIfChanged(ref cost, value); }
-    public bool IsActive { get => isActive; set => RaiseAndSetIfChanged(ref isActive, value); }
-    public Uom Uom { get => uom; set => RaiseAndSetIfChanged(ref uom, value); }
-    public ProductCategory Category { get => category; set => RaiseAndSetIfChanged(ref category, value); }
-
-    public IEnumerable<ProductCategory> AvailableCategories { get; internal set; }
-    public IEnumerable<Uom> AvailableUoms { get; internal set; }
-
-    protected override void InitializeAssociatedProperties()
-    {
-        AvailableUoms = Context.Set<Uom>().ToList();
-        AvailableCategories = Context.Set<ProductCategory>().ToList();
-        base.InitializeAssociatedProperties();
-    }
 }

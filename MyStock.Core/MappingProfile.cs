@@ -6,9 +6,12 @@ public class MappingProfile<TEntity, TViewModel> : Profile
    where TEntity : EntityBase
    where TViewModel : IViewModel
 {
+    public IMappingExpression<TEntity, TViewModel> EntityToViewModelMapper { get; }
+    public IMappingExpression<TViewModel, TEntity> ViewModelToEntityMapper { get; }
+
     public MappingProfile() : base()
     {
-        CreateMap<TEntity, TViewModel>().IncludeAllDerived();
-        CreateMap<TViewModel, TEntity>().IncludeAllDerived();
+        EntityToViewModelMapper = CreateMap<TEntity, TViewModel>();
+        ViewModelToEntityMapper = CreateMap<TViewModel, TEntity>();
     }
 }

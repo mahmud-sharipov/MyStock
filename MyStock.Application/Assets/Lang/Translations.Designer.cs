@@ -241,6 +241,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max quantity.
+        /// </summary>
+        public static string MaxQuantity {
+            get {
+                return ResourceManager.GetString("MaxQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Middle name.
         /// </summary>
         public static string MiddleName {
@@ -250,11 +259,29 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Min. quantity.
+        /// </summary>
+        public static string MinQuantity {
+            get {
+                return ResourceManager.GetString("MinQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net quantity.
+        /// </summary>
+        public static string NetQuantity {
+            get {
+                return ResourceManager.GetString("NetQuantity", resourceCulture);
             }
         }
         
@@ -349,6 +376,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stock level.
+        /// </summary>
+        public static string StockLevel {
+            get {
+                return ResourceManager.GetString("StockLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to test.
         /// </summary>
         public static string Test {
@@ -390,6 +426,15 @@ namespace MyStock.Application.Assets.Lang {
         public static string UomUsedInDocumentsAndProductsMessage {
             get {
                 return ResourceManager.GetString("UomUsedInDocumentsAndProductsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warehouse.
+        /// </summary>
+        public static string Warehouse {
+            get {
+                return ResourceManager.GetString("Warehouse", resourceCulture);
             }
         }
         

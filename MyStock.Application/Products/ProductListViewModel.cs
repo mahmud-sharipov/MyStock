@@ -34,11 +34,11 @@ namespace MyStock.Application.Products
             {
                 new (Translations.Code, nameof(Product.Code),1),
                 new (Translations.Description, nameof(Product.Description),2),
-                new (Translations.Price, nameof(Product.Price),3),
-                new (Translations.Category, $"{nameof(Product.Category)}.{nameof(ProductCategory.Name)}" ,6),
-                new (Translations.UOM, $"{nameof(Product.Uom)}.{nameof(Uom.Name)}" ,7),
-                new (Translations.Cost, nameof(Product.Cost),4),
-                new (Translations.Active, nameof(Product.IsActive),5),
+                new (Translations.Category, $"{nameof(Product.Category)}.{nameof(ProductCategory.Name)}" ,3),
+                new (Translations.UOM, $"{nameof(Product.Uom)}.{nameof(Uom.Name)}" ,4),
+                new (Translations.Price, nameof(Product.Price),5),
+                new (Translations.Cost, nameof(Product.Cost),6),
+                new (Translations.Active, nameof(Product.IsActive),7),
             };
         }
 
@@ -47,6 +47,18 @@ namespace MyStock.Application.Products
         protected override bool FilereItem(Product entity)
         {
             return string.IsNullOrEmpty(NameSearchText) || entity.Description.Contains(NameSearchText, StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        protected override Product CreateNewEntity()
+        {
+            var product = new Product() { IsActive = true };
+            foreach (var warehouse in Context.Set<Warehouse>())
+            {
+                var sl = new ProductStockLevel() { Warehouse = warehouse, Product = product };
+                Context.AddToContext(sl);
+                product.StockLevels.Add(sl);
+            }
+            return product;
         }
     }
 

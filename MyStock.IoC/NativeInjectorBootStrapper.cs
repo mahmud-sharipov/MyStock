@@ -3,6 +3,7 @@ using AutoMapper;
 using MyStock.Application.AutoMapper;
 using MyStock.Application.Products;
 using MyStock.Application.Products.Validators;
+using MyStock.Application.StockLevels;
 using MyStock.Application.UIComunication;
 using MyStock.Application.Uoms;
 using MyStock.Application.Uoms.Validators;
@@ -47,6 +48,7 @@ namespace MyStock.IoC
         {
             builder.RegisterType<UomValidator>().InstancePerDependency();
             builder.RegisterType<ProductValidator>().InstancePerDependency();
+            builder.RegisterType<ProductStockLevelViewModelValidator>().InstancePerDependency();
         }
     }
 }

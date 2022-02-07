@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyStock.Application.Products.Mapping;
+using MyStock.Application.StockLevels;
 using MyStock.Application.Uoms.Mapping;
 
 namespace MyStock.Application.AutoMapper
@@ -12,6 +13,7 @@ namespace MyStock.Application.AutoMapper
             {
                 cfg.AddProfile(new UomMappingProfile());
                 cfg.AddProfile(new ProductMappingProfile());
+                cfg.AddProfile(new ProductStockLevelMappingProfile());
                 //cfg.AddProfile(new CategorizedEntityAndCategorizedEntityViewModelMappingProfile<CategorizedEntity, ICategorizedEntityViewModel>());
                 //cfg.AddProfile(new CategoryLinkAndCategoryLinkViewModelMappingProfile());
                 //cfg.AddProfile(new CategoryAndCategoryViewModelMappingProfile<Category, ICategoryViewModel>());

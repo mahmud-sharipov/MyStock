@@ -211,4 +211,19 @@
   <data name="Test" xml:space="preserve">
     <value>test</value>
   </data>
+  <data name="StockLevel" xml:space="preserve">
+    <value>Уровни запасов</value>
+  </data>
+  <data name="MinQuantity" xml:space="preserve">
+    <value>Мин. количество</value>
+  </data>
+  <data name="MaxQuantity" xml:space="preserve">
+    <value>Мак. количество</value>
+  </data>
+  <data name="Warehouse" xml:space="preserve">
+    <value>Склад</value>
+  </data>
+  <data name="NetQuantity" xml:space="preserve">
+    <value>Остаток</value>
+  </data>
 </root>
