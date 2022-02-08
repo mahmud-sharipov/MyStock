@@ -27,8 +27,8 @@
     <Position X="15.25" Y="4.5" Width="1.5" />
     <InheritanceLine Type="MyStock.Domain.Person" FixedFromPoint="true">
       <Path>
-        <Point X="14.5" Y="5.438" />
-        <Point X="15.25" Y="5.438" />
+        <Point X="14.5" Y="5.083" />
+        <Point X="15.25" Y="5.083" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -130,8 +130,15 @@
   </Class>
   <Class Name="MyStock.Domain.Person">
     <Position X="13" Y="4.5" Width="1.5" />
+    <Members>
+      <Field Name="address" Hidden="true" />
+      <Field Name="firstName" Hidden="true" />
+      <Field Name="lastName" Hidden="true" />
+      <Field Name="middleName" Hidden="true" />
+      <Field Name="phone" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAAAAAIAAAAAQAAAAAAAAAAACAAAAIAAAAAg=</HashCode>
+      <HashCode>AAAAAEAAAABAAAAAAAAQAAAAEAIAAAAiAAAAKAAAAAg=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -155,10 +162,10 @@
       <FileName>DocumentDetail.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Property Name="Document" />
       <Property Name="Product" />
       <Property Name="Uom" />
       <Property Name="Warehouse" />
-      <Property Name="Document" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />

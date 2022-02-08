@@ -4,7 +4,7 @@ using MyStock.Application.StockLevels;
 
 namespace MyStock.Application.Products;
 
-public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, IProductEntityPage>, IProductViewModel
+public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, IProductEntityPage>
 {
     private string _code;
     private string _description;

@@ -1,35 +1,21 @@
 ﻿using AutoMapper;
-using MyStock.Application.Products.Mapping;
-using MyStock.Application.StockLevels;
-using MyStock.Application.Uoms.Mapping;
 
-namespace MyStock.Application.AutoMapper
+namespace MyStock.Application.AutoMapper;
+
+public class AutoMapperConfig
 {
-    public class AutoMapperConfig
+    public static IMapper RegisterMappings()
     {
-        public static IMapper RegisterMappings()
+        var mappingConfig = new MapperConfiguration(cfg =>
         {
-            var mappingConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new UomMappingProfile());
-                cfg.AddProfile(new ProductMappingProfile());
-                cfg.AddProfile(new ProductStockLevelMappingProfile());
-                //cfg.AddProfile(new CategorizedEntityAndCategorizedEntityViewModelMappingProfile<CategorizedEntity, ICategorizedEntityViewModel>());
-                //cfg.AddProfile(new CategoryLinkAndCategoryLinkViewModelMappingProfile());
-                //cfg.AddProfile(new CategoryAndCategoryViewModelMappingProfile<Category, ICategoryViewModel>());
-                //cfg.AddProfile(new ContactAndContactViewModelMappingProfile());
-                //cfg.AddProfile(new PriceFormulaAndPriceFormulaViewModelMappingProfile<PriceFormula, IPriceFormulaViewModel>());
-
-                //cfg.AddProfile(new VendorToVendorViewModelMappingProfile());
-                //cfg.AddProfile(new ProductToProductViewModelMappingProfile());
-                //cfg.AddProfile(new InventoryDocDetailAndInventoryDocDetailViewModelMappingProfile<InventoryDocDetail, IInventoryDocDetailViewModel>());
-                //cfg.AddProfile(new InventoryDocAndInventoryDocViewModelMappingProfile<InventoryDoc, IInventoryDocViewModel>());
-                //cfg.AddProfile(new UserToUserViewModelMappingProfile());
-                //cfg.AddProfile(new ProductCategoryToProductCategoryViewModelMappingProfile());
-                //cfg.AddProfile(new ProductAlternativeToProductAlternativeViewModelMappingProfile());
-                //cfg.AddProfile(new UnitOfMeasureToUnitOfMeasureViewModelMappingProfile());
-            });
-            return mappingConfig.CreateMapper();
-        }
+            cfg.AddProfile(new MyStock.Application.Uoms.Mapping.UomMappingProfile());
+            cfg.AddProfile(new MyStock.Application.Products.Mapping.ProductMappingProfile());
+            cfg.AddProfile(new MyStock.Application.StockLevels.ProductStockLevelMappingProfile());
+            cfg.AddProfile(new MyStock.Application.Customers.Mapping.CustomerMappingProfile());
+            cfg.AddProfile(new MyStock.Application.Vendors.Mapping.VendorMappingProfile());
+            cfg.AddProfile(new MyStock.Application.Sale.Mapping.SalesMappingProfile());
+            cfg.AddProfile(new MyStock.Application.Documents.Mapping.DocumentDetailMappingProfile());
+        });
+        return mappingConfig.CreateMapper();
     }
 }

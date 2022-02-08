@@ -1,12 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using MyStock.Application.AutoMapper;
-using MyStock.Application.Products;
-using MyStock.Application.Products.Validators;
-using MyStock.Application.StockLevels;
 using MyStock.Application.UIComunication;
-using MyStock.Application.Uoms;
-using MyStock.Application.Uoms.Validators;
 using MyStock.Core.Interfaces;
 using MyStock.Persistence.Database;
 
@@ -40,15 +35,27 @@ namespace MyStock.IoC
 
         private static void RegisterViewModels(ContainerBuilder builder)
         {
-            builder.RegisterType<UomListViewModel>().As<IUomListViewModel>().InstancePerDependency();
-            builder.RegisterType<ProductListViewModel>().As<IProductListViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Uoms.UomListViewModel>()
+                .As<MyStock.Application.Uoms.IUomListViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Products.ProductListViewModel>()
+                .As<MyStock.Application.Products.IProductListViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Customers.CustomerListViewModel>()
+                .As<MyStock.Application.Customers.ICustomerListViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Vendors.VendorListViewModel>()
+                .As<MyStock.Application.Vendors.IVendorListViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Sale.SalesListViewModel>()
+                .As<MyStock.Application.Sale.ISalesListViewModel>().InstancePerDependency();
         }
 
         private static void BuildValidation(ContainerBuilder builder)
         {
-            builder.RegisterType<UomValidator>().InstancePerDependency();
-            builder.RegisterType<ProductValidator>().InstancePerDependency();
-            builder.RegisterType<ProductStockLevelViewModelValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Uoms.Validators.UomValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Products.Validators.ProductValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.StockLevels.ProductStockLevelViewModelValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Customers.Validators.CustomerValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Vendors.Validators.VendorValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Sale.Validators.SalesValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Documents.Validators.DocumentDetailValidator>().InstancePerDependency();
         }
     }
 }

@@ -3,7 +3,7 @@ using MyStock.Application.Uoms.Validators;
 
 namespace MyStock.Application.Uoms;
 
-public class UomViewModel : EntityPageViewModel<Uom, UomValidator, IUomEntityPage>, IUomViewModel
+public class UomViewModel : EntityPageViewModel<Uom, UomValidator, IUomEntityPage>
 {
     private string _name;
     private string _code;

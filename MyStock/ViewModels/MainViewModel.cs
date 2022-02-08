@@ -1,10 +1,10 @@
 ﻿using Autofac;
+using MyStock.Application.Customers;
 using MyStock.Application.Products;
+using MyStock.Application.Sale;
 using MyStock.Application.Uoms;
+using MyStock.Application.Vendors;
 using MyStock.Core.Interfaces;
-using MyStock.Pages.Uoms;
-using ReactiveUI;
-using System.Linq;
 using System.Reactive.Concurrency;
 using System.Windows.Input;
 
@@ -45,10 +45,10 @@ public class MainViewModel : ReactiveObject
         Menu.Add(new Common.MenuItem(typeof(IProductListViewModel), "Products", "PackageVariant", 2, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "UOMs", "Ruler", 3, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Orders", "FormatListChecks", 4, ""));
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Sales", "ClipboardList", 5, ""));
+        Menu.Add(new Common.MenuItem(typeof(ISalesListViewModel), "Sales", "ClipboardList", 5, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Purchases", "Cart", 6, ""));
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Customers", "AccountGroup", 7, ""));
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Vendors", "AccountGroup", 8, ""));
+        Menu.Add(new Common.MenuItem(typeof(ICustomerListViewModel), "Customers", "AccountGroup", 7, ""));
+        Menu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Vendors", "AccountGroup", 8, ""));
         Menu.ForEach(m =>
         {
             m.Command = Navigate;

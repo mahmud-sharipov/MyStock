@@ -53,14 +53,40 @@ public class EntityListPage<TViewModel> : BasePage<TViewModel>, IEntityListPage
         dataGrid.InputBindings.Add(new KeyBinding(ViewModel.Open, Key.O, ModifierKeys.Control));
         foreach (var column in ViewModel.Columns)
         {
-            dataGrid.Columns.Add(new MaterialDesignThemes.Wpf.DataGridTextColumn()
-            {
-                Header = column.Label,
-                Binding = new Binding(column.BindingPath),
-                IsReadOnly = true,
-            });
+            var dataGridColumn = CreateColumn(column.Type, new Binding(column.BindingPath));
+            dataGridColumn.Header = column.Label;
+            dataGridColumn.IsReadOnly = true;
+            dataGrid.Columns.Add(dataGridColumn);
         }
         CreateActionsColumn(dataGrid);
+    }
+
+    DataGridColumn CreateColumn(ColumnType type, Binding binding)
+    {
+        switch (type)
+        {
+            case ColumnType.ComboBox:
+                return new MaterialDesignThemes.Wpf.DataGridComboBoxColumn()
+                {
+                    SelectedItemBinding = binding,
+                    ElementStyle = System.Windows.Application.Current.FindResource("MaterialDesignDataGridCheckBoxColumnStyle") as Style,
+                    EditingElementStyle = System.Windows.Application.Current.FindResource("MaterialDesignDataGridCheckBoxColumnEditingStyle") as Style
+                };
+            case ColumnType.CheckBox:
+                return new DataGridCheckBoxColumn()
+                {
+                    Binding = binding,
+                    ElementStyle = System.Windows.Application.Current.FindResource("MaterialDesignDataGridCheckBoxColumnStyle") as Style,
+                    EditingElementStyle = System.Windows.Application.Current.FindResource("MaterialDesignDataGridCheckBoxColumnEditingStyle") as Style
+                };
+            default:
+                return new MaterialDesignThemes.Wpf.DataGridTextColumn()
+                {
+                    Binding = binding,
+                    ElementStyle = System.Windows.Application.Current.FindResource("MaterialDesignDataGridTextColumnStyle") as Style,
+                    EditingElementStyle = System.Windows.Application.Current.FindResource("MaterialDesignDataGridTextColumnEditingStyle") as Style
+                };
+        }
     }
 
     void CreateActionsColumn(DataGrid dataGrid)

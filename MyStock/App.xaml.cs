@@ -1,13 +1,17 @@
 ﻿using Autofac;
-using FluentValidation;
+using MyStock.Application.Customers.Pages;
 using MyStock.Application.Products.Pages;
+using MyStock.Application.Sale.Pages;
 using MyStock.Application.Uoms.Pages;
+using MyStock.Application.Vendors.Pages;
 using MyStock.Core.Interfaces;
 using MyStock.IoC;
+using MyStock.Pages.Customers;
 using MyStock.Pages.Products;
+using MyStock.Pages.Sale;
 using MyStock.Pages.Uoms;
+using MyStock.Pages.Vendors;
 using MyStock.Persistence.Seed;
-using System.Windows.Navigation;
 
 namespace MyStock;
 
@@ -15,7 +19,6 @@ public partial class App : System.Windows.Application
 {
     public App()
     {
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NTc2NTk3QDMxMzkyZTM0MmUzMEFJRlNrTlBnWXArTVRHVFc3K3J4Y1hTMUR5NzIrOVpyeDFTSEplbTFtdXc9");
         ShutdownMode = ShutdownMode.OnLastWindowClose;
     }
 
@@ -45,10 +48,20 @@ public partial class App : System.Windows.Application
     public static void RegisterClientIoC(ContainerBuilder builder)
     {
         builder.RegisterType<Common.DialogHost>().As<IDialogHost>().SingleInstance();
+
         builder.RegisterType<UomListPage>().As<IUomListEntityPage>().InstancePerDependency();
         builder.RegisterType<UomPage>().As<IUomEntityPage>().InstancePerDependency();
 
         builder.RegisterType<ProductListPage>().As<IProductListEntityPage>().InstancePerDependency();
         builder.RegisterType<ProductPage>().As<IProductEntityPage>().InstancePerDependency();
+
+        builder.RegisterType<CustomerListPage>().As<ICustomerListEntityPage>().InstancePerDependency();
+        builder.RegisterType<CustomerPage>().As<ICustomerEntityPage>().InstancePerDependency();
+
+        builder.RegisterType<VendorListPage>().As<IVendorListEntityPage>().InstancePerDependency();
+        builder.RegisterType<VendorPage>().As<IVendorEntityPage>().InstancePerDependency();
+
+        builder.RegisterType<SalesListPage>().As<ISalesListEntityPage>().InstancePerDependency();
+        builder.RegisterType<SalesPage>().As<ISalesEntityPage>().InstancePerDependency();
     }
 }

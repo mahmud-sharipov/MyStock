@@ -1,6 +1,6 @@
 ﻿namespace MyStock.Application.StockLevels
 {
-    public class ProductStockLevelViewModel : EntityViewModel<ProductStockLevel, ProductStockLevelViewModelValidator>, IProductStockLevelViewModel
+    public class ProductStockLevelViewModel : EntityViewModel<ProductStockLevel, ProductStockLevelViewModelValidator>
     {
         private decimal maxQuantity;
         private decimal minQuantity;

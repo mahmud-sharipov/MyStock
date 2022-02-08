@@ -208,9 +208,6 @@
   <data name="FiltersTitle" xml:space="preserve">
     <value>Фильтры</value>
   </data>
-  <data name="Test" xml:space="preserve">
-    <value>test</value>
-  </data>
   <data name="StockLevel" xml:space="preserve">
     <value>Уровни запасов</value>
   </data>
@@ -225,5 +222,41 @@
   </data>
   <data name="NetQuantity" xml:space="preserve">
     <value>Остаток</value>
+  </data>
+  <data name="CustomerCannotBeDeletedMessage" xml:space="preserve">
+    <value>Клиент не может быть удален, так как у него есть документы продажи.</value>
+  </data>
+  <data name="Vendors" xml:space="preserve">
+    <value>Продавцы</value>
+  </data>
+  <data name="Vendor" xml:space="preserve">
+    <value>Продавец</value>
+  </data>
+  <data name="VendorCannotBeDeleted" xml:space="preserve">
+    <value>Продавца может быть удалён, так как у него есть документы о покупке.</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Скидка</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Total price</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Остаток</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>Продажи</value>
+  </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Продавать</value>
   </data>
 </root>

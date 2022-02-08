@@ -28,11 +28,14 @@ public class EntityBase : IEntity, INotifyPropertyChanged
         if (!EqualityComparer<T>.Default.Equals(field, newValue))
         {
             field = newValue;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            RaisePropertyChanged(propertyName);
             return true;
         }
         return false;
     }
+
+    protected void RaisePropertyChanged([CallerMemberName] string propertyName = "") =>
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     #endregion
 }

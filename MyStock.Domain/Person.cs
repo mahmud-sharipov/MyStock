@@ -2,10 +2,40 @@
 
 public class Person : EntityBase
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string MiddleName { get; set; }
+    private string firstName;
+    private string lastName;
+    private string middleName;
+    private string address;
+    private string phone;
+
+    public string FirstName
+    {
+        get => firstName; set
+        {
+            SetProptery(ref firstName, value);
+            RaisePropertyChanged(nameof(FullName));
+        }
+    }
+
+    public string LastName
+    {
+        get => lastName;
+        set
+        {
+            SetProptery(ref lastName, value);
+            RaisePropertyChanged(nameof(FullName));
+        }
+    }
+    public string MiddleName
+    {
+        get => middleName; set
+        {
+            SetProptery(ref middleName, value);
+            RaisePropertyChanged(nameof(FullName));
+        }
+    }
+
+    public string Address { get => address; set => SetProptery(ref address, value); }
     public virtual string FullName => $"{LastName} {FirstName} {MiddleName}".Trim();
-    public string Address { get; set; }
-    public string Phone { get; set; }
+    public string Phone { get => phone; set => SetProptery(ref phone, value); }
 }

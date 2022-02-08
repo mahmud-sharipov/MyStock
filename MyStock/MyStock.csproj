@@ -65,19 +65,12 @@
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="17.1.17" />
-    <PackageReference Include="Syncfusion.Licensing" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.Themes.MaterialDarkBlue.WPF" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.Themes.MaterialLightBlue.WPF" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.Themes.Metro.WPF" Version="19.4.0.48" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="19.4.0.48" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,10 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Customers\" />
     <Folder Include="Pages\Expenses\" />
-    <Folder Include="Pages\Sale\" />
-    <Folder Include="Pages\Vendors\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 </Project>

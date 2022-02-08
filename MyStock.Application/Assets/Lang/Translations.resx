@@ -208,9 +208,6 @@
   <data name="FiltersTitle" xml:space="preserve">
     <value>Filters</value>
   </data>
-  <data name="Test" xml:space="preserve">
-    <value>test</value>
-  </data>
   <data name="StockLevel" xml:space="preserve">
     <value>Stock level</value>
   </data>
@@ -225,5 +222,41 @@
   </data>
   <data name="NetQuantity" xml:space="preserve">
     <value>Net quantity</value>
+  </data>
+  <data name="CustomerCannotBeDeletedMessage" xml:space="preserve">
+    <value>Customer cannot be deleted because customer has sales documents.</value>
+  </data>
+  <data name="Vendors" xml:space="preserve">
+    <value>Vendors</value>
+  </data>
+  <data name="Vendor" xml:space="preserve">
+    <value>Vendor</value>
+  </data>
+  <data name="VendorCannotBeDeleted" xml:space="preserve">
+    <value>The vendor can be removed because he has the purchase documents.</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Total price</value>
+  </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Unit price</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>Sales</value>
+  </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Sale</value>
   </data>
 </root>

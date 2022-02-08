@@ -38,7 +38,7 @@ namespace MyStock.Application.Products
                 new (Translations.UOM, $"{nameof(Product.Uom)}.{nameof(Uom.Name)}" ,4),
                 new (Translations.Price, nameof(Product.Price),5),
                 new (Translations.Cost, nameof(Product.Cost),6),
-                new (Translations.Active, nameof(Product.IsActive),7),
+                new (Translations.Active, nameof(Product.IsActive),7, ColumnType.CheckBox),
             };
         }
 
