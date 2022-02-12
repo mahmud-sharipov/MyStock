@@ -259,4 +259,16 @@
   <data name="Sale" xml:space="preserve">
     <value>Sale</value>
   </data>
+  <data name="TotalToPay" xml:space="preserve">
+    <value>Total to pay</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="PaidAmount" xml:space="preserve">
+    <value>Paid amount</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Sum</value>
+  </data>
 </root>

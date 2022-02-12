@@ -5,6 +5,7 @@ public class Document : EntityBase
     private DateTime date;
     private string description;
     private decimal discount;
+    private bool closed;
 
     public Document()
     {
@@ -14,6 +15,7 @@ public class Document : EntityBase
     public DateTime Date { get => date; set => SetProptery(ref date, value); }
     public string Description { get => description; set => SetProptery(ref description, value); }
     public decimal Discount { get => discount; set => SetProptery(ref discount, value); }
+    public bool Closed { get => closed; set => SetProptery(ref closed, value); }
 
     public virtual ISet<DocumentDetail> Details { get; set; }
 }

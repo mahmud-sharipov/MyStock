@@ -248,7 +248,7 @@
     <value>Скидка</value>
   </data>
   <data name="TotalPrice" xml:space="preserve">
-    <value>Total price</value>
+    <value>Итоговая цена</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>Остаток</value>
@@ -258,5 +258,17 @@
   </data>
   <data name="Sale" xml:space="preserve">
     <value>Продавать</value>
+  </data>
+  <data name="TotalToPay" xml:space="preserve">
+    <value>Всего к оплате</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Чек</value>
+  </data>
+  <data name="PaidAmount" xml:space="preserve">
+    <value>Оплаченная сумма</value>
+  </data>
+  <data name="Sum" xml:space="preserve">
+    <value>Сумма</value>
   </data>
 </root>

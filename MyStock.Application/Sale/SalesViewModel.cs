@@ -1,22 +1,45 @@
-﻿using MyStock.Application.Sale.Pages;
+﻿using MyStock.Application.Customers;
+using MyStock.Application.Documents;
+using MyStock.Application.Sale.Pages;
 using MyStock.Application.Sale.Validators;
 
 namespace MyStock.Application.Sale
 {
     public class SalesViewModel : EntityPageViewModel<Sales, SalesValidator, ISalesEntityPage>
     {
+        private DateTime date;
+        private Customer customer;
+        private string description;
+        private decimal discount;
+
         public SalesViewModel(Sales entity, IContext context) : base(entity, context)
         {
+            Date = DateTime.Now.Date;
         }
 
-        public DateTime Date { get; set; }
-        public Customer Customer { get; set; }
-        public string Description { get; set; }
-        public decimal Discount { get; set; }
-        public decimal TotalPrice { get; }
-        public decimal Balance { get; }
+        public DateTime Date { get => date; set => RaiseAndSetAndValidateIfChanged(ref date, value); }
 
-        public ObservableCollection<DocumentDetail> Details { get; set; }
+        public Customer Customer { get => customer; set => RaiseAndSetAndValidateIfChanged(ref customer, value); }
+
+        public string Description { get => description; set => RaiseAndSetAndValidateIfChanged(ref description, value); }
+
+        public decimal Discount
+        {
+            get => discount;
+            set
+            {
+                if (RaiseAndSetAndValidateIfChanged(ref discount, value))
+                    RaisePropertyChanged(new[] { nameof(Balance) });
+            }
+        }
+
+        public decimal TotalPrice => Details.Sum(d => d.TotalPrice);
+
+        public decimal Balance => TotalPrice - Math.Min(Discount, TotalPrice);
+
+        public ObservableCollection<DocumentDetailViewModel> Details { get; set; }
+
+        public CustomerSearchViewModel CustomerSearchViewModel => new CustomerSearchViewModel(Context, c => Customer = c);
 
         protected override void InitializeAssociatedProperties()
         {

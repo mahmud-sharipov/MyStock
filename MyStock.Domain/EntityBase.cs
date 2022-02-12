@@ -19,6 +19,8 @@ public class EntityBase : IEntity, INotifyPropertyChanged
         set => _id = value;
     }
 
+    public string Title => ToString();
+
     #region INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;

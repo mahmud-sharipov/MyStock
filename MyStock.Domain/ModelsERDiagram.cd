@@ -121,7 +121,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Sales.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -138,7 +138,7 @@
       <Field Name="phone" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAEAAAABAAAAAAAAQAAAAEAIAAAAiAAAAKAAAAAg=</HashCode>
+      <HashCode>AAAAAEAAAABAAIAAAAAQAAAAEAIAAAAiAAAAKAAAAAg=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -146,9 +146,10 @@
     <Position X="8.75" Y="3.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAhAAAAAAAAAAAAAAAAAAABAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAhAAAAIAAAAAAAAAAAAAABAoAAAQKAAAA=</HashCode>
       <FileName>Document.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
