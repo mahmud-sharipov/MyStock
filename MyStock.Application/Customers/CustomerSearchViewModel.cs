@@ -2,26 +2,20 @@
 
 public class CustomerSearchViewModel : SearchView.SearchViewModel<Customer>
 {
+    private List<Customer> customers;
+
     public CustomerSearchViewModel(IContext context, Action<Customer> onSelected) : base(context, onSelected)
     {
-        Customers = Items.ToList();
-        SearchResults = Customers.OrderBy(c => c.FirstName).Take(ResultCount).ToObservableCollection();
     }
 
-    public List<Customer> Customers { get; set; }
+    private List<Customer> Customers => customers ??= Items.ToList();
 
-    protected override void UpdateSearchResults()
-    {
-        IEnumerable<Customer> result = Customers;
-        if (!string.IsNullOrWhiteSpace(SearchText))
-        {
-            var names = SearchText.Split(" ").Where(n => !string.IsNullOrEmpty(n)).ToArray();
-            result = Customers.Where(c =>
-                c.Title.ToLower().StartsWith(SearchText.ToLower()));
-        }
-        var selectdItem = SelectedSearchItem;
-        SearchResults = result.OrderBy(c => c.FirstName).Take(ResultCount).ToObservableCollection();
-        if (selectdItem != null)
-            SelectedSearchItem = SearchResults.SingleOrDefault(e => e.Guid == selectdItem.Guid);
-    }
+    protected override IQueryable<Customer> GetAllItems() =>
+        Customers.AsQueryable();
+
+    protected override IQueryable<Customer> Filter(IQueryable<Customer> source) =>
+        source.Where(c => c.Title.ToLower().StartsWith(SearchText.ToLower()));
+
+    protected override IOrderedQueryable<Customer> Order(IQueryable<Customer> source) =>
+        source.OrderBy(c => c.FirstName);
 }

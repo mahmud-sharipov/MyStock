@@ -13,15 +13,15 @@ namespace MyStock.Persistence.Migrations
                 name: "Person",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    MiddleName = table.Column<string>(type: "TEXT", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
+                    Login = table.Column<string>(type: "TEXT", nullable: true),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,9 +32,9 @@ namespace MyStock.Persistence.Migrations
                 name: "ProductCategory",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ParentGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    ParentGuid = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,10 +51,10 @@ namespace MyStock.Persistence.Migrations
                 name: "Uom",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Code = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -65,9 +65,9 @@ namespace MyStock.Persistence.Migrations
                 name: "Warehouse",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -78,13 +78,14 @@ namespace MyStock.Persistence.Migrations
                 name: "Document",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VendorGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CustomerGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Discount = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Closed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
+                    VendorGuid = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CustomerGuid = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,15 +108,14 @@ namespace MyStock.Persistence.Migrations
                 name: "Product",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    UomGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Code = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Cost = table.Column<decimal>(type: "TEXT", nullable: false),
+                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
+                    UomGuid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CategoryGuid = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,14 +138,14 @@ namespace MyStock.Persistence.Migrations
                 name: "DocumentDetail",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UomGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WarehouseGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Quantity = table.Column<decimal>(type: "TEXT", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    DocumentGuid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ProductGuid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UomGuid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    WarehouseGuid = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -180,12 +180,12 @@ namespace MyStock.Persistence.Migrations
                 name: "ProductStockLevel",
                 columns: table => new
                 {
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NetQuantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MaxQuantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MinQuantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProductGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    WarehouseGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Guid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    NetQuantity = table.Column<decimal>(type: "TEXT", nullable: false),
+                    MaxQuantity = table.Column<decimal>(type: "TEXT", nullable: false),
+                    MinQuantity = table.Column<decimal>(type: "TEXT", nullable: false),
+                    ProductGuid = table.Column<Guid>(type: "TEXT", nullable: false),
+                    WarehouseGuid = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

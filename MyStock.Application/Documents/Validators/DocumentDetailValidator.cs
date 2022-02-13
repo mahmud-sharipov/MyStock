@@ -6,4 +6,11 @@
         {
         }
     }
+
+    public class DocumentValidator : AbstractValidator<DocumentViewModel>
+    {
+        public DocumentValidator()
+        {
+        }
+    }
 }

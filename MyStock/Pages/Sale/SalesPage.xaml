@@ -10,6 +10,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:pages="clr-namespace:MyStock.Pages"
                   xmlns:viewModel="clr-namespace:MyStock.Application.Sale;assembly=MyStock.Application"
+                  d:DataContext="{d:DesignInstance Type=viewModel:SalesViewModel}"
                   MinWidth="1000"
                   MinHeight="800"
                   d:DesignHeight="550"
@@ -47,8 +48,8 @@
                 <Button Grid.Column="2"
                         HorizontalAlignment="Right"
                         Command="{Binding Close}"
-                        Style="{StaticResource MaterialDesignIconForegroundButton}">
-                    <materialDesign:PackIcon Kind="Close" />
+                        Style="{StaticResource MaterialDesignToolButton}">
+                    <materialDesign:PackIcon Kind="Close"  Foreground="{DynamicResource MaterialDesignPaper}"/>
                 </Button>
             </Grid>
         </materialDesign:ColorZone>
@@ -62,7 +63,7 @@
             </Grid.ColumnDefinitions>
             <materialDesign:Card Margin="0,0,10,0">
                 <StackPanel Margin="20,10">
-                    <customerControls:CustomerFullTextSearch Margin="0,3,0,10" DataContext="{Binding CustomerSearchViewModel}" />
+                    <customerControls:CustomerFullTextSearch Margin="0,10" DataContext="{Binding CustomerSearchViewModel}" />
 
                     <TextBox Grid.Row="1"
                              Margin="0,10"
@@ -120,5 +121,34 @@
                 </StackPanel>
             </materialDesign:Card>
         </Grid>
+        <Grid Grid.Row="2">
+            <DataGrid ItemsSource="{Binding Details}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn ElementStyle="{DynamicResource MaterialDesignDataGridTextColumnStyle}"
+                                        EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        Header="{x:Static langAsset:Translations.Quantity}" 
+                                        Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn ElementStyle="{DynamicResource MaterialDesignDataGridTextColumnStyle}"
+                                        EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        Header="{x:Static langAsset:Translations.Product}" 
+                                        Binding="{Binding Product.Code}"/>
+                    <DataGridTextColumn ElementStyle="{DynamicResource MaterialDesignDataGridTextColumnStyle}"
+                                        EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        Header="{x:Static langAsset:Translations.Description}" 
+                                        Binding="{Binding Product.Description}"/>
+                    <DataGridTextColumn ElementStyle="{DynamicResource MaterialDesignDataGridTextColumnStyle}"
+                                        EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        Header="{x:Static langAsset:Translations.UnitPrice}" 
+                                        Binding="{Binding UnitPrice}"/>
+                    <DataGridTextColumn ElementStyle="{DynamicResource MaterialDesignDataGridTextColumnStyle}"
+                                        EditingElementStyle="{DynamicResource MaterialDesignDataGridTextColumnEditingStyle}"
+                                        Header="{x:Static langAsset:Translations.TotalPrice}" 
+                                        Binding="{Binding TotalPrice}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Grid.Row="3">
+            
+        </StackPanel>
     </Grid>
 </pages:EntityPage>

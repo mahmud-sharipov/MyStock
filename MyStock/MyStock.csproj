@@ -83,4 +83,10 @@
     <Folder Include="Pages\Expenses\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\FullTextSearch.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
 </Project>

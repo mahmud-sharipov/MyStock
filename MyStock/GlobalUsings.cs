@@ -8,3 +8,6 @@ global using System.Collections.Generic;
 global using System.IO;
 global using System.Windows;
 global using System.Windows.Controls;
+global using MyStock.Controls;
+global using MyStock.Domain;
+global using MahApps.Metro.IconPacks;
