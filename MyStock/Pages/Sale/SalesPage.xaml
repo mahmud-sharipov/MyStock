@@ -1,6 +1,7 @@
 ﻿<pages:EntityPage x:Class="MyStock.Pages.Sale.SalesPage"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:controls="clr-namespace:MyStock.Controls"
                   xmlns:convertors="clr-namespace:MyStock.Converters"
                   xmlns:customerControls="clr-namespace:MyStock.Pages.Customers"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -66,10 +67,13 @@
             </Grid.ColumnDefinitions>
             <materialDesign:Card Margin="0,0,10,0">
                 <StackPanel Margin="20,10">
-                    <customerControls:CustomerFullTextSearch Margin="0,10" DataContext="{Binding CustomerSearchViewModel}" />
+                    <customerControls:CustomerFullTextSearch Margin="0,10"
+                                                             DataContext="{Binding CustomerSearchViewModel}"
+                                                             Hint="{x:Static langAsset:Translations.Customer}" />
 
                     <TextBox Grid.Row="1"
                              Margin="0,10"
+                             controls:SelectAllFocusBehavior.Enable="True"
                              materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Description}"
                              materialDesign:TextFieldAssist.HasClearButton="True"
                              Style="{StaticResource FloatingHintTextBox}"
@@ -84,6 +88,7 @@
                                 SelectedDate="{Binding Date}"
                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                     <TextBox Margin="0,10"
+                             controls:SelectAllFocusBehavior.Enable="True"
                              materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Discount}"
                              materialDesign:TextFieldAssist.HasClearButton="True"
                              materialDesign:TextFieldAssist.PrefixText="$"
@@ -130,10 +135,12 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <DataGrid AutoGenerateColumns="False"
+            <DataGrid Name="DetailGrid"
+                      AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
-                      ItemsSource="{Binding Details}">
+                      ItemsSource="{Binding Details}"
+                      SelectedItem="{Binding SelectedDetail}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Quantity, Mode=OneWay, Converter={StaticResource NumberToQuantityConverter}}"
                                         Header="{x:Static langAsset:Translations.Quantity}"
@@ -147,7 +154,6 @@
                     <DataGridTextColumn Binding="{Binding UnitPrice, Mode=OneWay, Converter={StaticResource NumberToCurrencyConverter}}"
                                         Header="{x:Static langAsset:Translations.UnitPrice}"
                                         IsReadOnly="True" />
-
                     <DataGridTextColumn Header="{x:Static langAsset:Translations.TotalPrice}" IsReadOnly="True">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Converter="{StaticResource ToTotalPriceConvetor}">
@@ -160,8 +166,45 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Width="30"
+                                            Padding="0"
+                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.IncremetQuantity}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Width="20"
+                                                                 Height="20"
+                                                                 Kind="Plus" />
+                                    </Button>
+                                    <Button Width="30"
+                                            Margin="5,0"
+                                            Padding="0"
+                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.DecrementQuantity}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Width="20"
+                                                                 Height="20"
+                                                                 Kind="Minus" />
+                                    </Button>
+                                    <Button Width="30"
+                                            Padding="0"
+                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.EnterQuantity}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <iconPacks:PackIconMaterial Width="20"
+                                                                    Height="20"
+                                                                    Kind="KeyboardOutline" />
+                                    </Button>
+                                    <Button Width="30"
+                                            Padding="0"
+                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.DeleteDetail}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Width="20"
+                                                                 Height="20"
+                                                                 Margin="5,0"
+                                                                 Kind="Delete" />
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -177,12 +220,14 @@
                                                            Hint="{x:Static langAsset:Translations.Product}" />
                     <TextBox Grid.Row="1"
                              Margin="0,10"
+                             controls:SelectAllFocusBehavior.Enable="True"
                              materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Quantity}"
                              materialDesign:TextFieldAssist.HasClearButton="True"
                              Style="{StaticResource FloatingHintTextBox}"
                              Text="{Binding Quantity}" />
                     <TextBox Grid.Row="1"
                              Margin="0,10"
+                             controls:SelectAllFocusBehavior.Enable="True"
                              materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.UnitPrice}"
                              materialDesign:TextFieldAssist.HasClearButton="True"
                              Style="{StaticResource FloatingHintTextBox}"

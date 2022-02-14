@@ -46,29 +46,41 @@
         protected override void BuildCommands()
         {
             base.BuildCommands();
-            var editDetailObservable = this.WhenAny(v => v.SelectedDetail, v => v.Processed, (sd, p) => sd.Value != null && !p.Value);
-            IncremetQuantity = ReactiveCommand.Create(() =>
+            IncremetQuantity = ReactiveCommand.Create<DocumentDetail>((detail) =>
             {
+                if (detail == null) return;
                 SelectedDetail.Quantity++;
                 RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
-            }, editDetailObservable, outputScheduler: Scheduler.CurrentThread);
-            DecrementQuantity = ReactiveCommand.Create(() =>
+            }, outputScheduler: Scheduler.CurrentThread);
+
+            DecrementQuantity = ReactiveCommand.Create<DocumentDetail>((detail) =>
             {
+                if (detail == null) return;
                 SelectedDetail.Quantity--;
+                if (SelectedDetail.Quantity == 0)
+                {
+                    Context.Delete(SelectedDetail);
+                    Details.Remove(SelectedDetail);
+                    SelectedDetail = null;
+                }
                 RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
-            }, editDetailObservable, outputScheduler: Scheduler.CurrentThread);
-            EnterQuantity = ReactiveCommand.Create(() =>
+            }, outputScheduler: Scheduler.CurrentThread);
+
+            EnterQuantity = ReactiveCommand.Create<DocumentDetail>((detail) =>
             {
+                if (detail == null) return;
                 SelectedDetail.Quantity++;
                 RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
-            }, editDetailObservable, outputScheduler: Scheduler.CurrentThread);
-            DeleteDetail = ReactiveCommand.Create(() =>
+            }, outputScheduler: Scheduler.CurrentThread);
+
+            DeleteDetail = ReactiveCommand.Create<DocumentDetail>((detail) =>
             {
+                if (detail == null) return;
                 Context.Delete(SelectedDetail);
                 Details.Remove(SelectedDetail);
                 SelectedDetail = null;
                 RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
-            }, editDetailObservable, outputScheduler: Scheduler.CurrentThread);
+            }, outputScheduler: Scheduler.CurrentThread);
 
             AddDetail = ReactiveCommand.Create(() =>
             {

@@ -1,11 +1,8 @@
 ﻿<UserControl x:Class="MyStock.Controls.FullTextSearch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:MyStock.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:langAsset="clr-namespace:MyStock.Application.Assets.Lang;assembly=MyStock.Application"
-             xmlns:local="clr-namespace:MyStock.Controls"
-             xmlns:mahappsControls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Name="thisControl"
@@ -14,6 +11,7 @@
              mc:Ignorable="d">
     <Grid>
         <TextBox x:Name="uiSearch"
+                 controls:SelectAllFocusBehavior.Enable="True"
                  materialDesign:HintAssist.Hint="{Binding ElementName=thisControl, Path=Hint}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  GotFocus="uiSearch_GotFocus"
