@@ -2,19 +2,26 @@
 
 public class DocumentDetail : EntityBase
 {
-    public decimal Quantity { get; set; }
-    public decimal UnitPrice { get; set; }
-    public string Description { get; set; }
+    private decimal quantity;
+    private decimal unitPrice;
+    private string description;
+    private Product product;
+    private Uom uom;
+    private Warehouse warehouse;
+
+    public decimal Quantity { get => quantity; set => SetProptery(ref quantity, value); }
+    public decimal UnitPrice { get => unitPrice; set => SetProptery(ref unitPrice, value); }
+    public string Description { get => description; set => SetProptery(ref description, value); }
 
     public Guid DocumentGuid { get; set; }
     public virtual Document Document { get; set; }
 
     public Guid ProductGuid { get; set; }
-    public virtual Product Product { get; set; }
+    public virtual Product Product { get => product; set => SetProptery(ref product, value); }
 
     public Guid UomGuid { get; set; }
-    public virtual Uom Uom { get; set; }
+    public virtual Uom Uom { get => uom; set => SetProptery(ref uom, value); }
 
     public Guid WarehouseGuid { get; set; }
-    public virtual Warehouse Warehouse { get; set; }
+    public virtual Warehouse Warehouse { get => warehouse; set => SetProptery(ref warehouse, value); }
 }

@@ -4,6 +4,15 @@ namespace MyStock.Controls;
 
 public abstract partial class FullTextSearch : UserControl
 {
+    public string Hint
+    {
+        get { return (string)GetValue(HintProperty); }
+        set { SetValue(HintProperty, value); }
+    }
+
+    public static readonly DependencyProperty HintProperty =
+        DependencyProperty.Register("Hint", typeof(string), typeof(FullTextSearch), new PropertyMetadata(string.Empty));
+
     public FullTextSearch()
     {
         InitializeComponent();
@@ -37,7 +46,7 @@ public abstract partial class FullTextSearch : UserControl
     {
         var grid = new FrameworkElementFactory(typeof(Grid));
         grid.SetValue(Grid.MarginProperty, new Thickness(0, 0, 0, 2));
-        grid.SetBinding(Grid.WidthProperty, new Binding(nameof(ActualWidth)) { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(ListBox), 2) });
+        grid.SetBinding(Grid.WidthProperty, new Binding(nameof(ActualWidth)) { RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(ListBox), 1) });
 
         FrameworkElementFactory col1 = new FrameworkElementFactory(typeof(ColumnDefinition));
         FrameworkElementFactory col2 = new FrameworkElementFactory(typeof(ColumnDefinition));

@@ -28,11 +28,11 @@ public abstract class SearchViewModel<TEntity> : ReactiveObject where TEntity : 
         set => this.RaiseAndSetIfChanged(ref _isSearchShown, value);
     }
 
-    string _searchText;
+    string _searchText_;
     public string SearchText
     {
-        get => _searchText;
-        set => this.RaiseAndSetIfChanged(ref _searchText, value);
+        get => _searchText_;
+        set => this.RaiseAndSetIfChanged(ref _searchText_, value);
     }
 
     TEntity _selectedSearchItem;

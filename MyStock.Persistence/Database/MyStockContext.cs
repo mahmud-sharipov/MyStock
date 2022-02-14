@@ -20,10 +20,10 @@ public class MyStockContext : DbContext, IContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseLazyLoadingProxies();
-        //string connectionString = "data source=localhost; initial catalog=MyStock; integrated security=true; persist security info=true;";
-        //optionsBuilder.UseSqlServer(connectionString);
+        string connectionString = "data source=localhost; initial catalog=MyStock; integrated security=true; persist security info=true;";
+        optionsBuilder.UseSqlServer(connectionString);
 
-        optionsBuilder.UseSqlite("Data Source=CustomerDB.db;");
+        //optionsBuilder.UseSqlite("Data Source=CustomerDB.db;");
     }
 
     public new IQueryable<T> Set<T>() where T : class, IEntity =>

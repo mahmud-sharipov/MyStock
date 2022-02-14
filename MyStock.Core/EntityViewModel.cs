@@ -57,13 +57,18 @@ public abstract class EntityViewModel<TEntity, TValidator> : ViewModel, IEntityV
     #endregion
 
     #region Raise methods
-    protected void RaiseValidation(params string[] propertyName)
+    protected void RaiseValidation()
     {
         var result = _validator.Validate(this);
+        var currentErrors = result.Errors;
         Errors = result.Errors;
         HasErrors = result.Errors.Count > 0;
         IsValid = result.IsValid;
-        foreach (var item in propertyName)
+
+        foreach (var item in currentErrors.Where(e => !Errors.Any(er => er.PropertyName == e.PropertyName)))
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(item.PropertyName));
+
+        foreach (var item in Errors.Select(e => e.PropertyName).Distinct())
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(item));
     }
 
@@ -71,7 +76,7 @@ public abstract class EntityViewModel<TEntity, TValidator> : ViewModel, IEntityV
     {
         var result = RaiseAndSetIfChanged(ref backingField, newValue, propertyName);
         if (result)
-            RaiseValidation(propertyName);
+            RaiseValidation();
 
         return result;
     }

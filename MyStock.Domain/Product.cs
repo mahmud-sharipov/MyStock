@@ -30,4 +30,9 @@ public class Product : EntityBase
 
     public virtual ISet<ProductStockLevel> StockLevels { get; set; }
     public virtual ISet<DocumentDetail> DocumentDetails { get; set; }
+
+    public override string ToString()
+    {
+        return Description;
+    }
 }

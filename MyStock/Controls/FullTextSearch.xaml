@@ -8,12 +8,13 @@
              xmlns:mahappsControls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Name="thisControl"
              d:DesignHeight="200"
              d:DesignWidth="600"
              mc:Ignorable="d">
     <Grid>
         <TextBox x:Name="uiSearch"
-                 materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Customer}"
+                 materialDesign:HintAssist.Hint="{Binding ElementName=thisControl, Path=Hint}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  GotFocus="uiSearch_GotFocus"
                  LostFocus="uiSearch_LostFocus"

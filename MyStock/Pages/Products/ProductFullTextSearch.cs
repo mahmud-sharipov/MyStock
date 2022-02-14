@@ -1,4 +1,6 @@
-﻿namespace MyStock.Pages.Products;
+﻿using MyStock.Application.Assets.Lang;
+
+namespace MyStock.Pages.Products;
 
 internal class ProductFullTextSearch : FullTextSearch
 {

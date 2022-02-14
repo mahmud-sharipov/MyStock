@@ -1,5 +1,7 @@
 ﻿
 
+using MyStock.Application.Assets.Lang;
+
 namespace MyStock.Pages.Customers;
 
 internal class CustomerFullTextSearch : FullTextSearch

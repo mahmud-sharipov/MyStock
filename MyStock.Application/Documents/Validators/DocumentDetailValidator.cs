@@ -4,13 +4,7 @@
     {
         public DocumentDetailValidator()
         {
-        }
-    }
-
-    public class DocumentValidator : AbstractValidator<DocumentViewModel>
-    {
-        public DocumentValidator()
-        {
+            RuleFor(d => d.Quantity).NotEmpty().WithName(Translations.Quantity);
         }
     }
 }
