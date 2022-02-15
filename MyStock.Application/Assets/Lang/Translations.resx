@@ -271,4 +271,10 @@
   <data name="Sum" xml:space="preserve">
     <value>Sum</value>
   </data>
+  <data name="OnHand" xml:space="preserve">
+    <value>On hand</value>
+  </data>
+  <data name="QuantityShort" xml:space="preserve">
+    <value>Qty</value>
+  </data>
 </root>

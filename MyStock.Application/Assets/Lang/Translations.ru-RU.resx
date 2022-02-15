@@ -266,9 +266,15 @@
     <value>Чек</value>
   </data>
   <data name="PaidAmount" xml:space="preserve">
-    <value>Оплаченная сумма</value>
+    <value>Оплачено</value>
   </data>
   <data name="Sum" xml:space="preserve">
     <value>Сумма</value>
+  </data>
+  <data name="OnHand" xml:space="preserve">
+    <value>В наличии</value>
+  </data>
+  <data name="QuantityShort" xml:space="preserve">
+    <value>Кол-во</value>
   </data>
 </root>

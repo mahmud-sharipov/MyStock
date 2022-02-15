@@ -17,13 +17,6 @@
 
                 <ResourceDictionary Source="Themes/TextBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="UserControl">
-                <Setter Property="FontFamily" Value="{DynamicResource MaterialDesignFont}" />
-                <Setter Property="TextBlock.Foreground" Value="{DynamicResource MaterialDesignBody}" />
-                <Setter Property="TextBlock.FontSize" Value="13" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-                <Setter Property="TextOptions.TextRenderingMode" Value="Auto" />
-            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

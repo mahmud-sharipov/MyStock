@@ -6,20 +6,24 @@
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Name="thisControl"
-             d:DesignHeight="200"
+             d:Background="DarkGray"
+             d:DesignHeight="800"
              d:DesignWidth="600"
              mc:Ignorable="d">
     <Grid>
         <TextBox x:Name="uiSearch"
+                 Padding="10,7,5,0"
+                 VerticalContentAlignment="Center"
                  controls:SelectAllFocusBehavior.Enable="True"
                  materialDesign:HintAssist.Hint="{Binding ElementName=thisControl, Path=Hint}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  GotFocus="uiSearch_GotFocus"
                  LostFocus="uiSearch_LostFocus"
-                 Style="{StaticResource FloatingHintTextBox}"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         <Popup x:Name="resultPopup"
                MaxHeight="350"
+               d:IsOpen="True"
                AllowsTransparency="True"
                IsOpen="{Binding IsSearchResultShown}"
                Placement="Bottom"
@@ -30,7 +34,13 @@
                         <ListBox x:Name="ResultList"
                                  ItemsSource="{Binding SearchResults}"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                 SelectedItem="{Binding SelectedSearchItem}" />
+                                 SelectedItem="{Binding SelectedSearchItem}">
+                            <d:ListBox.Items>
+                                <ListBoxItem />
+                                <ListBoxItem />
+                                <ListBoxItem />
+                            </d:ListBox.Items>
+                        </ListBox>
                     </Grid>
                 </Border>
             </materialDesign:Card>

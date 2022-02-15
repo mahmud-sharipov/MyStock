@@ -60,7 +60,7 @@
                                  Margin="0,10"
                                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Description}"
                                  materialDesign:TextFieldAssist.HasClearButton="True"
-                                 Style="{StaticResource FloatingHintTextBox}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Description}" />
 
                         <ComboBox Grid.Row="3"
@@ -75,7 +75,7 @@
                                  Margin="0,10"
                                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Code}"
                                  materialDesign:TextFieldAssist.HasClearButton="True"
-                                 Style="{StaticResource FloatingHintTextBox}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Code}" />
 
                         <TextBox Grid.Row="5"
@@ -84,7 +84,7 @@
                                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Cost}"
                                  materialDesign:TextFieldAssist.HasClearButton="True"
                                  materialDesign:TextFieldAssist.PrefixText="$ "
-                                 Style="{StaticResource FloatingHintTextBox}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Cost}" />
 
                         <!--<mah:NumericUpDown Grid.Row="5"
@@ -101,7 +101,7 @@
                                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Price}"
                                  materialDesign:TextFieldAssist.HasClearButton="True"
                                  materialDesign:TextFieldAssist.PrefixText="$ "
-                                 Style="{StaticResource FloatingHintTextBox}"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                  Text="{Binding Price}" />
                         <CheckBox Grid.Row="7"
                                   Content="{x:Static langAsset:Translations.Active}"

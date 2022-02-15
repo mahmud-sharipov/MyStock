@@ -331,6 +331,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to On hand.
+        /// </summary>
+        public static string OnHand {
+            get {
+                return ResourceManager.GetString("OnHand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paid amount.
         /// </summary>
         public static string PaidAmount {
@@ -426,6 +435,15 @@ namespace MyStock.Application.Assets.Lang {
         public static string Quantity {
             get {
                 return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qty.
+        /// </summary>
+        public static string QuantityShort {
+            get {
+                return ResourceManager.GetString("QuantityShort", resourceCulture);
             }
         }
         

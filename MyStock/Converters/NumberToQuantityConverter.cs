@@ -3,21 +3,22 @@ using System.Windows.Data;
 
 namespace MyStock.Converters
 {
-    public class StringToUpperConverter : IValueConverter
+    public class NumberToQuantityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null && value is string)
+            if (decimal.TryParse(value.ToString(), out decimal result))
             {
-                return ((string)value).ToUpper();
+                var mutableNfi = (NumberFormatInfo)culture.NumberFormat.Clone();
+                mutableNfi.CurrencySymbol = "";
+                return result.ToString("C2", mutableNfi);
             }
-
-            return value ?? "";
+            return value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value ?? "";
+            return value;
         }
     }
 }

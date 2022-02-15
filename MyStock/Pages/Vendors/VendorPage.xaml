@@ -33,34 +33,34 @@
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.LastName}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 Style="{StaticResource FloatingHintTextBox}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding LastName}" />
         <TextBox Grid.Row="2"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.FirstName}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 Style="{StaticResource FloatingHintTextBox}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding FirstName}" />
 
         <TextBox Grid.Row="3"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.MiddleName}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 Style="{StaticResource FloatingHintTextBox}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding MiddleName}" />
 
         <TextBox Grid.Row="4"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Phone}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 Style="{StaticResource FloatingHintTextBox}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Phone}" />
 
         <TextBox Grid.Row="5"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Address}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 Style="{StaticResource FloatingHintTextBox}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Address}" />
 
         <StackPanel Grid.Row="6"

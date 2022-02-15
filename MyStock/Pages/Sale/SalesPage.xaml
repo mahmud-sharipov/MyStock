@@ -12,7 +12,7 @@
                   xmlns:pages="clr-namespace:MyStock.Pages"
                   xmlns:productControls="clr-namespace:MyStock.Pages.Products"
                   xmlns:viewModel="clr-namespace:MyStock.Application.Sale;assembly=MyStock.Application"
-                  Width="1000"
+                  Width="1150"
                   Height="800"
                   d:DataContext="{d:DesignInstance Type=viewModel:SalesViewModel}"
                   d:DesignHeight="550"
@@ -23,225 +23,235 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <convertors:NumberToCurrencyConverter x:Key="NumberToCurrencyConverter" />
-            <convertors:ToTotalPriceConvetor x:Key="ToTotalPriceConvetor" />
+            <convertors:ToDocumentBalanceConvetor x:Key="DocumentBalanceConvertor" />
+            <convertors:ProductRemainingStockLevelConverter x:Key="RemainingStock" />
             <convertors:NumberToQuantityConverter x:Key="NumberToQuantityConverter" />
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Flipper.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Popupbox.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            <convertors:DecimalConvertor x:Key="DecimalConventor" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <materialDesign:ColorZone Padding="20,10" Mode="PrimaryMid">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock d:Text="New Invoice"
-                           Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                           Text="{Binding Description, Mode=OneWay}" />
-                <Button Grid.Column="2"
-                        HorizontalAlignment="Right"
-                        Command="{Binding Close}"
-                        Style="{StaticResource MaterialDesignToolButton}">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignPaper}" Kind="Close" />
-                </Button>
-            </Grid>
-        </materialDesign:ColorZone>
-        <Grid Grid.Row="1"
-              MinHeight="150"
-              Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-            <materialDesign:Card Margin="0,0,10,0">
-                <StackPanel Margin="20,10">
-                    <customerControls:CustomerFullTextSearch Margin="0,10"
-                                                             DataContext="{Binding CustomerSearchViewModel}"
-                                                             Hint="{x:Static langAsset:Translations.Customer}" />
-
-                    <TextBox Grid.Row="1"
-                             Margin="0,10"
-                             controls:SelectAllFocusBehavior.Enable="True"
-                             materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Description}"
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             Style="{StaticResource FloatingHintTextBox}"
-                             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="1" Margin="0,0,10,0">
-                <StackPanel Margin="20,10">
-                    <DatePicker Margin="0,10"
-                                materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Date}"
-                                materialDesign:TextFieldAssist.HasClearButton="True"
-                                SelectedDate="{Binding Date}"
-                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <TextBox Margin="0,10"
-                             controls:SelectAllFocusBehavior.Enable="True"
-                             materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Discount}"
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             materialDesign:TextFieldAssist.PrefixText="$"
-                             Style="{StaticResource FloatingHintTextBox}"
-                             Text="{Binding Discount, UpdateSourceTrigger=PropertyChanged}" />
-                </StackPanel>
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Column="2">
-                <StackPanel Margin="20,10">
-                    <TextBlock d:Text="Check"
-                               FontSize="18"
-                               Text="{x:Static langAsset:Translations.Check}" />
-                    <Grid Margin="0,15,0,5">
-                        <TextBlock HorizontalAlignment="Left"
-                                   d:Text="Total"
-                                   Text="{x:Static langAsset:Translations.Sum}" />
-                        <TextBlock HorizontalAlignment="Right"
-                                   d:Text="$500"
-                                   Text="{Binding TotalPrice, Converter={StaticResource NumberToCurrencyConverter}}" />
-                    </Grid>
-                    <Grid Margin="0,5">
-                        <TextBlock HorizontalAlignment="Left"
-                                   d:Text="Discount"
-                                   Text="{x:Static langAsset:Translations.Discount}" />
-
-                        <TextBlock HorizontalAlignment="Right"
-                                   d:Text="$50"
-                                   Text="{Binding Discount, Converter={StaticResource NumberToCurrencyConverter}}" />
-                    </Grid>
-                    <Grid Margin="0,10,0,5" TextBlock.FontSize="15">
-                        <TextBlock HorizontalAlignment="Left"
-                                   d:Text="Total to pay"
-                                   Text="{x:Static langAsset:Translations.TotalToPay}" />
-                        <TextBlock HorizontalAlignment="Right"
-                                   d:Text="$450.00"
-                                   Text="{Binding Balance, Converter={StaticResource NumberToCurrencyConverter}}" />
-                    </Grid>
-                </StackPanel>
-            </materialDesign:Card>
-        </Grid>
-
-        <Grid Grid.Row="2">
+    <materialDesign:DialogHost Identifier="{Binding DialogIdentifier}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <DataGrid Name="DetailGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      CanUserDeleteRows="False"
-                      ItemsSource="{Binding Details}"
-                      SelectedItem="{Binding SelectedDetail}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Quantity, Mode=OneWay, Converter={StaticResource NumberToQuantityConverter}}"
-                                        Header="{x:Static langAsset:Translations.Quantity}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Product.Code, Mode=OneWay}"
-                                        Header="{x:Static langAsset:Translations.Product}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding Product.Description, Mode=OneWay}"
-                                        Header="{x:Static langAsset:Translations.Description}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Binding="{Binding UnitPrice, Mode=OneWay, Converter={StaticResource NumberToCurrencyConverter}}"
-                                        Header="{x:Static langAsset:Translations.UnitPrice}"
-                                        IsReadOnly="True" />
-                    <DataGridTextColumn Header="{x:Static langAsset:Translations.TotalPrice}" IsReadOnly="True">
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding Converter="{StaticResource ToTotalPriceConvetor}">
-                                <Binding Path="UnitPrice" />
-                                <Binding Path="Quantity" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
+            <materialDesign:ColorZone Grid.ColumnSpan="2"
+                                      Padding="20,10"
+                                      Mode="PrimaryMid">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock d:Text="New Invoice"
+                               Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                               Text="{Binding Description, Mode=OneWay}" />
+                    <Button Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            Command="{Binding Close}"
+                            Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignPaper}" Kind="Close" />
+                    </Button>
+                </Grid>
+            </materialDesign:ColorZone>
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Width="30"
-                                            Padding="0"
-                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.IncremetQuantity}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignFlatButton}">
-                                        <materialDesign:PackIcon Width="20"
-                                                                 Height="20"
-                                                                 Kind="Plus" />
-                                    </Button>
-                                    <Button Width="30"
-                                            Margin="5,0"
-                                            Padding="0"
-                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.DecrementQuantity}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignFlatButton}">
-                                        <materialDesign:PackIcon Width="20"
-                                                                 Height="20"
-                                                                 Kind="Minus" />
-                                    </Button>
-                                    <Button Width="30"
-                                            Padding="0"
-                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.EnterQuantity}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignFlatButton}">
-                                        <iconPacks:PackIconMaterial Width="20"
-                                                                    Height="20"
-                                                                    Kind="KeyboardOutline" />
-                                    </Button>
-                                    <Button Width="30"
-                                            Padding="0"
-                                            Command="{Binding ElementName=DetailGrid, Path=DataContext.DeleteDetail}"
-                                            CommandParameter="{Binding}"
-                                            Style="{StaticResource MaterialDesignFlatButton}">
-                                        <materialDesign:PackIcon Width="20"
-                                                                 Height="20"
-                                                                 Margin="5,0"
-                                                                 Kind="Delete" />
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel Grid.Column="1"
-                        MinWidth="200"
-                        Margin="20,0,10,0">
-                <StackPanel DataContext="{Binding NewLine}">
-                    <productControls:ProductFullTextSearch Margin="0,10"
-                                                           DataContext="{Binding ProductSearchViewModel}"
-                                                           Hint="{x:Static langAsset:Translations.Product}" />
-                    <TextBox Grid.Row="1"
-                             Margin="0,10"
-                             controls:SelectAllFocusBehavior.Enable="True"
-                             materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Quantity}"
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             Style="{StaticResource FloatingHintTextBox}"
-                             Text="{Binding Quantity}" />
-                    <TextBox Grid.Row="1"
-                             Margin="0,10"
-                             controls:SelectAllFocusBehavior.Enable="True"
-                             materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.UnitPrice}"
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             Style="{StaticResource FloatingHintTextBox}"
-                             Text="{Binding UnitPrice}" />
-                </StackPanel>
-                <Button Command="{Binding AddDetail}" Content="{x:Static langAsset:Translations.Add}" />
-            </StackPanel>
+                <materialDesign:Card>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel DataContext="{Binding NewLine}" Orientation="Horizontal">
+                            <productControls:ProductFullTextSearch Height="30"
+                                                                   MinWidth="200"
+                                                                   Margin="10"
+                                                                   DataContext="{Binding ProductSearchViewModel}"
+                                                                   Hint="{x:Static langAsset:Translations.Product}" />
+                            <TextBox Grid.Row="1"
+                                     Width="100"
+                                     Height="30"
+                                     Margin="0,10,10,10"
+                                     Padding="10,7,5,0"
+                                     controls:SelectAllFocusBehavior.Enable="True"
+                                     materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Quantity}"
+                                     materialDesign:TextFieldAssist.HasClearButton="True"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Text="{Binding Quantity}" />
+                        </StackPanel>
+                        <Button Command="{Binding AddDetail}" Content="{x:Static langAsset:Translations.Add}" />
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <Grid Grid.Row="1" Margin="0,10,0,0">
+                    <DataGrid Name="DetailGrid"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              ColumnHeaderHeight="40"
+                              ItemsSource="{Binding Details}"
+                              SelectedItem="{Binding SelectedDetail}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="auto" Header="{x:Static langAsset:Translations.QuantityShort}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Width="30"
+                                                    Padding="0"
+                                                    Command="{Binding ElementName=DetailGrid, Path=DataContext.IncremetQuantity}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Width="20"
+                                                                         Height="20"
+                                                                         Kind="Plus" />
+                                            </Button>
+                                            <TextBox MinWidth="40"
+                                                     Margin="5,0"
+                                                     VerticalAlignment="Center"
+                                                     controls:SelectAllFocusBehavior.Enable="True"
+                                                     materialDesign:TextFieldAssist.HasClearButton="True"
+                                                     Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConventor}}"
+                                                     TextAlignment="Center" />
+
+                                            <Button Width="30"
+                                                    Padding="0"
+                                                    Command="{Binding ElementName=DetailGrid, Path=DataContext.DecrementQuantity}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Width="20"
+                                                                         Height="20"
+                                                                         Kind="Minus" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="{x:Static langAsset:Translations.Product}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Product.Description, Mode=OneWay}" />
+                                            <TextBlock Margin="0,2,0,0"
+                                                       FontSize="12"
+                                                       Text="{Binding Product, Converter={StaticResource RemainingStock}}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto" Header="{x:Static langAsset:Translations.UnitPrice}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox MinWidth="40"
+                                                     Margin="5,0"
+                                                     VerticalAlignment="Center"
+                                                     controls:SelectAllFocusBehavior.Enable="True"
+                                                     materialDesign:TextFieldAssist.HasClearButton="True"
+                                                     materialDesign:TextFieldAssist.PrefixText="$ "
+                                                     Text="{Binding UnitPrice, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConventor}}"
+                                                     TextAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Binding="{Binding TotalPrice, Converter={StaticResource NumberToCurrencyConverter}}"
+                                                Header="{x:Static langAsset:Translations.Sum}"
+                                                IsReadOnly="True" />
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Button Width="30"
+                                                    Padding="0"
+                                                    Command="{Binding ElementName=DetailGrid, Path=DataContext.DeleteDetail}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Width="20"
+                                                                         Height="20"
+                                                                         Margin="5,0"
+                                                                         Kind="Delete" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="15,10,0,10">
+                <materialDesign:Card Width="300" Margin="0,0,10,0">
+                    <StackPanel Margin="15,0">
+                        <customerControls:CustomerFullTextSearch Height="35"
+                                                                 Margin="0,10"
+                                                                 DataContext="{Binding CustomerSearchViewModel}"
+                                                                 Hint="{x:Static langAsset:Translations.Customer}"
+                                                                 ShowSubtitle="False" />
+
+                        <StackPanel TextBlock.FontSize="16">
+                            <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
+                                <Grid Margin="0,0,0,10">
+                                    <TextBlock HorizontalAlignment="Left" Text="{x:Static langAsset:Translations.TotalPrice}" />
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding TotalPrice, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                </Grid>
+                            </Border>
+
+                            <Border Margin="0,25"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="0,0,0,1">
+                                <Grid Margin="0,0,0,10">
+                                    <TextBlock HorizontalAlignment="Left" Text="{x:Static langAsset:Translations.Discount}" />
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Discount, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
+                                <Grid Margin="0,0,0,10">
+                                    <TextBlock HorizontalAlignment="Left" Text="{x:Static langAsset:Translations.TotalToPay}" />
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Balance, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                </Grid>
+                            </Border>
+
+                            <Border Margin="0,25"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="0,0,0,1">
+                                <Grid Margin="0,0,0,10">
+                                    <TextBlock HorizontalAlignment="Left" Text="{x:Static langAsset:Translations.PaidAmount}" />
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding PaidAmount, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                </Grid>
+                            </Border>
+
+                            <Border BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="0,0,0,1"
+                                    TextBlock.FontSize="18"
+                                    TextBlock.FontWeight="Bold">
+                                <Grid Margin="0,0,0,10">
+                                    <TextBlock HorizontalAlignment="Left" Text="{x:Static langAsset:Translations.TotalToPay}" />
+                                    <TextBlock HorizontalAlignment="Right">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource DocumentBalanceConvertor}">
+                                                <Binding Path="Balance" />
+                                                <Binding Path="PaidAmount" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
         </Grid>
-        <StackPanel Grid.Row="3"
-                    Margin="10,0,10,10"
-                    HorizontalAlignment="Left"
-                    Orientation="Horizontal">
-            <Button>Accept payment</Button>
-            <Button Margin="10,0">Process</Button>
-        </StackPanel>
-    </Grid>
+    </materialDesign:DialogHost>
 </pages:EntityPage>

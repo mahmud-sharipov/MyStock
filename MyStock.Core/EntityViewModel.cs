@@ -46,8 +46,8 @@ public abstract class EntityViewModel<TEntity, TValidator> : ViewModel, IEntityV
     #region public methods
     public virtual bool ValidateBeforeSaveChange()
     {
-        var validationResult = _validator.Validate(this);
-        return validationResult.IsValid;
+        RaiseValidation();
+        return IsValid;
     }
 
     public virtual void ActionBeforeSave()
@@ -60,13 +60,16 @@ public abstract class EntityViewModel<TEntity, TValidator> : ViewModel, IEntityV
     protected void RaiseValidation()
     {
         var result = _validator.Validate(this);
-        var currentErrors = result.Errors;
+        var currentErrors = Errors ?? Enumerable.Empty<ValidationFailure>();
         Errors = result.Errors;
         HasErrors = result.Errors.Count > 0;
         IsValid = result.IsValid;
 
-        foreach (var item in currentErrors.Where(e => !Errors.Any(er => er.PropertyName == e.PropertyName)))
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(item.PropertyName));
+        foreach (var item in currentErrors)
+        {
+            if (!Errors.Any(er => er.PropertyName == item.PropertyName))
+                ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(item.PropertyName));
+        }
 
         foreach (var item in Errors.Select(e => e.PropertyName).Distinct())
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(item));

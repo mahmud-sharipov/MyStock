@@ -26,8 +26,9 @@ namespace MyStock.Application.Documents
         public ProductSearchViewModel ProductSearchViewModel => new ProductSearchViewModel(Context, p =>
         {
             Product = p;
-            UnitPrice = product.Price;
-            Uom = product.Uom;
+            UnitPrice = product?.Price ?? 0;
+            Uom = product?.Uom;
+            Warehouse = product?.StockLevels.FirstOrDefault()?.Warehouse;
         });
     }
 }
