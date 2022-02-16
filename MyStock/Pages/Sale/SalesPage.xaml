@@ -45,9 +45,38 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBlock d:Text="New Invoice"
-                               Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                               Text="{Binding Description, Mode=OneWay}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="DateTextBlock"
+                                   VerticalAlignment="Center"
+                                   FontSize="24"
+                                   Text="{Binding Date, StringFormat=D}" />
+
+                        <ToggleButton x:Name="CalendarPopupToggle"
+                                      Margin="10,0,0,0"
+                                      IsEnabled="{Binding IsOpen}"
+                                      Style="{StaticResource MaterialDesignFlatToggleButton}">
+                            <materialDesign:PackIcon Width="21"
+                                                     Height="21"
+                                                     Foreground="{DynamicResource MaterialDesignDarkForeground}"
+                                                     Kind="CalendarMonth" />
+                        </ToggleButton>
+                        <Popup Margin="0"
+                               AllowsTransparency="True"
+                               IsOpen="{Binding ElementName=CalendarPopupToggle, Path=IsChecked}"
+                               Placement="Bottom"
+                               PlacementTarget="{Binding ElementName=DateTextBlock}"
+                               StaysOpen="False">
+                            <materialDesign:Card>
+                                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
+                                    <Viewbox Width="300" Stretch="Uniform">
+                                        <Calendar materialDesign:CalendarAssist.HeaderBackground="{DynamicResource PrimaryHueDarkBrush}"
+                                                  materialDesign:CalendarAssist.HeaderForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                  SelectedDate="{Binding Date}" />
+                                    </Viewbox>
+                                </Border>
+                            </materialDesign:Card>
+                        </Popup>
+                    </StackPanel>
                     <Button Grid.Column="2"
                             HorizontalAlignment="Right"
                             Command="{Binding Close}"
@@ -61,7 +90,6 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <!--  Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibility}}"  -->
                 <materialDesign:Card>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel DataContext="{Binding NewLine}" Orientation="Horizontal">
