@@ -53,7 +53,7 @@ public class EntityListPage<TViewModel> : BasePage<TViewModel>, IEntityListPage
         dataGrid.InputBindings.Add(new KeyBinding(ViewModel.Open, Key.O, ModifierKeys.Control));
         foreach (var column in ViewModel.Columns)
         {
-            var dataGridColumn = CreateColumn(column.Type, new Binding(column.BindingPath));
+            var dataGridColumn = CreateColumn(column.Type, new Binding(column.BindingPath) { StringFormat = column.BindingStringFormat });
             dataGridColumn.Header = column.Label;
             dataGridColumn.IsReadOnly = true;
             dataGrid.Columns.Add(dataGridColumn);

@@ -12,6 +12,9 @@ using MyStock.Pages.Sale;
 using MyStock.Pages.Uoms;
 using MyStock.Pages.Vendors;
 using MyStock.Persistence.Seed;
+using System.Globalization;
+using System.Threading;
+using System.Windows.Markup;
 
 namespace MyStock;
 
@@ -35,6 +38,10 @@ public partial class App : System.Windows.Application
         AppManager.Start();
         SeedDatabase.Seed(GlobalContext);
         base.OnStartup(e);
+        Thread.CurrentThread.CurrentCulture = new CultureInfo(AppManager.Settings.Language);
+        Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
+            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
     }
 
     protected override void OnExit(ExitEventArgs e)

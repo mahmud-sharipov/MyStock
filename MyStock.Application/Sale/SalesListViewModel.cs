@@ -19,14 +19,14 @@ namespace MyStock.Application.Sale
         {
             return new List<ColumnViewModel>()
             {
-                new ColumnViewModel(Translations.Date, nameof(SalesViewModel.Date),0),
+                new ColumnViewModel(Translations.Date, nameof(SalesViewModel.Date),0,"D"),
                 new ColumnViewModel(Translations.Customer, $"{nameof(SalesViewModel.Customer)}.{nameof(Customer.FullName)}",1),
                 new ColumnViewModel(Translations.Description, nameof(SalesViewModel.Description),2),
-                new ColumnViewModel(Translations.Discount, nameof(SalesViewModel.Discount),3),
-                new ColumnViewModel(Translations.DocumentSubtotal, nameof(SalesViewModel.Subtotal),4),
-                new ColumnViewModel(Translations.DocumentTotal, nameof(SalesViewModel.Total),4),
-                new ColumnViewModel(Translations.PaidAmount, nameof(SalesViewModel.PaidAmount),4),
-                new ColumnViewModel(Translations.Balance, nameof(SalesViewModel.Balance),5),
+                new ColumnViewModel(Translations.DocumentSubtotal, nameof(SalesViewModel.Subtotal),3,"C2"),
+                new ColumnViewModel(Translations.Discount, nameof(SalesViewModel.Discount),4,"C2"),
+                new ColumnViewModel(Translations.DocumentTotal, nameof(SalesViewModel.Total),5,"C2"),
+                new ColumnViewModel(Translations.PaidAmount, nameof(SalesViewModel.PaidAmount),6,"C2"),
+                new ColumnViewModel(Translations.Balance, nameof(SalesViewModel.Balance),7,"C2"),
             };
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace MyStock.Application.Documents
 {
-    public class DocumentViewModel<TEntity, TValidator, TPage> : EntityPageViewModel<TEntity, TValidator, TPage>
+    public abstract class DocumentViewModel<TEntity, TValidator, TPage> : EntityPageViewModel<TEntity, TValidator, TPage>
         where TEntity : Document
         where TValidator : class, IValidator
         where TPage : class, IEntityPage
@@ -135,12 +135,14 @@
 
             Process = ReactiveCommand.Create(() =>
             {
+                OnProcess();
                 Processed = true;
                 SaveChange.Execute(null);
             }, isValidObservable, outputScheduler: Scheduler.CurrentThread);
 
             Unprocess = ReactiveCommand.Create(() =>
             {
+                OnUnprocess();
                 Processed = false;
             }, this.WhenAny(v => v.Processed, v => v.Value), outputScheduler: Scheduler.CurrentThread);
 
@@ -148,5 +150,8 @@
 
         void RaisePropertyChanged() =>
             RaisePropertyChanged(new[] { nameof(Total), nameof(Subtotal), nameof(Balance) });
+
+        protected abstract void OnProcess();
+        protected abstract void OnUnprocess();
     }
 }

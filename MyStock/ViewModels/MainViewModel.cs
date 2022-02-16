@@ -35,12 +35,14 @@ public class MainViewModel : ReactiveObject
     }, outputScheduler: Scheduler.CurrentThread);
 
     public List<Common.MenuItem> Menu { get; set; }
+    public List<Common.MenuItem> OptionsMenu { get; set; }
 
     public RoutingState Router { get; }
 
     void BuildMenu()
     {
         Menu = new List<Common.MenuItem>();
+        OptionsMenu = new List<Common.MenuItem>();
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Dashboard", "Home", 1, ""));
         Menu.Add(new Common.MenuItem(typeof(IProductListViewModel), "Products", "PackageVariant", 2, ""));
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "UOMs", "Ruler", 3, ""));
@@ -49,7 +51,14 @@ public class MainViewModel : ReactiveObject
         Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Purchases", "Cart", 6, ""));
         Menu.Add(new Common.MenuItem(typeof(ICustomerListViewModel), "Customers", "AccountGroup", 7, ""));
         Menu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Vendors", "AccountGroup", 8, ""));
+        OptionsMenu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Profile", "AccountCog", 1, ""));
+        OptionsMenu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Options", "Cog", 2, ""));
         Menu.ForEach(m =>
+        {
+            m.Command = Navigate;
+            m.CommandParameter = m.ViewModelType;
+        });
+        OptionsMenu.ForEach(m =>
         {
             m.Command = Navigate;
             m.CommandParameter = m.ViewModelType;

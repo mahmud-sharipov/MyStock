@@ -23,12 +23,8 @@
                   mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <convertors:NumberToCurrencyConverter x:Key="NumberToCurrencyConverter" />
             <materialDesignConvertors:BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
-            <convertors:ToDocumentBalanceConvetor x:Key="DocumentBalanceConvertor" />
             <convertors:ProductRemainingStockLevelConverter x:Key="RemainingStock" />
-            <convertors:NumberToQuantityConverter x:Key="NumberToQuantityConverter" />
-            <convertors:DecimalConvertor x:Key="DecimalConventor" />
         </ResourceDictionary>
     </UserControl.Resources>
     <materialDesign:DialogHost Identifier="{Binding DialogIdentifier}">
@@ -166,7 +162,7 @@
                             <DataGridTemplateColumn Header="{x:Static langAsset:Translations.Sum}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock VerticalAlignment="Center" Text="{Binding TotalPrice, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding TotalPrice, StringFormat=C2}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -239,7 +235,7 @@
                                 <TextBlock Grid.Column="1"
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Center"
-                                           Text="{Binding Subtotal, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                           Text="{Binding Subtotal, StringFormat=C2}" />
 
                                 <!--  Discount  -->
                                 <Border Grid.Row="1"
@@ -276,7 +272,7 @@
                                            Grid.Column="1"
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Center"
-                                           Text="{Binding Total, Converter={StaticResource NumberToCurrencyConverter}}" />
+                                           Text="{Binding Total, StringFormat=C2}" />
 
                                 <!--  PaidAmount  -->
                                 <Border Grid.Row="3"

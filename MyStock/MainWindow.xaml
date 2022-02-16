@@ -69,6 +69,7 @@
                                ItemTemplate="{StaticResource MenuItemTemplate}"
                                ItemsSource="{Binding Menu}"
                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+                               OptionsItemsSource="{Binding OptionsMenu}"
                                PaneForeground="{DynamicResource MaterialDesignDarkForeground}"
                                VerticalScrollBarOnLeftSide="False">
                 <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
