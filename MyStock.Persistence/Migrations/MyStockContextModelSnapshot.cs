@@ -28,9 +28,6 @@ namespace MyStock.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Closed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -43,6 +40,12 @@ namespace MyStock.Persistence.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Processed")
+                        .HasColumnType("bit");
 
                     b.HasKey("Guid");
 
@@ -248,6 +251,9 @@ namespace MyStock.Persistence.Migrations
             modelBuilder.Entity("MyStock.Domain.Customer", b =>
                 {
                     b.HasBaseType("MyStock.Domain.Person");
+
+                    b.Property<bool>("IsGeneral")
+                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("Customer");
                 });

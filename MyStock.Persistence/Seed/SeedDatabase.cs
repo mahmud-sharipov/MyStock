@@ -7,6 +7,7 @@
             SeedWarehouse(context);
             SeedUom(context);
             SeedProductCategory(context);
+            SeedGeneralCustomer(context);
             context.SaveChanges();
         }
 
@@ -14,6 +15,12 @@
         {
             if (context.Set<Warehouse>().Any()) return;
             context.AddToContext(new Warehouse() { Name = "Главний", Description = "Склад по умолчанию" });
+        }
+
+        static void SeedGeneralCustomer(IContext context)
+        {
+            if (context.Set<Customer>().Any(c => c.IsGeneral)) return;
+            context.AddToContext(new Customer() { Guid = Customer.GeneralCustomerGuid, FirstName = "Общий клиент", IsGeneral = true });
         }
 
         static void SeedUom(IContext context)

@@ -1,4 +1,4 @@
-﻿namespace MyStock.Core.Settings;
+﻿namespace MyStock.Common.Settings;
 
 public class AppSettings
 {

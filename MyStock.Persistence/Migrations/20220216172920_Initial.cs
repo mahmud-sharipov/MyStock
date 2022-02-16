@@ -20,6 +20,7 @@ namespace MyStock.Persistence.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsGeneral = table.Column<bool>(type: "bit", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -80,9 +81,10 @@ namespace MyStock.Persistence.Migrations
                 {
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Processed = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Closed = table.Column<bool>(type: "bit", nullable: false),
+                    PaidAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VendorGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CustomerGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)

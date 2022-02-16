@@ -277,4 +277,16 @@
   <data name="QuantityShort" xml:space="preserve">
     <value>Кол-во</value>
   </data>
+  <data name="CompleteInvoice" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="DocumentTotal" xml:space="preserve">
+    <value>Итог</value>
+  </data>
+  <data name="DocumentSubtotal" xml:space="preserve">
+    <value>Общая цена</value>
+  </data>
+  <data name="ReopenInvoice" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
 </root>

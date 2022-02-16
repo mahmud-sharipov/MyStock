@@ -151,6 +151,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string CompleteInvoice {
+            get {
+                return ResourceManager.GetString("CompleteInvoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cost.
         /// </summary>
         public static string Cost {
@@ -219,6 +228,24 @@ namespace MyStock.Application.Assets.Lang {
         public static string Discount {
             get {
                 return ResourceManager.GetString("Discount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subtotal.
+        /// </summary>
+        public static string DocumentSubtotal {
+            get {
+                return ResourceManager.GetString("DocumentSubtotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string DocumentTotal {
+            get {
+                return ResourceManager.GetString("DocumentTotal", resourceCulture);
             }
         }
         
@@ -444,6 +471,15 @@ namespace MyStock.Application.Assets.Lang {
         public static string QuantityShort {
             get {
                 return ResourceManager.GetString("QuantityShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reopen.
+        /// </summary>
+        public static string ReopenInvoice {
+            get {
+                return ResourceManager.GetString("ReopenInvoice", resourceCulture);
             }
         }
         

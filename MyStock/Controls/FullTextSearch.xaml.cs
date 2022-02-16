@@ -79,7 +79,7 @@ public abstract partial class FullTextSearch : UserControl
 
         var border = new FrameworkElementFactory(typeof(Border));
         border.SetResourceReference(Border.BorderBrushProperty, "MaterialDesignDivider");
-        border.SetValue(Border.BorderThicknessProperty, new Thickness(0, 0, 0, 1));
+        border.SetValue(Border.BorderThicknessProperty, new Thickness(0,0,0, 1));
         border.AppendChild(grid);
         return new DataTemplate() { VisualTree = border };
     }
@@ -108,7 +108,7 @@ public abstract partial class FullTextSearch : UserControl
 
         var titleTextBlock = new FrameworkElementFactory(typeof(TextBlock));
         titleTextBlock.SetValue(Grid.RowProperty, 0);
-        titleTextBlock.SetValue(TextBlock.FontSizeProperty, 14.0);
+        titleTextBlock.SetValue(TextBlock.FontSizeProperty, AppManager.UISettings.AppFontSize);
         titleTextBlock.SetValue(TextBlock.FontWeightProperty, FontWeights.Medium);
         titleTextBlock.SetBinding(TextBlock.TextProperty, new Binding(GetTitlePropertyName()));
         grid.AppendChild(titleTextBlock);
@@ -117,7 +117,7 @@ public abstract partial class FullTextSearch : UserControl
         {
             var subtitleTextBlock = new FrameworkElementFactory(typeof(TextBlock));
             subtitleTextBlock.SetValue(Grid.RowProperty, 1);
-            subtitleTextBlock.SetValue(TextBlock.FontSizeProperty, 12.0);
+            subtitleTextBlock.SetValue(TextBlock.FontSizeProperty, AppManager.UISettings.AppFontSize - 2);
             subtitleTextBlock.SetValue(TextBlock.MarginProperty, new Thickness(0, 3, 0, 0));
             subtitleTextBlock.SetBinding(TextBlock.TextProperty, new Binding(GetSubtitlePropertyName()));
             grid.AppendChild(subtitleTextBlock);

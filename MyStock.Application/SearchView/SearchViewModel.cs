@@ -55,11 +55,8 @@ public abstract class SearchViewModel<TEntity> : ReactiveObject where TEntity : 
 
     private void OnSelectedSearchItemChanged()
     {
-        if (SelectedSearchItem == null)
-            return;
-
         OnSelected?.Invoke(SelectedSearchItem);
-        SearchText = SelectedSearchItem?.Title?.ToString();
+        SearchText = SelectedSearchItem?.Title?.ToString() ?? "";
         IsSearchResultShown = false;
     }
 

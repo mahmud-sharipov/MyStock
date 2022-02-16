@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MyStock.Core;
+namespace MyStock.Common;
 
 public class AppManager
 {
@@ -63,6 +63,16 @@ public class AppManager
 
         Instance.paletteHelper.SetTheme(newTheme);
     }
+}
+
+public static class AppConfig
+{
+    public static double FontSize => AppManager.UISettings.AppFontSize;
+    public static double Header1FontSize => AppManager.UISettings.AppFontSize + 10;
+    public static double Header2FontSize => AppManager.UISettings.AppFontSize + 8;
+    public static double Header3FontSize => AppManager.UISettings.AppFontSize + 6;
+    public static double Header4FontSize => AppManager.UISettings.AppFontSize + 4;
+    public static double Header5FontSize => AppManager.UISettings.AppFontSize + 2;
 }
 
 public enum UITheme

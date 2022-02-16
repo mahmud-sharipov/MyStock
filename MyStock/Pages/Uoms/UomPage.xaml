@@ -31,20 +31,17 @@
         <TextBox Grid.Row="1"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Name}"
-                 materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Name}" />
         <TextBox Grid.Row="2"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.UomCode}"
-                 materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Code}" />
 
         <TextBox Grid.Row="3"
                  Margin="0,10"
                  materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Description}"
-                 materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding Description}"
                  TextWrapping="Wrap" />

@@ -12,7 +12,7 @@ using MyStock.Persistence.Database;
 namespace MyStock.Persistence.Migrations
 {
     [DbContext(typeof(MyStockContext))]
-    [Migration("20220214170620_Initial")]
+    [Migration("20220216172920_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,9 +30,6 @@ namespace MyStock.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Closed")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -45,6 +42,12 @@ namespace MyStock.Persistence.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool>("Processed")
+                        .HasColumnType("bit");
 
                     b.HasKey("Guid");
 
@@ -250,6 +253,9 @@ namespace MyStock.Persistence.Migrations
             modelBuilder.Entity("MyStock.Domain.Customer", b =>
                 {
                     b.HasBaseType("MyStock.Domain.Person");
+
+                    b.Property<bool>("IsGeneral")
+                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("Customer");
                 });

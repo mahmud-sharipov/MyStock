@@ -1,6 +1,4 @@
-﻿using MyStock.Application.Assets.Lang;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Windows.Data;
 
 namespace MyStock.Converters

@@ -277,4 +277,16 @@
   <data name="QuantityShort" xml:space="preserve">
     <value>Qty</value>
   </data>
+  <data name="CompleteInvoice" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="DocumentTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="DocumentSubtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="ReopenInvoice" xml:space="preserve">
+    <value>Reopen</value>
+  </data>
 </root>

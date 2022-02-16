@@ -6,7 +6,7 @@ namespace MyStock.Application.Sale
     {
         public SalesListViewModel(IContext context) : base(context)
         {
-            Title =Translations.Sales;
+            Title = Translations.Sales;
         }
 
         public override bool CanDeleteEntity(Sales entity, out string reason)
@@ -23,7 +23,9 @@ namespace MyStock.Application.Sale
                 new ColumnViewModel(Translations.Customer, $"{nameof(SalesViewModel.Customer)}.{nameof(Customer.FullName)}",1),
                 new ColumnViewModel(Translations.Description, nameof(SalesViewModel.Description),2),
                 new ColumnViewModel(Translations.Discount, nameof(SalesViewModel.Discount),3),
-                new ColumnViewModel(Translations.TotalPrice, nameof(SalesViewModel.TotalPrice),4),
+                new ColumnViewModel(Translations.DocumentSubtotal, nameof(SalesViewModel.Subtotal),4),
+                new ColumnViewModel(Translations.DocumentTotal, nameof(SalesViewModel.Total),4),
+                new ColumnViewModel(Translations.PaidAmount, nameof(SalesViewModel.PaidAmount),4),
                 new ColumnViewModel(Translations.Balance, nameof(SalesViewModel.Balance),5),
             };
         }
@@ -37,7 +39,7 @@ namespace MyStock.Application.Sale
 
         protected override Sales CreateNewEntity()
         {
-            var entity = new Sales();
+            var entity = new Sales() { Customer = Context.Get<Customer>(Customer.GeneralCustomerGuid) };
             return entity;
         }
     }

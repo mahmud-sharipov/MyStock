@@ -1,6 +1,4 @@
-﻿using MyStock.Application.Products;
-
-namespace MyStock.Application.Documents
+﻿namespace MyStock.Application.Documents
 {
     public class DocumentViewModel<TEntity, TValidator, TPage> : EntityPageViewModel<TEntity, TValidator, TPage>
         where TEntity : Document
@@ -14,26 +12,29 @@ namespace MyStock.Application.Documents
         private DocumentDetailViewModel newLine;
         private DocumentDetailViewModel selectedDetail;
         private bool processed;
+        private ObservableCollection<DocumentDetailViewModel> details;
 
         public DocumentViewModel(TEntity entity, IContext context) : base(entity, context)
         {
             Date = DateTime.Now.Date;
         }
 
-        public bool Processed { get => processed; set => RaiseAndSetIfChanged(ref processed, value); }
+        public bool Processed { get => processed; set => RaiseAndSetIfChanged(ref processed, value, nameof(Processed), nameof(IsOpen)); }
+        public bool IsOpen => !Processed;
         public DocumentDetailViewModel SelectedDetail { get => selectedDetail; set => RaiseAndSetIfChanged(ref selectedDetail, value); }
         public DocumentDetailViewModel NewLine { get => newLine; set => RaiseAndSetIfChanged(ref newLine, value); }
         public DateTime Date { get => date; set => RaiseAndSetAndValidateIfChanged(ref date, value); }
         public string Description { get => description; set => RaiseAndSetAndValidateIfChanged(ref description, value); }
-        public decimal Discount { get => discount; set => RaiseAndSetAndValidateIfChanged(ref discount, value, nameof(Discount), nameof(Balance)); }
+        public decimal Discount { get => discount; set => RaiseAndSetAndValidateIfChanged(ref discount, value, nameof(Discount), nameof(Total), nameof(Balance)); }
         public decimal PaidAmount { get => paidAmount; set => RaiseAndSetAndValidateIfChanged(ref paidAmount, value, nameof(PaidAmount), nameof(Balance)); }
-        public decimal TotalPrice => Details.Sum(d => d.UnitPrice * d.Quantity);
-        public decimal Balance => TotalPrice - Math.Min(Discount, TotalPrice);
-        public ObservableCollection<DocumentDetailViewModel> Details { get; set; }
+        public decimal Subtotal => Details.Sum(d => d.UnitPrice * d.Quantity);
+        public decimal Total => Subtotal - Discount;
+        public decimal Balance => Total - PaidAmount;
+        public ObservableCollection<DocumentDetailViewModel> Details { get => details; set => RaiseAndSetAndValidateIfChanged(ref details, value); }
         public string DialogIdentifier => "DocumentPageDialogHost";
 
-        public ICommand AcceptPayment { get; protected set; }
         public ICommand Process { get; protected set; }
+        public ICommand Unprocess { get; protected set; }
         public ICommand DeleteDetail { get; protected set; }
         public ICommand AddDetail { get; protected set; }
         public ICommand IncremetQuantity { get; protected set; }
@@ -41,13 +42,14 @@ namespace MyStock.Application.Documents
 
         protected override void InitializeAssociatedProperties()
         {
-            Details = new ObservableCollection<DocumentDetailViewModel>();
+            var details = new ObservableCollection<DocumentDetailViewModel>();
             foreach (var detail in Entity.Details)
             {
                 var vm = new DocumentDetailViewModel(detail, Context);
                 vm.PropertyChanged += Details_PropertyChanged;
-                Details.Add(vm);
+                details.Add(vm);
             }
+            Details = details;
             NewLine = new DocumentDetailViewModel(new DocumentDetail() { Document = Entity, Quantity = 1 }, Context);
             base.InitializeAssociatedProperties();
         }
@@ -57,7 +59,7 @@ namespace MyStock.Application.Documents
             switch (e.PropertyName)
             {
                 case nameof(DocumentDetailViewModel.TotalPrice):
-                    RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
+                    RaisePropertyChanged();
                     break;
                 default:
                     break;
@@ -110,7 +112,8 @@ namespace MyStock.Application.Documents
                 Context.Delete(detail.Entity);
                 Details.Remove(detail);
                 SelectedDetail = null;
-                RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
+                RaisePropertyChanged();
+                RaiseValidation();
             }, outputScheduler: Scheduler.CurrentThread);
 
             AddDetail = ReactiveCommand.Create(() =>
@@ -126,8 +129,24 @@ namespace MyStock.Application.Documents
                     Details.Add(NewLine);
                 }
                 NewLine = new DocumentDetailViewModel(new DocumentDetail() { Document = Entity, Quantity = 1 }, Context);
-                RaisePropertyChanged(new[] { nameof(TotalPrice), nameof(Balance) });
+                RaisePropertyChanged();
+                RaiseValidation();
             }, this.WhenAny(v => v.NewLine.IsValid, v => v.Value), outputScheduler: Scheduler.CurrentThread);
+
+            Process = ReactiveCommand.Create(() =>
+            {
+                Processed = true;
+                SaveChange.Execute(null);
+            }, isValidObservable, outputScheduler: Scheduler.CurrentThread);
+
+            Unprocess = ReactiveCommand.Create(() =>
+            {
+                Processed = false;
+            }, this.WhenAny(v => v.Processed, v => v.Value), outputScheduler: Scheduler.CurrentThread);
+
         }
+
+        void RaisePropertyChanged() =>
+            RaisePropertyChanged(new[] { nameof(Total), nameof(Subtotal), nameof(Balance) });
     }
 }
