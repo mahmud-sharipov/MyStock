@@ -289,4 +289,10 @@
   <data name="ReopenInvoice" xml:space="preserve">
     <value>Открыть</value>
   </data>
+  <data name="Purchase" xml:space="preserve">
+    <value>Покупка</value>
+  </data>
+  <data name="Purchases" xml:space="preserve">
+    <value>Покупки</value>
+  </data>
 </root>
