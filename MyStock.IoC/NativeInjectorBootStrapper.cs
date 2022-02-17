@@ -45,6 +45,8 @@ namespace MyStock.IoC
                 .As<MyStock.Application.Vendors.IVendorListViewModel>().InstancePerDependency();
             builder.RegisterType<MyStock.Application.Sale.SalesListViewModel>()
                 .As<MyStock.Application.Sale.ISalesListViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Purchases.PurchaseListViewModel>()
+                .As<MyStock.Application.Purchases.IPurchaseListViewModel>().InstancePerDependency();
         }
 
         private static void BuildValidation(ContainerBuilder builder)
@@ -56,6 +58,7 @@ namespace MyStock.IoC
             builder.RegisterType<MyStock.Application.Vendors.Validators.VendorValidator>().InstancePerDependency();
             builder.RegisterType<MyStock.Application.Sale.Validators.SalesValidator>().InstancePerDependency();
             builder.RegisterType<MyStock.Application.Documents.Validators.DocumentDetailValidator>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Purchases.Validators.PurchaseValidator>().InstancePerDependency();
         }
     }
 }

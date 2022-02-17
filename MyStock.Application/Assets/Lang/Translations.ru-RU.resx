@@ -295,4 +295,7 @@
   <data name="Purchases" xml:space="preserve">
     <value>Покупки</value>
   </data>
+  <data name="DocumentCompletedAndCannotBeDeleted" xml:space="preserve">
+    <value>Документ не может быть удален, так как он закрыт.</value>
+  </data>
 </root>

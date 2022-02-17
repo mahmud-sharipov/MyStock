@@ -15,6 +15,7 @@ public class AutoMapperConfig
             cfg.AddProfile(new MyStock.Application.Vendors.Mapping.VendorMappingProfile());
             cfg.AddProfile(new MyStock.Application.Sale.Mapping.SalesMappingProfile());
             cfg.AddProfile(new MyStock.Application.Documents.Mapping.DocumentDetailMappingProfile());
+            cfg.AddProfile(new MyStock.Application.Purchases.Mapping.PurchaseMappingProfile());
         });
         return mappingConfig.CreateMapper();
     }
