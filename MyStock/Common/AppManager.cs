@@ -68,6 +68,8 @@ public class AppManager
 public static class AppConfig
 {
     public static double FontSize => AppManager.UISettings.AppFontSize;
+    public static double FontSizeSmall1 => AppManager.UISettings.AppFontSize - 1;
+    public static double FontSizeSmall2 => AppManager.UISettings.AppFontSize - 2;
     public static double Header1FontSize => AppManager.UISettings.AppFontSize + 10;
     public static double Header2FontSize => AppManager.UISettings.AppFontSize + 8;
     public static double Header3FontSize => AppManager.UISettings.AppFontSize + 6;

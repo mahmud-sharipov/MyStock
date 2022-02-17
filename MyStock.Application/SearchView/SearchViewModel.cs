@@ -72,17 +72,22 @@ public abstract class SearchViewModel<TEntity> : ReactiveObject where TEntity : 
         if (!string.IsNullOrWhiteSpace(SearchText))
             result = Filter(result);
 
-        var selectdItem = SelectedSearchItem;
-
-        SearchResults = Order(result).Take(ResultCount).ToObservableCollection();
-        if (selectdItem != null)
-            SelectedSearchItem = SearchResults.SingleOrDefault(e => e.Guid == selectdItem.Guid);
+        var newResult = Order(result).Take(ResultCount).ToList();
+        var notExistItems = SearchResults.Where(r => !newResult.Contains(r)).ToList();
+        foreach (var item in notExistItems)
+            SearchResults.Remove(item);
+        foreach (var item in newResult)
+        {
+            if (SearchResults.Contains(item))
+                continue;
+            SearchResults.Add(item);
+        }
     }
 
     protected virtual IQueryable<TEntity> GetAllItems() => Items;
 
     protected virtual IQueryable<TEntity> Filter(IQueryable<TEntity> source) => source;
 
-    protected virtual IOrderedQueryable<TEntity> Order(IQueryable<TEntity> source) => 
+    protected virtual IOrderedQueryable<TEntity> Order(IQueryable<TEntity> source) =>
         source.OrderBy(e => e.Guid);
 }

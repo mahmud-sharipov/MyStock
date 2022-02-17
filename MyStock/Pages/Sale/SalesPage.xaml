@@ -93,12 +93,24 @@
                 <materialDesign:Card>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel DataContext="{Binding NewLine}" Orientation="Horizontal">
-                            <productControls:ProductFullTextSearch Height="30"
+                            <controls:FullTextSearch Height="30"
+                                                     MinWidth="200"
+                                                     Margin="10"
+                                                     Hint="{x:Static langAsset:Translations.Product}"
+                                                     IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                     ItemsSource="{Binding ProductSearchViewModel.SearchResults, Mode=OneWay}"
+                                                     SearchText="{Binding ProductSearchViewModel.SearchText, Mode=TwoWay}"
+                                                     SelectedItem="{Binding Product, Mode=TwoWay}"
+                                                     ShowSubtitle="True"
+                                                     SubtitleDisplayMemberPath="Code"
+                                                     TileIcon="PackageVariant"
+                                                     TitleDisplayMemberPath="Description" />
+                            <!--<productControls:ProductFullTextSearch Height="30"
                                                                    MinWidth="200"
                                                                    Margin="10"
                                                                    DataContext="{Binding ProductSearchViewModel}"
                                                                    Hint="{x:Static langAsset:Translations.Product}"
-                                                                   IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}" />
+                                                                    />-->
                             <TextBox Grid.Row="1"
                                      Width="100"
                                      Height="30"

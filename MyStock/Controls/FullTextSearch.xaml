@@ -1,21 +1,59 @@
 ﻿<UserControl x:Class="MyStock.Controls.FullTextSearch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:common="clr-namespace:MyStock.Common"
+             xmlns:controls="clr-namespace:MyStock.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Name="thisControl"
              d:Background="DarkGray"
+             d:DataContext="{d:DesignInstance Type=controls:FullTextSearch}"
              d:DesignHeight="800"
              d:DesignWidth="600"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="SearchResultListItemTemplate" DataType="{x:Type ListItem}">
+                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <iconPacks:PackIconMaterial Width="20"
+                                                    Height="20"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Kind="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FullTextSearch}}, Path=TileIcon}" />
+
+                        <Grid Grid.Column="1" Margin="10,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       FontSize="{x:Static common:AppConfig.FontSize}"
+                                       FontWeight="Medium"
+                                       Text="{Binding TitleDisplayMemberPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FullTextSearch}}}" />
+                            <TextBlock Grid.Row="1"
+                                       Margin="0,3,0,0"
+                                       FontSize="{x:Static common:AppConfig.FontSize}"
+                                       Text="{Binding SubtitleDisplayMemberPath, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FullTextSearch}}}" />
+                        </Grid>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <TextBox x:Name="uiSearch"
                  Padding="10,7"
                  VerticalContentAlignment="Center"
-                 materialDesign:HintAssist.Hint="{Binding ElementName=thisControl, Path=Hint}"
+                 materialDesign:HintAssist.Hint="{Binding Hint}"
                  GotFocus="uiSearch_GotFocus"
-                 IsEnabled="{Binding ElementName=thisControl, Path=IsEnabled}"
+                 IsEnabled="{Binding IsEnabled}"
                  LostFocus="uiSearch_LostFocus"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
@@ -33,9 +71,11 @@
                 <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
                     <Grid Width="{Binding ElementName=uiSearch, Path=ActualWidth}">
                         <ListBox x:Name="ResultList"
-                                 ItemsSource="{Binding SearchResults}"
+                                 ItemTemplate="{StaticResource SearchResultListItemTemplate}"
+                                 ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FullTextSearch}}}"
                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                 SelectedItem="{Binding SelectedSearchItem}" />
+                                 SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:FullTextSearch}}}"
+                                 SelectionChanged="ResultList_SelectionChanged" />
                     </Grid>
                 </Border>
             </materialDesign:Card>

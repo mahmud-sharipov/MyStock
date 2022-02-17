@@ -1,15 +1,15 @@
-﻿using System.Windows.Data;
+﻿using System.Collections;
+using System.Windows.Data;
 
 namespace MyStock.Controls;
 
-public abstract partial class FullTextSearch : UserControl
+public partial class FullTextSearch : UserControl
 {
     public string Hint
     {
         get { return (string)GetValue(HintProperty); }
         set { SetValue(HintProperty, value); }
     }
-
     public static readonly DependencyProperty HintProperty =
         DependencyProperty.Register("Hint", typeof(string), typeof(FullTextSearch), new PropertyMetadata(string.Empty));
 
@@ -18,9 +18,56 @@ public abstract partial class FullTextSearch : UserControl
         get { return (bool)GetValue(ShowSubtitleProperty); }
         set { SetValue(ShowSubtitleProperty, value); }
     }
-
     public static readonly DependencyProperty ShowSubtitleProperty =
         DependencyProperty.Register("ShowSubtitle", typeof(bool), typeof(FullTextSearch), new PropertyMetadata(true));
+
+    public string SearchText
+    {
+        get { return (string)GetValue(SearchTextProperty); }
+        set { SetValue(SearchTextProperty, value); }
+    }
+    public static readonly DependencyProperty SearchTextProperty =
+        DependencyProperty.Register("SearchText", typeof(string), typeof(FullTextSearch), new PropertyMetadata(string.Empty));
+
+    public IEnumerable ItemsSource
+    {
+        get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+        set { SetValue(ItemsSourceProperty, value); }
+    }
+    public static readonly DependencyProperty ItemsSourceProperty =
+        DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(FullTextSearch), new PropertyMetadata(default));
+
+    public object SelectedItem
+    {
+        get { return (object)GetValue(SelectedItemProperty); }
+        set { SetValue(SelectedItemProperty, value); }
+    }
+    public static readonly DependencyProperty SelectedItemProperty =
+        DependencyProperty.Register("SelectedItem", typeof(object), typeof(FullTextSearch), new PropertyMetadata(default));
+
+    public string TitleDisplayMemberPath
+    {
+        get { return (string)GetValue(TitleDisplayMemberPathProperty); }
+        set { SetValue(TitleDisplayMemberPathProperty, value); }
+    }
+    public static readonly DependencyProperty TitleDisplayMemberPathProperty =
+        DependencyProperty.Register("TitleDisplayMemberPath", typeof(string), typeof(FullTextSearch), new PropertyMetadata(default));
+
+    public string SubtitleDisplayMemberPath
+    {
+        get { return (string)GetValue(SubtitleDisplayMemberPathProperty); }
+        set { SetValue(SubtitleDisplayMemberPathProperty, value); }
+    }
+    public static readonly DependencyProperty SubtitleDisplayMemberPathProperty =
+        DependencyProperty.Register("SubtitleDisplayMemberPath", typeof(string), typeof(FullTextSearch), new PropertyMetadata(default));
+
+    public PackIconMaterialKind TileIcon
+    {
+        get { return (PackIconMaterialKind)GetValue(TileIconProperty); }
+        set { SetValue(TileIconProperty, value); }
+    }
+    public static readonly DependencyProperty TileIconProperty =
+        DependencyProperty.Register("TileIcon", typeof(PackIconMaterialKind), typeof(FullTextSearch), new PropertyMetadata(default));
 
     public FullTextSearch()
     {
@@ -30,10 +77,9 @@ public abstract partial class FullTextSearch : UserControl
 
     private void FullTextSearch_Loaded(object sender, EventArgs e)
     {
-        ResultList.ItemTemplate = GetListItemTemplate();
+        //Init();
         Loaded -= FullTextSearch_Loaded;
     }
-
     private void uiSearch_GotFocus(object sender, RoutedEventArgs e)
     {
         resultPopup.IsOpen = true;
@@ -55,6 +101,11 @@ public abstract partial class FullTextSearch : UserControl
             }
         }
         resultPopup.IsOpen = false;
+    }
+
+    void Init()
+    {
+        ResultList.ItemTemplate = GetListItemTemplate();
     }
 
     protected virtual DataTemplate GetListItemTemplate()
@@ -79,7 +130,7 @@ public abstract partial class FullTextSearch : UserControl
 
         var border = new FrameworkElementFactory(typeof(Border));
         border.SetResourceReference(Border.BorderBrushProperty, "MaterialDesignDivider");
-        border.SetValue(Border.BorderThicknessProperty, new Thickness(0,0,0, 1));
+        border.SetValue(Border.BorderThicknessProperty, new Thickness(0, 0, 0, 1));
         border.AppendChild(grid);
         return new DataTemplate() { VisualTree = border };
     }
@@ -125,7 +176,12 @@ public abstract partial class FullTextSearch : UserControl
         return grid;
     }
 
-    protected abstract string GetTitlePropertyName();
-    protected abstract string GetSubtitlePropertyName();
-    protected abstract PackIconMaterialKind GetTileIcon();
+    protected virtual string GetTitlePropertyName() => default;
+    protected virtual string GetSubtitlePropertyName() => default;
+    protected virtual PackIconMaterialKind GetTileIcon() => default;
+
+    private void ResultList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        uiSearch.Text = ResultList.SelectedItem?.ToString() ?? "";
+    }
 }
