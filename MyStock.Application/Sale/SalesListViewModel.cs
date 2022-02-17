@@ -11,8 +11,10 @@ namespace MyStock.Application.Sale
 
         public override bool CanDeleteEntity(Sales entity, out string reason)
         {
-            reason = string.Empty;
-            return true;
+            reason = "";
+            if (entity.Processed)
+                reason = Translations.DocumentCompletedAndCannotBeDeleted;
+            return !entity.Processed;
         }
 
         protected override ICollection<ColumnViewModel> BuildColums()

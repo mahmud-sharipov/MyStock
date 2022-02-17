@@ -1,0 +1,373 @@
+﻿<pages:EntityPage x:Class="MyStock.Pages.Purchases.PurchasePage"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:common="clr-namespace:MyStock.Common"
+                  xmlns:controls="clr-namespace:MyStock.Controls"
+                  xmlns:convertors="clr-namespace:MyStock.Converters"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                  xmlns:langAsset="clr-namespace:MyStock.Application.Assets.Lang;assembly=MyStock.Application"
+                  xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+                  xmlns:materialDesignConvertors="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:pages="clr-namespace:MyStock.Pages"
+                  xmlns:productControls="clr-namespace:MyStock.Pages.Products"
+                  xmlns:vendorControls="clr-namespace:MyStock.Pages.Vendors"
+                  xmlns:viewModel="clr-namespace:MyStock.Application.Purchases;assembly=MyStock.Application"
+                  Width="1150"
+                  Height="800"
+                  d:DataContext="{d:DesignInstance Type=viewModel:PurchaseViewModel}"
+                  d:DesignHeight="550"
+                  d:DesignWidth="900"
+                  x:TypeArguments="viewModel:PurchaseViewModel"
+                  mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <materialDesignConvertors:BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+            <convertors:ProductRemainingStockLevelConverter x:Key="RemainingStock" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <materialDesign:DialogHost Identifier="{Binding DialogIdentifier}">
+        <Grid x:Name="thisPagee">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <materialDesign:ColorZone Grid.ColumnSpan="2"
+                                      Padding="20,10"
+                                      Mode="PrimaryMid">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="DateTextBlock"
+                                   VerticalAlignment="Center"
+                                   FontSize="24"
+                                   Text="{Binding Date, StringFormat=D}" />
+
+                        <ToggleButton x:Name="CalendarPopupToggle"
+                                      Margin="10,0,0,0"
+                                      IsEnabled="{Binding IsOpen}"
+                                      Style="{StaticResource MaterialDesignFlatToggleButton}">
+                            <materialDesign:PackIcon Width="21"
+                                                     Height="21"
+                                                     Foreground="{DynamicResource MaterialDesignDarkForeground}"
+                                                     Kind="CalendarMonth" />
+                        </ToggleButton>
+                        <Popup Margin="0"
+                               AllowsTransparency="True"
+                               IsOpen="{Binding ElementName=CalendarPopupToggle, Path=IsChecked}"
+                               Placement="Bottom"
+                               PlacementTarget="{Binding ElementName=DateTextBlock}"
+                               StaysOpen="False">
+                            <materialDesign:Card>
+                                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
+                                    <Viewbox Width="300" Stretch="Uniform">
+                                        <Calendar materialDesign:CalendarAssist.HeaderBackground="{DynamicResource PrimaryHueDarkBrush}"
+                                                  materialDesign:CalendarAssist.HeaderForeground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                                  SelectedDate="{Binding Date}" />
+                                    </Viewbox>
+                                </Border>
+                            </materialDesign:Card>
+                        </Popup>
+                    </StackPanel>
+                    <Button Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            Command="{Binding Close}"
+                            Style="{StaticResource MaterialDesignToolButton}">
+                        <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignDarkForeground}" Kind="Close" />
+                    </Button>
+                </Grid>
+            </materialDesign:ColorZone>
+            <Grid Grid.Row="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <materialDesign:Card>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel DataContext="{Binding NewLine}" Orientation="Horizontal">
+                            <productControls:ProductFullTextSearch Height="30"
+                                                                   MinWidth="200"
+                                                                   Margin="10"
+                                                                   DataContext="{Binding ProductSearchViewModel}"
+                                                                   Hint="{x:Static langAsset:Translations.Product}"
+                                                                   IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}" />
+                            <TextBox Grid.Row="1"
+                                     Width="100"
+                                     Height="30"
+                                     Margin="0,10,10,10"
+                                     Padding="10,7,5,0"
+                                     materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Quantity}"
+                                     IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Text="{Binding Quantity, UpdateSourceTrigger=LostFocus, StringFormat=N2}" />
+                        </StackPanel>
+                        <Button Command="{Binding AddDetail}"
+                                Content="{x:Static langAsset:Translations.Add}"
+                                IsEnabled="{Binding IsOpen}" />
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <Grid Grid.Row="1" Margin="0,10,0,0">
+                    <DataGrid Name="DetailGrid"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              ColumnHeaderHeight="40"
+                              ItemsSource="{Binding Details}"
+                              SelectedItem="{Binding SelectedDetail}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="auto" Header="{x:Static langAsset:Translations.QuantityShort}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Width="30"
+                                                    Padding="0"
+                                                    Command="{Binding ElementName=DetailGrid, Path=DataContext.IncremetQuantity}"
+                                                    CommandParameter="{Binding}"
+                                                    IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Width="20"
+                                                                         Height="20"
+                                                                         Kind="Plus" />
+                                            </Button>
+                                            <TextBox MinWidth="20"
+                                                     Margin="5,0"
+                                                     VerticalAlignment="Center"
+                                                     IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                     Text="{Binding Quantity, UpdateSourceTrigger=LostFocus, StringFormat=N2}"
+                                                     TextAlignment="Center" />
+
+                                            <Button Width="30"
+                                                    Padding="0"
+                                                    Command="{Binding ElementName=DetailGrid, Path=DataContext.DecrementQuantity}"
+                                                    CommandParameter="{Binding}"
+                                                    IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Width="20"
+                                                                         Height="20"
+                                                                         Kind="Minus" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="auto" Header="{x:Static langAsset:Translations.Product}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Product.Description, Mode=OneWay}" />
+                                            <TextBlock Margin="0,2,0,0"
+                                                       FontSize="12"
+                                                       Text="{Binding Product, Converter={StaticResource RemainingStock}}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="auto" Header="{x:Static langAsset:Translations.UnitPrice}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox MinWidth="40"
+                                                     Margin="5,0"
+                                                     VerticalAlignment="Center"
+                                                     IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                     Text="{Binding UnitPrice, UpdateSourceTrigger=LostFocus, StringFormat=C2}"
+                                                     TextAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="{x:Static langAsset:Translations.Sum}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding TotalPrice, StringFormat=C2}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Button Width="30"
+                                                    Padding="0"
+                                                    Command="{Binding ElementName=DetailGrid, Path=DataContext.DeleteDetail}"
+                                                    CommandParameter="{Binding}"
+                                                    IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                    Style="{StaticResource MaterialDesignFlatButton}">
+                                                <materialDesign:PackIcon Width="20"
+                                                                         Height="20"
+                                                                         Margin="5,0"
+                                                                         Kind="Delete" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="15,10,0,10">
+                <materialDesign:Card Width="300" Margin="0,0,10,0">
+                    <Grid Margin="15,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <vendorControls:VendorFullTextSearch Height="35"
+                                                             Margin="0,10"
+                                                             DataContext="{Binding VendorSearchViewModel}"
+                                                             Hint="{x:Static langAsset:Translations.Vendor}"
+                                                             IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
+                                                             ShowSubtitle="False" />
+                        <StackPanel Grid.Row="1">
+                            <Grid TextBlock.FontSize="{x:Static common:AppConfig.Header4FontSize}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <!--  Subtotal  -->
+                                <Border Grid.ColumnSpan="2"
+                                        VerticalAlignment="Bottom"
+                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="0,0,0,1" />
+                                <TextBlock Margin="0,10,0,10"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Text="{x:Static langAsset:Translations.DocumentSubtotal}" />
+                                <TextBlock Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Subtotal, StringFormat=C2}" />
+
+                                <!--  Discount  -->
+                                <Border Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        VerticalAlignment="Bottom"
+                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="0,0,0,1" />
+                                <TextBlock Grid.Row="1"
+                                           Margin="0,10,0,10"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Text="{x:Static langAsset:Translations.Discount}" />
+                                <TextBox Grid.Row="1"
+                                         Grid.Column="1"
+                                         MinWidth="20"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         IsEnabled="{Binding IsOpen}"
+                                         Text="{Binding Discount, UpdateSourceTrigger=LostFocus, StringFormat=C2}"
+                                         TextAlignment="Right" />
+
+                                <!--  Total  -->
+                                <Border Grid.Row="2"
+                                        Grid.ColumnSpan="2"
+                                        VerticalAlignment="Bottom"
+                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="0,0,0,1" />
+                                <TextBlock Grid.Row="2"
+                                           Margin="0,10,0,10"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Text="{x:Static langAsset:Translations.DocumentTotal}" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Total, StringFormat=C2}" />
+
+                                <!--  PaidAmount  -->
+                                <Border Grid.Row="3"
+                                        Grid.ColumnSpan="3"
+                                        VerticalAlignment="Bottom"
+                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="0,0,0,1" />
+                                <TextBlock Grid.Row="3"
+                                           Margin="0,10"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Text="{x:Static langAsset:Translations.PaidAmount}" />
+                                <TextBox Grid.Row="3"
+                                         Grid.Column="1"
+                                         MinWidth="20"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         IsEnabled="{Binding IsOpen}"
+                                         Text="{Binding PaidAmount, UpdateSourceTrigger=LostFocus, StringFormat=C2}"
+                                         TextAlignment="Right" />
+
+                                <!--  Balance  -->
+                                <Border Grid.Row="4"
+                                        Grid.ColumnSpan="3"
+                                        VerticalAlignment="Bottom"
+                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="0,0,0,1" />
+                                <TextBlock Grid.Row="4"
+                                           Margin="0,10"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           FontSize="{x:Static common:AppConfig.Header1FontSize}"
+                                           FontWeight="Medium"
+                                           Text="{x:Static langAsset:Translations.Balance}" />
+                                <TextBlock Grid.Row="4"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           FontSize="{x:Static common:AppConfig.Header1FontSize}"
+                                           FontWeight="Medium"
+                                           Text="{Binding Balance, UpdateSourceTrigger=LostFocus, StringFormat=C2}" />
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Margin="20">
+                            <Button Height="50"
+                                    materialDesign:ButtonAssist.CornerRadius="25"
+                                    Command="{Binding Process}"
+                                    Content="{x:Static langAsset:Translations.CompleteInvoice}"
+                                    FontSize="{x:Static common:AppConfig.Header3FontSize}"
+                                    IsEnabled="{Binding IsOpen}"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Visibility="{Binding IsOpen, Converter={StaticResource BooleanToVisibility}}" />
+
+                            <Button Height="50"
+                                    materialDesign:ButtonAssist.CornerRadius="25"
+                                    Command="{Binding Unprocess}"
+                                    Content="{x:Static langAsset:Translations.ReopenInvoice}"
+                                    FontSize="{x:Static common:AppConfig.Header3FontSize}"
+                                    IsEnabled="{Binding Processed}"
+                                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                                    Visibility="{Binding Processed, Converter={StaticResource BooleanToVisibility}}" />
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+</pages:EntityPage>
+

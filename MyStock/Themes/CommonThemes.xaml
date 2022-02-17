@@ -6,7 +6,9 @@
 
     <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="FontSize" Value="{x:Static common:AppConfig.FontSize}" />
+        <Setter Property="BorderThickness" Value="0,0,1,0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MaterialDesignDivider}" />
+        <Setter Property="FontSize" Value="{x:Static common:AppConfig.Header5FontSize}" />
     </Style>
 
     <Style TargetType="UserControl">

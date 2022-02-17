@@ -80,7 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Expenses\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

@@ -232,6 +232,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The document cannot be deleted because it is closed..
+        /// </summary>
+        public static string DocumentCompletedAndCannotBeDeleted {
+            get {
+                return ResourceManager.GetString("DocumentCompletedAndCannotBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subtotal.
         /// </summary>
         public static string DocumentSubtotal {
