@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using MyStock.Application.Assets.Lang;
 using MyStock.Application.Customers;
+using MyStock.Application.Dashboard;
 using MyStock.Application.Products;
 using MyStock.Application.Purchases;
 using MyStock.Application.Sale;
@@ -15,11 +16,10 @@ namespace MyStock.ViewModels;
 public class MainViewModel : ReactiveObject
 {
     private IEntityListPage contentControl;
-    public IEntityListPage SelectedPage
-    {
-        get => contentControl;
-        set => this.RaiseAndSetIfChanged(ref contentControl, value);
-    }
+    private Common.MenuItem selectedMenu;
+
+    public IEntityListPage SelectedPage { get => contentControl; set => this.RaiseAndSetIfChanged(ref contentControl, value); }
+    public Common.MenuItem SelectedMenu { get => selectedMenu; set => this.RaiseAndSetIfChanged(ref selectedMenu, value); }
 
     public MainViewModel()
     {
@@ -44,12 +44,11 @@ public class MainViewModel : ReactiveObject
     void BuildMenu()
     {
         Menu = new List<Common.MenuItem>();
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), "Dashboard", "Home", 1, ""));
-        Menu.Add(new Common.MenuItem(typeof(IProductListViewModel), Translations.Products, "PackageVariant", 2, ""));
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), Translations.UOMs, "Ruler", 3, ""));
-        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), Translations.UOMs, "FormatListChecks", 4, ""));
+        Menu.Add(new Common.MenuItem(typeof(IDashboardViewModel), "Dashboard", "Home", 1, ""));
         Menu.Add(new Common.MenuItem(typeof(ISalesListViewModel), Translations.Sales, "CartArrowUp", 5, ""));
         Menu.Add(new Common.MenuItem(typeof(IPurchaseListViewModel), Translations.Purchases, "CartArrowDown", 6, ""));
+        Menu.Add(new Common.MenuItem(typeof(IUomListViewModel), Translations.UOMs, "Ruler", 3, ""));
+        Menu.Add(new Common.MenuItem(typeof(IProductListViewModel), Translations.Products, "PackageVariant", 2, ""));
         Menu.Add(new Common.MenuItem(typeof(ICustomerListViewModel), Translations.Customers, "Account", 7, ""));
         Menu.Add(new Common.MenuItem(typeof(IVendorListViewModel), Translations.Vendors, "AccountTie", 8, ""));
         Menu.ForEach(m =>
@@ -66,5 +65,8 @@ public class MainViewModel : ReactiveObject
             m.Command = Navigate;
             m.CommandParameter = m.ViewModelType;
         });
+
+        SelectedMenu = Menu[0];
+        SelectedMenu.Command.Execute(SelectedMenu.CommandParameter);
     }
 }

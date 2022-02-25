@@ -2,7 +2,7 @@
 
 namespace MyStock.Pages;
 
-public class BasePage<TViewModel> : ReactiveUserControl<TViewModel>
+public abstract class BasePage<TViewModel> : ReactiveUserControl<TViewModel>
     where TViewModel : class, IViewModel
 {
     public bool IsDisposed { get; set; }

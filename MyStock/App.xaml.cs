@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using MyStock.Application.Customers.Pages;
+using MyStock.Application.Dashboard;
 using MyStock.Application.Products.Pages;
 using MyStock.Application.Purchases.Pages;
 using MyStock.Application.Sale.Pages;
@@ -8,6 +9,7 @@ using MyStock.Application.Vendors.Pages;
 using MyStock.Core.Interfaces;
 using MyStock.IoC;
 using MyStock.Pages.Customers;
+using MyStock.Pages.Dashboard;
 using MyStock.Pages.Products;
 using MyStock.Pages.Purchases;
 using MyStock.Pages.Sale;
@@ -75,5 +77,7 @@ public partial class App : System.Windows.Application
 
         builder.RegisterType<PurchaseListPage>().As<IPurchaseListEntityPage>().InstancePerDependency();
         builder.RegisterType<PurchasePage>().As<IPurchaseEntityPage>().InstancePerDependency();
+
+        builder.RegisterType<DashboardPage>().As<IDashboardPage>().InstancePerDependency();
     }
 }

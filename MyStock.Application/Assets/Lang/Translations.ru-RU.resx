@@ -298,4 +298,7 @@
   <data name="DocumentCompletedAndCannotBeDeleted" xml:space="preserve">
     <value>Документ не может быть удален, так как он закрыт.</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
 </root>

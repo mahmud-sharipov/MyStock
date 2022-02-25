@@ -7,9 +7,11 @@
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:viewmodels="clr-namespace:MyStock.ViewModels"
                  Title="My stock"
                  MinWidth="600"
                  MinHeight="700"
+                 d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
                  Background="{DynamicResource MaterialDesignPaper}"
                  FontFamily="Segoe UI"
                  TextElement.FontSize="{x:Static common:AppConfig.FontSize}"
@@ -71,6 +73,7 @@
                                OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                                OptionsItemsSource="{Binding OptionsMenu}"
                                PaneForeground="{DynamicResource MaterialDesignDarkForeground}"
+                               SelectedItem="{Binding SelectedMenu}"
                                VerticalScrollBarOnLeftSide="False">
                 <mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                     <DataTemplate>
@@ -80,13 +83,15 @@
                                    FontSize="20"
                                    FontWeight="Medium"
                                    Foreground="{DynamicResource MaterialDesignDarkForeground}"
-                                   Text="MENU" />
+                                   Text="My Stock" />
                     </DataTemplate>
                 </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <mah:HamburgerMenu.Content>
-                    <Grid DataContext="{Binding ElementName=HamburgerMenuControl, Path=DataContext}">
+                    <ScrollViewer DataContext="{Binding ElementName=HamburgerMenuControl, Path=DataContext}"
+                                  HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
                         <ContentControl Margin="20,0,10,0" Content="{Binding SelectedPage}" />
-                    </Grid>
+                    </ScrollViewer>
                 </mah:HamburgerMenu.Content>
             </mah:HamburgerMenu>
         </Grid>

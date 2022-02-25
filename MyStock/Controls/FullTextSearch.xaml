@@ -5,7 +5,6 @@
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Name="thisControl"
-             d:Background="DarkGray"
              d:DesignHeight="800"
              d:DesignWidth="600"
              mc:Ignorable="d">
@@ -21,9 +20,6 @@
                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         <Popup x:Name="resultPopup"
                MaxHeight="350"
-               d:IsOpen="True"
-               AllowsTransparency="True"
-               IsOpen="{Binding IsSearchResultShown}"
                Placement="Bottom"
                PlacementTarget="{Binding ElementName=uiSearch}">
             <materialDesign:Card Margin="0"
