@@ -547,6 +547,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stock level.
         /// </summary>
         public static string StockLevel {

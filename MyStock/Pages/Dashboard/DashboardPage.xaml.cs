@@ -28,10 +28,10 @@ namespace MyStock.Pages.Dashboard
                     Values = GetData(),
                     Fill = null,
                     LineSmoothness=0,
-                    PointForeground=Brushes.Green,
+                    PointForeground=Brushes.Purple,
                     PointGeometry=DefaultGeometries.Diamond,
                     PointGeometrySize=20,
-                    Stroke=Brushes.Green,
+                    Stroke = Brushes.Purple,
                     StrokeThickness=4
                 },
 
@@ -48,7 +48,7 @@ namespace MyStock.Pages.Dashboard
                     StrokeThickness=4
                 }
             };
-            
+
             AxisX.LabelFormatter = val => new DateTime((long)val).ToString("dd MMM");
             AxisY.LabelFormatter = val => val.ToString("C");
         }

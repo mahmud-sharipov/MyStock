@@ -49,6 +49,8 @@ namespace MyStock.IoC
                 .As<MyStock.Application.Purchases.IPurchaseListViewModel>().InstancePerDependency();
             builder.RegisterType<MyStock.Application.Dashboard.DashboardViewModel>()
                .As<MyStock.Application.Dashboard.IDashboardViewModel>().InstancePerDependency();
+            builder.RegisterType<MyStock.Application.Settings.SettingsViewModel>()
+               .As<MyStock.Application.Settings.ISettingsViewModel>().InstancePerDependency();
         }
 
         private static void BuildValidation(ContainerBuilder builder)

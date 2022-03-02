@@ -30,12 +30,16 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.6*" />
             </Grid.ColumnDefinitions>
             <materialDesign:Card MinWidth="400"
                                  Padding="10"
                                  TextBlock.FontWeight="Medium">
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <Border Padding="0,5"
                             BorderBrush="{DynamicResource MaterialDesignDivider}"
                             BorderThickness="0,0,0,1">
@@ -43,20 +47,26 @@
                                    FontSize="{x:Static common:AppConfig.Header2FontSize}"
                                    Text="Product details" />
                     </Border>
-                    <Grid Margin="0,15,0,0" TextBlock.FontSize="{x:Static common:AppConfig.Header3FontSize}">
+                    <Grid Grid.Row="1"
+                          Margin="0,15,0,0"
+                          TextBlock.FontSize="{x:Static common:AppConfig.Header3FontSize}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Low stock items" />
-                        <TextBlock Grid.Row="1" Text="All item group" />
-                        <TextBlock Grid.Row="2" Text="All items" />
+                        <TextBlock Grid.Row="0" Text="Out of stock items" />
+                        <TextBlock Grid.Row="1" Text="Low stock items" />
+                        <TextBlock Grid.Row="2" Text="Over stock items" />
+                        <TextBlock Grid.Row="3" Text="All items" />
+                        <TextBlock Grid.Row="4" Text="Inactive items" />
 
                         <TextBlock Grid.Row="0"
                                    Grid.Column="1"
@@ -71,15 +81,26 @@
                                    HorizontalAlignment="Right"
                                    Text="16" />
 
-                        <StackPanel Grid.RowSpan="5"
-                                    Grid.Column="2"
-                                    Margin="30,0">
+                        <TextBlock Grid.Row="3"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Text="16" />
+                        <TextBlock Grid.Row="4"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Text="16" />
+
+                        <Grid Grid.RowSpan="5"
+                              Grid.Column="2"
+                              Margin="10,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
                             <TextBlock Margin="0,0,0,5"
                                        HorizontalAlignment="Center"
                                        Text="Active Items" />
-                            <lvc:Gauge Width="100"
-                                       Height="100"
-                                       Margin="30,0"
+                            <lvc:Gauge Grid.Row="1"
                                        GaugeActiveFill="{DynamicResource PrimaryHueDarkBrush}"
                                        GaugeBackground="{DynamicResource PrimaryHueLightBrush}"
                                        Uses360Mode="True"
@@ -94,9 +115,9 @@
                                 </lvc:Gauge.GaugeRenderTransform>
 
                             </lvc:Gauge>
-                        </StackPanel>
+                        </Grid>
                     </Grid>
-                </StackPanel>
+                </Grid>
             </materialDesign:Card>
             <materialDesign:Card Grid.Column="1"
                                  Margin="10,0,0,0"
@@ -122,7 +143,7 @@
                         </Grid>
 
                     </Border>
-                    <DataGrid>
+                    <DataGrid MaxHeight="250" VerticalScrollBarVisibility="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Product}"
                                                 Header="Product"
@@ -142,96 +163,16 @@
                             <ListItem />
                             <ListItem />
                             <ListItem />
+                            <ListItem />
+                            <ListItem />
+                            <ListItem />
+                            <ListItem />
+                            <ListItem />
                         </DataGrid.Items>
                     </DataGrid>
                 </StackPanel>
             </materialDesign:Card>
         </Grid>
-
-        <!--<Grid Grid.Row="2">
-            <Grid MaxHeight="350" Margin="0,50,0,0">
-                <Grid.Effect>
-                    <DropShadowEffect BlurRadius="15"
-                                      Direction="-90"
-                                      Opacity=".2"
-                                      RenderingBias="Quality"
-                                      ShadowDepth="1" />
-                </Grid.Effect>
-                <Grid.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=Border1}" />
-                </Grid.OpacityMask>
-                <Grid.Resources>
-                    <Style TargetType="lvc:LineSeries">
-                        <Setter Property="StrokeThickness" Value="3" />
-                        <Setter Property="Stroke" Value="{DynamicResource MaterialDesignDarkForeground}" />
-                        <Setter Property="Fill" Value="#4EFFFFFF" />
-                        <Setter Property="PointGeometrySize" Value="0" />
-                        <Setter Property="LineSmoothness" Value="0" />
-                    </Style>
-                    <Style TargetType="lvc:Axis">
-                        <Setter Property="ShowLabels" Value="False" />
-                        <Setter Property="IsEnabled" Value="False" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height=".50*" />
-                    <RowDefinition Height=".5*" />
-                </Grid.RowDefinitions>
-                <Border x:Name="Border1"
-                        Grid.Row="4"
-                        Grid.RowSpan="4"
-                        Background="White"
-                        CornerRadius="5" />
-                <Border Grid.Row="0"
-                        Grid.RowSpan="3"
-                        Background="{DynamicResource PrimaryHueDarkBrush}" />
-                <TextBlock Grid.Row="0"
-                           Padding="10,10,0,5"
-                           FontSize="18"
-                           Foreground="White"
-                           TextAlignment="Center">
-                    The Current Chart
-                </TextBlock>
-                <TextBlock Grid.Row="1"
-                           Padding="0,0,0,20"
-                           Foreground="#59FFFFFF"
-                           TextAlignment="Center">
-                    2014.12.25
-                </TextBlock>
-                <lvc:CartesianChart x:Name="Chart"
-                                    Grid.Row="2"
-                                    Margin="0,0,0,0"
-                                    DataTooltip="{x:Null}"
-                                    Hoverable="False">
-                    <lvc:CartesianChart.AxisX>
-        -->
-        <!--  a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations  -->
-        <!--
-                        <lvc:Axis MinValue="2" />
-                    </lvc:CartesianChart.AxisX>
-                </lvc:CartesianChart>
-                <StackPanel Grid.Row="3"
-                            Margin="25,0"
-                            VerticalAlignment="Center">
-                    <TextBlock FontSize="13" Opacity=".4">
-                        Total electricity Consumption<LineBreak />
-                        of Galaxy SOHO</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="40"
-                                   Foreground="#303030"
-                                   Text="{Binding LastLecture, StringFormat={}{0:N1}}" />
-                        <TextBlock Margin="8,6"
-                                   VerticalAlignment="Bottom"
-                                   FontSize="18"
-                                   Foreground="#303030">
-                            kWh
-                        </TextBlock>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-        </Grid>-->
         <Grid Grid.Row="2" Margin="0,30,0,0">
             <materialDesign:Card>
                 <lvc:CartesianChart x:Name="Chart2" Grid.Row="2">

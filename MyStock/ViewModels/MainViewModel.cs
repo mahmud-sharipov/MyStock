@@ -5,6 +5,7 @@ using MyStock.Application.Dashboard;
 using MyStock.Application.Products;
 using MyStock.Application.Purchases;
 using MyStock.Application.Sale;
+using MyStock.Application.Settings;
 using MyStock.Application.Uoms;
 using MyStock.Application.Vendors;
 using MyStock.Core.Interfaces;
@@ -59,7 +60,7 @@ public class MainViewModel : ReactiveObject
 
         OptionsMenu = new List<Common.MenuItem>();
         OptionsMenu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Profile", "AccountCog", 1, ""));
-        OptionsMenu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Options", "Cog", 2, ""));
+        OptionsMenu.Add(new Common.MenuItem(typeof(ISettingsViewModel), "Options", "Cog", 2, ""));
         OptionsMenu.ForEach(m =>
         {
             m.Command = Navigate;

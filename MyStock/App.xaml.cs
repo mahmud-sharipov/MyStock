@@ -4,6 +4,7 @@ using MyStock.Application.Dashboard;
 using MyStock.Application.Products.Pages;
 using MyStock.Application.Purchases.Pages;
 using MyStock.Application.Sale.Pages;
+using MyStock.Application.Settings;
 using MyStock.Application.Uoms.Pages;
 using MyStock.Application.Vendors.Pages;
 using MyStock.Core.Interfaces;
@@ -13,6 +14,7 @@ using MyStock.Pages.Dashboard;
 using MyStock.Pages.Products;
 using MyStock.Pages.Purchases;
 using MyStock.Pages.Sale;
+using MyStock.Pages.Settings;
 using MyStock.Pages.Uoms;
 using MyStock.Pages.Vendors;
 using MyStock.Persistence.Seed;
@@ -79,5 +81,6 @@ public partial class App : System.Windows.Application
         builder.RegisterType<PurchasePage>().As<IPurchaseEntityPage>().InstancePerDependency();
 
         builder.RegisterType<DashboardPage>().As<IDashboardPage>().InstancePerDependency();
+        builder.RegisterType<SettingsPage>().As<ISettingsPage>().InstancePerDependency();
     }
 }

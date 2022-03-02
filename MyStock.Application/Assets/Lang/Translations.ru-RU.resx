@@ -301,4 +301,7 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
 </root>

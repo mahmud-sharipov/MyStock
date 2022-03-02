@@ -1,0 +1,87 @@
+﻿<pages:BasePage x:Class="MyStock.Pages.Settings.SettingsPage"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:common="clr-namespace:MyStock.Common"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:domain="clr-namespace:MyStock.Domain;assembly=MyStock.Domain"
+                xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                xmlns:langAsset="clr-namespace:MyStock.Application.Assets.Lang;assembly=MyStock.Application"
+                xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:pages="clr-namespace:MyStock.Pages"
+                xmlns:viewModel="clr-namespace:MyStock.Application.Settings;assembly=MyStock.Application"
+                d:DataContext="{d:DesignInstance Type=viewModel:SettingsViewModel}"
+                d:DesignHeight="450"
+                d:DesignWidth="800"
+                x:TypeArguments="viewModel:SettingsViewModel"
+                mc:Ignorable="d">
+    <Grid x:Name="RootWindow">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0,15,0,10"
+                   Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                   Text="{x:Static langAsset:Translations.Settings}" />
+        <materialDesign:Card Grid.Row="1">
+            <TabControl Height="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=ActualHeight}" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+                <TabControl.Resources>
+                    <Style BasedOn="{StaticResource {x:Type TabItem}}" TargetType="{x:Type TabItem}">
+                        <Setter Property="mah:HeaderedControlHelper.HeaderFontSize" Value="{x:Static common:AppConfig.Header1FontSize}" />
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="{x:Static langAsset:Translations.ProductCategories}">
+                    <Grid Margin="16">
+                        <Grid>
+                            <TreeView ItemsSource="{Binding ProductCategories}"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <TreeView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </TreeView.ItemsPanel>
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type domain:ProductCategory}" ItemsSource="{Binding ChildCategories}">
+                                        <TextBlock Text="{Binding Name}" />
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="{x:Static langAsset:Translations.ProductCategories}">
+                    <StackPanel Margin="16">
+                        <TextBlock Margin="0,0,0,8"
+                                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                   Text="All Files" />
+                        <TextBlock>
+                            <Run Text="tab 1 content. Default look and behaviors." />
+                            <LineBreak />
+                            <LineBreak />
+                            <Run FontStyle="Italic">
+                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+                            </Run>
+                        </TextBlock>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="{x:Static langAsset:Translations.ProductCategories}">
+                    <StackPanel Margin="16">
+                        <TextBlock Margin="0,0,0,8"
+                                   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                   Text="All Files" />
+                        <TextBlock>
+                            <Run Text="tab 1 content. Default look and behaviors." />
+                            <LineBreak />
+                            <LineBreak />
+                            <Run FontStyle="Italic">
+                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
+                            </Run>
+                        </TextBlock>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
+    </Grid>
+</pages:BasePage>

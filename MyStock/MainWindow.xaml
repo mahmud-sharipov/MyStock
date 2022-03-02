@@ -12,13 +12,9 @@
                  MinWidth="600"
                  MinHeight="700"
                  d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
-                 Background="{DynamicResource MaterialDesignPaper}"
                  FontFamily="Segoe UI"
+                 Style="{StaticResource MaterialDesignWindow}"
                  TextElement.FontSize="{x:Static common:AppConfig.FontSize}"
-                 TextElement.FontWeight="Regular"
-                 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-                 TextOptions.TextFormattingMode="Ideal"
-                 TextOptions.TextRenderingMode="Auto"
                  WindowStartupLocation="CenterScreen"
                  WindowState="Maximized"
                  mc:Ignorable="d">
@@ -87,11 +83,9 @@
                     </DataTemplate>
                 </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <mah:HamburgerMenu.Content>
-                    <ScrollViewer DataContext="{Binding ElementName=HamburgerMenuControl, Path=DataContext}"
-                                  HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Auto">
+                    <Grid DataContext="{Binding ElementName=HamburgerMenuControl, Path=DataContext}">
                         <ContentControl Margin="20,0,10,0" Content="{Binding SelectedPage}" />
-                    </ScrollViewer>
+                    </Grid>
                 </mah:HamburgerMenu.Content>
             </mah:HamburgerMenu>
         </Grid>

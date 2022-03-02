@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
             <TextBlock Margin="0,15,0,10"
                        Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
-                       Text="{Binding Title}" />
+                       Text="Settings" />
             <ContentControl Grid.Row="1" Content="{Binding ColletionFilters}" />
         </Grid>
 
