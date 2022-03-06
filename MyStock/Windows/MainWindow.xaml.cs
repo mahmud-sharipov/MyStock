@@ -1,7 +1,6 @@
 ﻿using MahApps.Metro.Controls.Dialogs;
 using MyStock.Application.UIComunication;
 using MyStock.ViewModels;
-using ReactiveUI;
 
 namespace MyStock;
 

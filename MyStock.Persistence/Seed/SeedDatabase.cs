@@ -1,9 +1,12 @@
-﻿namespace MyStock.Persistence.Seed
+﻿using MyStock.Core;
+
+namespace MyStock.Persistence.Seed
 {
     public class SeedDatabase
     {
         public static void Seed(IContext context)
         {
+            SeedSettings(context);
             SeedWarehouse(context);
             SeedUom(context);
             SeedProductCategory(context);
@@ -15,6 +18,20 @@
         {
             if (context.Set<Settings>().Any()) return;
             context.AddToContext(new Settings() { CompanyName = "MyStock", Lagnuage = "tj-TJ" });
+        }
+
+        static void SeedUser(IContext context)
+        {
+            if (context.Set<User>().Any()) return;
+            context.AddToContext(new User()
+            {
+                FirstName = "Admin",
+                LastName = "User",
+                IsAdmin = true,
+                IsActive = true,
+                Login = "Admin",
+                PasswordHash = UserManager.EncryptPassword("Admin")
+            });
         }
 
         static void SeedWarehouse(IContext context)

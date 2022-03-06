@@ -20,7 +20,7 @@
                    Grid.Column="0"
                    Margin="{Binding ItemsMargin}"
                    Stroke="{DynamicResource PrimaryHueDarkBrush}"
-                   StrokeThickness="{Binding ItemsMargin}" />
+                   StrokeThickness="{Binding Thickness}" />
         <Rectangle Grid.Row="1"
                    Grid.Column="0"
                    Margin="{Binding ItemsMargin}"
@@ -33,12 +33,12 @@
                    Grid.Column="1"
                    Margin="{Binding ItemsMargin}"
                    Stroke="{DynamicResource PrimaryHueDarkBrush}"
-                   StrokeThickness="{Binding ItemsMargin}" />
+                   StrokeThickness="{Binding Thickness}" />
         <Rectangle Grid.Row="1"
                    Grid.Column="1"
                    Margin="{Binding ItemsMargin}"
                    Stroke="{DynamicResource PrimaryHueDarkBrush}"
-                   StrokeThickness="{Binding ItemsMargin}" />
+                   StrokeThickness="{Binding Thickness}" />
         <Rectangle Grid.Row="2"
                    Grid.Column="1"
                    Margin="{Binding ItemsMargin}"

@@ -49,7 +49,7 @@
                         <TextBlock x:Name="DateTextBlock"
                                    VerticalAlignment="Center"
                                    FontSize="24"
-                                   Text="{Binding Date, StringFormat=D}" />
+                                   Text="{Binding Date, StringFormat=D, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
 
                         <ToggleButton x:Name="CalendarPopupToggle"
                                       Margin="10,0,0,0"
@@ -107,7 +107,7 @@
                                      materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Quantity}"
                                      IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                     Text="{Binding Quantity, UpdateSourceTrigger=LostFocus, StringFormat=N2}" />
+                                     Text="{Binding Quantity, UpdateSourceTrigger=LostFocus, StringFormat=N2, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
                         </StackPanel>
                         <Button Command="{Binding AddDetail}"
                                 Content="{x:Static langAsset:Translations.Add}"
@@ -142,7 +142,7 @@
                                                      Margin="5,0"
                                                      VerticalAlignment="Center"
                                                      IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
-                                                     Text="{Binding Quantity, UpdateSourceTrigger=LostFocus, StringFormat=N2}"
+                                                     Text="{Binding Quantity, UpdateSourceTrigger=LostFocus, StringFormat=N2, ConverterCulture={x:Static common:AppManager.CultureInfo}}"
                                                      TextAlignment="Center" />
 
                                             <Button Width="30"
@@ -180,7 +180,7 @@
                                                      Margin="5,0"
                                                      VerticalAlignment="Center"
                                                      IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
-                                                     Text="{Binding UnitPrice, UpdateSourceTrigger=LostFocus, StringFormat=C2}"
+                                                     Text="{Binding UnitPrice, UpdateSourceTrigger=LostFocus, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}"
                                                      TextAlignment="Center" />
                                         </StackPanel>
                                     </DataTemplate>
@@ -190,7 +190,7 @@
                             <DataGridTemplateColumn Header="{x:Static langAsset:Translations.Sum}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock VerticalAlignment="Center" Text="{Binding TotalPrice, StringFormat=C2}" />
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding TotalPrice, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -263,7 +263,7 @@
                                 <TextBlock Grid.Column="1"
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Center"
-                                           Text="{Binding Subtotal, StringFormat=C2}" />
+                                           Text="{Binding Subtotal, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
 
                                 <!--  Discount  -->
                                 <Border Grid.Row="1"
@@ -282,7 +282,7 @@
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Center"
                                          IsEnabled="{Binding IsOpen}"
-                                         Text="{Binding Discount, UpdateSourceTrigger=LostFocus, StringFormat=C2}"
+                                         Text="{Binding Discount, UpdateSourceTrigger=LostFocus, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}"
                                          TextAlignment="Right" />
 
                                 <!--  Total  -->
@@ -300,7 +300,7 @@
                                            Grid.Column="1"
                                            HorizontalAlignment="Right"
                                            VerticalAlignment="Center"
-                                           Text="{Binding Total, StringFormat=C2}" />
+                                           Text="{Binding Total, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
 
                                 <!--  PaidAmount  -->
                                 <Border Grid.Row="3"
@@ -319,7 +319,7 @@
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Center"
                                          IsEnabled="{Binding IsOpen}"
-                                         Text="{Binding PaidAmount, UpdateSourceTrigger=LostFocus, StringFormat=C2}"
+                                         Text="{Binding PaidAmount, UpdateSourceTrigger=LostFocus, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}"
                                          TextAlignment="Right" />
 
                                 <!--  Balance  -->
@@ -341,7 +341,7 @@
                                            VerticalAlignment="Center"
                                            FontSize="{x:Static common:AppConfig.Header1FontSize}"
                                            FontWeight="Medium"
-                                           Text="{Binding Balance, UpdateSourceTrigger=LostFocus, StringFormat=C2}" />
+                                           Text="{Binding Balance, UpdateSourceTrigger=LostFocus, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
                             </Grid>
                         </StackPanel>
 

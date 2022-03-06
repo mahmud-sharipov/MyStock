@@ -1,6 +1,7 @@
 ﻿using MyStock.Application.Assets.Lang;
 using MyStock.Core.Interfaces;
 using MyStock.Templates;
+using System.Threading;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -59,7 +60,11 @@ public class EntityListPage<TViewModel> : BasePage<TViewModel>, IEntityListPage
         dataGrid.InputBindings.Add(new KeyBinding(ViewModel.Open, Key.O, ModifierKeys.Control));
         foreach (var column in ViewModel.Columns)
         {
-            var dataGridColumn = CreateColumn(column.Type, new Binding(column.BindingPath) { StringFormat = column.BindingStringFormat });
+            var dataGridColumn = CreateColumn(column.Type, new Binding(column.BindingPath)
+            {
+                StringFormat = column.BindingStringFormat,
+                ConverterCulture = Thread.CurrentThread.CurrentUICulture
+            });
             dataGridColumn.Header = column.Label;
             dataGridColumn.IsReadOnly = true;
             dataGrid.Columns.Add(dataGridColumn);

@@ -19,9 +19,6 @@ using MyStock.Pages.Settings;
 using MyStock.Pages.Uoms;
 using MyStock.Pages.Vendors;
 using MyStock.Persistence.Seed;
-using System.Globalization;
-using System.Threading;
-using System.Windows.Markup;
 
 namespace MyStock;
 
@@ -45,7 +42,6 @@ public partial class App : System.Windows.Application
 
         AppManager.Start();
         base.OnStartup(e);
-        
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -53,7 +49,6 @@ public partial class App : System.Windows.Application
         AppManager.Stop();
         base.OnExit(e);
     }
-
 
     public static void RegisterClientIoC(ContainerBuilder builder)
     {

@@ -12,4 +12,6 @@ public class Global
 
     public static Settings Settings =>
         _settings ??= Context.Set<Settings>().Single();
+
+    public static User CurrentUser { get; internal set; }
 }

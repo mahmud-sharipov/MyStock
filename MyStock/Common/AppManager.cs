@@ -1,52 +1,40 @@
 ﻿using System.Globalization;
-using System.Reflection;
 using System.Threading;
-using System.Windows.Markup;
 
 namespace MyStock.Common;
 
-public class AppManager
+public static class AppManager
 {
-    private static readonly object padlock = new object();
-    private static AppManager instance;
-    private readonly PaletteHelper paletteHelper = new PaletteHelper();
-    private readonly string _settingsPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "", @"Assets/Settings/appsettings.json");
+    private static readonly PaletteHelper _paletteHelper = new PaletteHelper();
+    public static UISettings _uiSettings;
 
-    AppManager()
-    {
-        AppSettings = JsonConvert.DeserializeObject<AppSettings>(File.ReadAllText(_settingsPath)) ?? new AppSettings();
-    }
+    public static Domain.Settings Settings => Global.Settings;
 
-    public static AppManager Instance
-    {
-        get
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                    instance = new AppManager();
-                return instance;
-            }
-        }
-    }
+    public static UISettings UISettings =>
+        _uiSettings ??= JsonConvert.DeserializeObject<UISettings>(Settings.UISettings ?? "") ?? new UISettings();
 
-    public static AppSettings Settings => Instance.AppSettings;
-    public static UISettings UISettings => Instance.AppSettings.UISettings;
-    AppSettings AppSettings { get; init; }
+    public static CultureInfo CultureInfo { get; private set; }
 
     public static void Start()
     {
-        Thread.CurrentThread.CurrentCulture = new CultureInfo(Global.Settings.Lagnuage);
-        Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
-            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+        CultureInfo = new CultureInfo(Global.Settings.Lagnuage)
+        {
+            NumberFormat = new NumberFormatInfo()
+            {
+                CurrencySymbol = "сом.",
+                CurrencyPositivePattern = 3,
+                CurrencyNegativePattern = 8
+            }
+        };
+        Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo;
         SetTheme(UISettings.Theme);
     }
 
     public static void Stop()
     {
-        var settings = JsonConvert.SerializeObject(Settings);
-        File.WriteAllText(Instance._settingsPath, settings);
+        var settings = JsonConvert.SerializeObject(UISettings);
+        Settings.UISettings = settings;
+        Global.Context.SaveChanges();
     }
 
     public static void ChangeTheme(UITheme theme)
@@ -60,13 +48,13 @@ public class AppManager
 
     public static void SetTheme(UITheme theme)
     {
-        ITheme newTheme = Instance.paletteHelper.GetTheme();
+        ITheme newTheme = _paletteHelper.GetTheme();
         newTheme.SetBaseTheme(Theme.Light);
 
         if (theme == UITheme.Dark)
             newTheme.SetBaseTheme(Theme.Dark);
 
-        Instance.paletteHelper.SetTheme(newTheme);
+        _paletteHelper.SetTheme(newTheme);
     }
 }
 

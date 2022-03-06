@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Assets\Lang\Translations.tj-TJ.resx">
+    <EmbeddedResource Update="Assets\Lang\Translations.tg-Cyrl-TJ.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>Translations.ru-RU.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>

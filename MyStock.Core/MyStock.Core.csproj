@@ -10,6 +10,7 @@
     <PackageReference Include="DynamicData" Version="7.4.11" />
     <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="AutoMapper" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="6.0.2" />
     <PackageReference Include="NReco.PdfGenerator.LT" Version="1.1.17" />
     <PackageReference Include="ReactiveUI" Version="17.1.17" />
   </ItemGroup>
