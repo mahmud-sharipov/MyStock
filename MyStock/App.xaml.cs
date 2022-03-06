@@ -41,14 +41,11 @@ public partial class App : System.Windows.Application
         RegisterClientIoC(builder);
         Container = builder.Build();
         Global.Container = Container;
-        GlobalContext = Container.Resolve<IContext>();
+        SeedDatabase.Seed(Global.Context);
+
         AppManager.Start();
-        SeedDatabase.Seed(GlobalContext);
         base.OnStartup(e);
-        Thread.CurrentThread.CurrentCulture = new CultureInfo(AppManager.Settings.Language);
-        Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
-            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+        
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -57,7 +54,6 @@ public partial class App : System.Windows.Application
         base.OnExit(e);
     }
 
-    public static IContext GlobalContext { get; private set; }
 
     public static void RegisterClientIoC(ContainerBuilder builder)
     {

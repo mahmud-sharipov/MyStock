@@ -2,13 +2,13 @@
 
 public class Product : EntityBase
 {
-    private string description;
-    private string code;
-    private decimal price;
-    private decimal cost;
-    private bool isActive;
-    private Uom uom;
-    private ProductCategory category;
+    private string _description;
+    private string _code;
+    private decimal _price;
+    private decimal _cost;
+    private bool _isActive;
+    private Uom _uom;
+    private ProductCategory _category;
 
     public Product()
     {
@@ -16,17 +16,17 @@ public class Product : EntityBase
         DocumentDetails = new HashSet<DocumentDetail>();
     }
 
-    public string Description { get => description; set => SetProptery(ref description, value); }
-    public string Code { get => code; set => SetProptery(ref code, value); }
-    public decimal Price { get => price; set => SetProptery(ref price, value); }
-    public decimal Cost { get => cost; set => SetProptery(ref cost, value); }
-    public bool IsActive { get => isActive; set => SetProptery(ref isActive, value); }
+    public string Description { get => _description; set => SetProptery(ref _description, value); }
+    public string Code { get => _code; set => SetProptery(ref _code, value); }
+    public decimal Price { get => _price; set => SetProptery(ref _price, value); }
+    public decimal Cost { get => _cost; set => SetProptery(ref _cost, value); }
+    public bool IsActive { get => _isActive; set => SetProptery(ref _isActive, value); }
 
     public Guid UomGuid { get; set; }
-    public virtual Uom Uom { get => uom; set => SetProptery(ref uom, value); }
+    public virtual Uom Uom { get => _uom; set => SetProptery(ref _uom, value); }
 
     public Guid CategoryGuid { get; set; }
-    public virtual ProductCategory Category { get => category; set => SetProptery(ref category, value); }
+    public virtual ProductCategory Category { get => _category; set => SetProptery(ref _category, value); }
 
     public virtual ISet<ProductStockLevel> StockLevels { get; set; }
     public virtual ISet<DocumentDetail> DocumentDetails { get; set; }

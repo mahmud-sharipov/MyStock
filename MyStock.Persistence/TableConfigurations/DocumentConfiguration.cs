@@ -7,10 +7,16 @@ public class DocumentConfiguration : BaseConfiguration<Document>
         base.Configure(builder);
 
         builder
-            .HasMany(d=>d.Details)
+            .HasMany(d => d.Details)
             .WithOne(d => d.Document)
-            .HasForeignKey(d=>d.DocumentGuid)
+            .HasForeignKey(d => d.DocumentGuid)
             .IsRequired()
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasOne(d => d.User)
+            .WithMany()
+            .HasForeignKey(d => d.UserGuid)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

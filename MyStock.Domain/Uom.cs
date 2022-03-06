@@ -2,9 +2,9 @@
 
 public class Uom : EntityBase
 {
-    private string name;
-    private string code;
-    private string description;
+    private string _name;
+    private string _code;
+    private string _description;
 
     public Uom()
     {
@@ -17,20 +17,20 @@ public class Uom : EntityBase
 
     public string Name
     {
-        get => name;
-        set => SetProptery(ref name, value);
+        get => _name;
+        set => SetProptery(ref _name, value);
     }
 
     public string Code
     {
-        get => code;
-        set => SetProptery(ref code, value);
+        get => _code;
+        set => SetProptery(ref _code, value);
     }
 
     public string Description
     {
-        get => description;
-        set => SetProptery(ref description, value);
+        get => _description;
+        set => SetProptery(ref _description, value);
     }
 
     public virtual ISet<Product> Products { get; set; }

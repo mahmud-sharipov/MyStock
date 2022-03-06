@@ -11,6 +11,12 @@
             context.SaveChanges();
         }
 
+        static void SeedSettings(IContext context)
+        {
+            if (context.Set<Settings>().Any()) return;
+            context.AddToContext(new Settings() { CompanyName = "MyStock", Lagnuage = "tj-TJ" });
+        }
+
         static void SeedWarehouse(IContext context)
         {
             if (context.Set<Warehouse>().Any()) return;

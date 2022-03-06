@@ -22,8 +22,4 @@
     <ProjectReference Include="..\MyStock.Domain\MyStock.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TableConfigurations\" />
-  </ItemGroup>
-
 </Project>

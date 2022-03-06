@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
+using System.Threading;
+using System.Windows.Markup;
 
 namespace MyStock.Common;
 
@@ -33,8 +36,10 @@ public class AppManager
 
     public static void Start()
     {
-        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Settings.Language);
-        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(Settings.Language);
+        Thread.CurrentThread.CurrentCulture = new CultureInfo(Global.Settings.Lagnuage);
+        Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
+            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
         SetTheme(UISettings.Theme);
     }
 

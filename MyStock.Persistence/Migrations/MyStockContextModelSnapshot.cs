@@ -41,13 +41,21 @@ namespace MyStock.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PaidAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("Processed")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("UserGuid")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Guid");
+
+                    b.HasIndex("UserGuid");
 
                     b.ToTable("Document", (string)null);
 
@@ -109,6 +117,9 @@ namespace MyStock.Persistence.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -211,6 +222,26 @@ namespace MyStock.Persistence.Migrations
                     b.ToTable("ProductStockLevel", (string)null);
                 });
 
+            modelBuilder.Entity("MyStock.Domain.Settings", b =>
+                {
+                    b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lagnuage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UISettings")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Guid");
+
+                    b.ToTable("Settings", (string)null);
+                });
+
             modelBuilder.Entity("MyStock.Domain.Uom", b =>
                 {
                     b.Property<Guid>("Guid")
@@ -286,6 +317,9 @@ namespace MyStock.Persistence.Migrations
                 {
                     b.HasBaseType("MyStock.Domain.Person");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
 
@@ -300,6 +334,16 @@ namespace MyStock.Persistence.Migrations
                     b.HasBaseType("MyStock.Domain.Person");
 
                     b.HasDiscriminator().HasValue("Vendor");
+                });
+
+            modelBuilder.Entity("MyStock.Domain.Document", b =>
+                {
+                    b.HasOne("MyStock.Domain.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserGuid")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyStock.Domain.DocumentDetail", b =>

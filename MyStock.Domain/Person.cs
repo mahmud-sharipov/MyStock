@@ -2,43 +2,45 @@
 
 public class Person : EntityBase
 {
-    private string firstName;
-    private string lastName;
-    private string middleName;
-    private string address;
-    private string phone;
+    private string _firstName;
+    private string _lastName;
+    private string _middleName;
+    private string _address;
+    private string _phone;
+    private bool _isActive;
 
     public string FirstName
     {
-        get => firstName; set
+        get => _firstName;
+        set
         {
-            SetProptery(ref firstName, value);
+            SetProptery(ref _firstName, value);
             RaisePropertyChanged(nameof(FullName));
         }
     }
-
     public string LastName
     {
-        get => lastName;
+        get => _lastName;
         set
         {
-            SetProptery(ref lastName, value);
+            SetProptery(ref _lastName, value);
             RaisePropertyChanged(nameof(FullName));
         }
     }
     public string MiddleName
     {
-        get => middleName; set
+        get => _middleName; set
         {
-            SetProptery(ref middleName, value);
+            SetProptery(ref _middleName, value);
             RaisePropertyChanged(nameof(FullName));
         }
     }
 
-    public string Address { get => address; set => SetProptery(ref address, value); }
+    public string Address { get => _address; set => SetProptery(ref _address, value); }
     public virtual string FullName => $"{LastName} {FirstName} {MiddleName}".Trim();
-    public string Phone { get => phone; set => SetProptery(ref phone, value); }
+    public string Phone { get => _phone; set => SetProptery(ref _phone, value); }
     public virtual string Code => $"{LastName?.FirstOrDefault()}{FirstName?.FirstOrDefault()}";
+    public bool IsActive { get => _isActive; set => SetProptery(ref _isActive, value); }
 
     public override string ToString()
     {

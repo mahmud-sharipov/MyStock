@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Assets\Lang\Translations.tj-TJ.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Translations.ru-RU.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Assets\Lang\Translations.ru-RU.resx">
       <LastGenOutput>Translations.ru-RU.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>

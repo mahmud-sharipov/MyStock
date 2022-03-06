@@ -19,8 +19,10 @@ namespace MyStock.Persistence.Migrations
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsGeneral = table.Column<bool>(type: "bit", nullable: true),
+                    IsAdmin = table.Column<bool>(type: "bit", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -46,6 +48,20 @@ namespace MyStock.Persistence.Migrations
                         principalTable: "ProductCategory",
                         principalColumn: "Guid",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Lagnuage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UISettings = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,8 +99,10 @@ namespace MyStock.Persistence.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Processed = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Number = table.Column<int>(type: "int", nullable: false),
                     Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaidAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VendorGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CustomerGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -98,6 +116,12 @@ namespace MyStock.Persistence.Migrations
                         principalTable: "Person",
                         principalColumn: "Guid",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Document_Person_UserGuid",
+                        column: x => x.UserGuid,
+                        principalTable: "Person",
+                        principalColumn: "Guid",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Document_Person_VendorGuid",
                         column: x => x.VendorGuid,
@@ -212,6 +236,11 @@ namespace MyStock.Persistence.Migrations
                 column: "CustomerGuid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Document_UserGuid",
+                table: "Document",
+                column: "UserGuid");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Document_VendorGuid",
                 table: "Document",
                 column: "VendorGuid");
@@ -269,6 +298,9 @@ namespace MyStock.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductStockLevel");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "Document");
