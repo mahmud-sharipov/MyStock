@@ -2,22 +2,27 @@
 {
     public class ProductStockLevelViewModel : EntityViewModel<ProductStockLevel, ProductStockLevelViewModelValidator>
     {
-        private decimal maxQuantity;
-        private decimal minQuantity;
+        private decimal _maxQuantity;
+        private decimal _minQuantity;
+        private decimal _newQuantity;
 
         public ProductStockLevelViewModel(ProductStockLevel entity, IContext context) : base(entity, context) { }
 
-        public decimal NetQuantity => Entity.NetQuantity;
+        public decimal NetQuantity
+        {
+            get => _newQuantity;
+            set => this.RaiseAndSetAndValidateIfChanged(ref _newQuantity, value);
+        }
 
         public decimal MaxQuantity
         {
-            get => maxQuantity;
-            set => this.RaiseAndSetAndValidateIfChanged(ref maxQuantity, value, nameof(MaxQuantity), nameof(MinQuantity));
+            get => _maxQuantity;
+            set => RaiseAndSetAndValidateIfChanged(ref _maxQuantity, value, nameof(MaxQuantity), nameof(MinQuantity));
         }
         public decimal MinQuantity
         {
-            get => minQuantity;
-            set => this.RaiseAndSetAndValidateIfChanged(ref minQuantity, value, nameof(MinQuantity), nameof(MaxQuantity));
+            get => _minQuantity;
+            set => this.RaiseAndSetAndValidateIfChanged(ref _minQuantity, value, nameof(MinQuantity), nameof(MaxQuantity));
         }
 
         protected override void BuildCommands()

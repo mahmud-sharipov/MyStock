@@ -38,6 +38,7 @@ public class Person : EntityBase
     public string Address { get => address; set => SetProptery(ref address, value); }
     public virtual string FullName => $"{LastName} {FirstName} {MiddleName}".Trim();
     public string Phone { get => phone; set => SetProptery(ref phone, value); }
+    public virtual string Code => $"{LastName?.FirstOrDefault()}{FirstName?.FirstOrDefault()}";
 
     public override string ToString()
     {

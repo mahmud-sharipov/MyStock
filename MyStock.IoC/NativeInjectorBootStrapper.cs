@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
 using MyStock.Application.AutoMapper;
+using MyStock.Application.Category;
 using MyStock.Application.UIComunication;
 using MyStock.Core.Interfaces;
 using MyStock.Persistence.Database;
@@ -63,6 +64,7 @@ namespace MyStock.IoC
             builder.RegisterType<MyStock.Application.Sale.Validators.SalesValidator>().InstancePerDependency();
             builder.RegisterType<MyStock.Application.Documents.Validators.DocumentDetailValidator>().InstancePerDependency();
             builder.RegisterType<MyStock.Application.Purchases.Validators.PurchaseValidator>().InstancePerDependency();
+            builder.RegisterType<ProductCategoryValidator>().InstancePerDependency();
         }
     }
 }

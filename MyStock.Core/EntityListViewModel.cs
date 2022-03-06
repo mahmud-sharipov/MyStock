@@ -1,6 +1,5 @@
 ﻿using DynamicData;
 using System.Collections.ObjectModel;
-using System.Reactive;
 
 namespace MyStock.Core;
 

@@ -21,36 +21,69 @@
             </Grid.RowDefinitions>
             <TextBlock Margin="0,15,0,10"
                        Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
-                       Text="Settings" />
-            <ContentControl Grid.Row="1" Content="{Binding ColletionFilters}" />
+                       Text="{Binding Title}" />
         </Grid>
 
-        <materialDesign:Card Grid.Row="1" Margin="0,10,0,10">
-            <Grid>
-                <DataGrid x:Name="EntityListGrid"
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          CanUserDeleteRows="False"
-                          Foreground="{DynamicResource MaterialDesignBody}"
-                          ItemsSource="{Binding Collection}"
-                          SelectedItem="{Binding SelectedItem}">
-                    <interactivity:Interaction.Triggers>
-                        <interactivity:EventTrigger EventName="MouseDoubleClick">
-                            <interactivity:InvokeCommandAction Command="{Binding Open}" />
-                        </interactivity:EventTrigger>
-                    </interactivity:Interaction.Triggers>
-                </DataGrid>
-                <Button Margin="0,0,10,10"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Bottom"
-                        Command="{Binding Add}"
-                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                        ToolTip="{x:Static langAsset:Translations.Add}">
-                    <materialDesign:PackIcon Width="30"
-                                             Height="30"
-                                             Kind="Plus" />
-                </Button>
-            </Grid>
-        </materialDesign:Card>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <!--  Header  -->
+            <ContentControl x:Name="HeaderContent" Grid.ColumnSpan="3" />
+
+            <!--  Left  -->
+            <ContentControl x:Name="LeftContent" Grid.Row="1" />
+
+            <!--  Right  -->
+            <ContentControl x:Name="RightContent"
+                            Grid.Row="1"
+                            Grid.Column="2" />
+
+            <!--  Footer  -->
+            <ContentControl x:Name="FooterContent"
+                            Grid.Row="2"
+                            Grid.ColumnSpan="3" />
+
+            <!--  Content  -->
+            <materialDesign:Card Grid.Row="1"
+                                 Grid.Column="1"
+                                 Margin="0,10,0,10">
+                <Grid>
+                    <DataGrid x:Name="EntityListGrid"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              EnableRowVirtualization="True"
+                              Foreground="{DynamicResource MaterialDesignBody}"
+                              ItemsSource="{Binding Collection}"
+                              SelectedItem="{Binding SelectedItem}">
+                        <interactivity:Interaction.Triggers>
+                            <interactivity:EventTrigger EventName="MouseDoubleClick">
+                                <interactivity:InvokeCommandAction Command="{Binding Open}" />
+                            </interactivity:EventTrigger>
+                        </interactivity:Interaction.Triggers>
+                    </DataGrid>
+                    <Button Margin="0,0,10,10"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Command="{Binding Add}"
+                            Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                            ToolTip="{x:Static langAsset:Translations.Add}">
+                        <materialDesign:PackIcon Width="30"
+                                                 Height="30"
+                                                 Kind="Plus" />
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+
+        </Grid>
     </Grid>
 </UserControl>

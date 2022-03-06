@@ -28,10 +28,10 @@ namespace MyStock.Pages.Dashboard
                     Values = GetData(),
                     Fill = null,
                     LineSmoothness=0,
-                    PointForeground=Brushes.Purple,
+                    PointForeground=System.Windows.Media.Brushes.Purple,
                     PointGeometry=DefaultGeometries.Diamond,
                     PointGeometrySize=20,
-                    Stroke = Brushes.Purple,
+                    Stroke = System.Windows.Media.Brushes.Purple,
                     StrokeThickness=4
                 },
 
@@ -42,9 +42,9 @@ namespace MyStock.Pages.Dashboard
                     Values = GetData(),
                     Fill = null,
                     LineSmoothness=1,
-                    PointForeground=Brushes.Red,
+                    PointForeground=System.Windows.Media.Brushes.Red,
                     PointGeometrySize=15,
-                    Stroke=Brushes.Red,
+                    Stroke=System.Windows.Media.Brushes.Red,
                     StrokeThickness=4
                 }
             };

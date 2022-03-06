@@ -10,9 +10,8 @@ namespace MyStock.Pages.Uoms
         {
             var filter = new UomListFilter();
             filter.NameSearchTextBox.SetBinding(TextBox.TextProperty, new Binding(nameof(ViewModel.NameSearchText)) { Source = ViewModel, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
-            ColletionFilters = filter;
+            HeaderContent = filter;
             InitializeDefaulPage();
-            CollectionDataGrid.SetBinding(DataGrid.ItemsSourceProperty, new Binding(nameof(ViewModel.Collection)));
         }
     }
 }

@@ -304,4 +304,16 @@
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="CategoryCannotBeDeleted" xml:space="preserve">
+    <value>Category cannot be deleted because it has product or subcategories</value>
+  </data>
+  <data name="ParentCategory" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value> Search</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
 </root>

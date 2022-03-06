@@ -1,6 +1,8 @@
-﻿using MyStock.Application.Products.Pages;
+﻿using MyStock.Application.Category;
+using MyStock.Application.Products.Pages;
 using MyStock.Application.Products.Validators;
 using MyStock.Application.StockLevels;
+using MyStock.Application.Uoms;
 
 namespace MyStock.Application.Products;
 
@@ -26,9 +28,19 @@ public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, I
     public Uom Uom { get => uom; set => RaiseAndSetAndValidateIfChanged(ref uom, value); }
     public ProductCategory Category { get => category; set => RaiseAndSetAndValidateIfChanged(ref category, value); }
     public List<ProductStockLevelViewModel> StockLevels { get; set; }
+    public ProductStockLevelViewModel StockLevel => StockLevels.FirstOrDefault();
 
-    public IEnumerable<ProductCategory> AvailableCategories { get; internal set; }
-    public IEnumerable<Uom> AvailableUoms { get; internal set; }
+    public ProductCategorySearchViewModel CategorySearchViewModel => new ProductCategorySearchViewModel(Context, c => Category = c)
+    {
+        SelectedSearchItem = Entity.Category,
+        SearchText = Entity.Category?.Title ?? ""
+    };
+
+    public UomSearchViewModel UomSearchViewModel => new UomSearchViewModel(Context, c => Uom = c)
+    {
+        SelectedSearchItem = Entity.Uom,
+        SearchText = Entity.Uom?.Title ?? ""
+    };
 
     protected override void InitializeAssociatedProperties()
     {
@@ -36,8 +48,6 @@ public class ProductViewModel : EntityPageViewModel<Product, ProductValidator, I
         foreach (var stockLevel in Entity.StockLevels)
             StockLevels.Add(new ProductStockLevelViewModel(stockLevel, Context));
 
-        AvailableUoms = Context.Set<Uom>().ToList();
-        AvailableCategories = Context.Set<ProductCategory>().ToList();
         base.InitializeAssociatedProperties();
     }
 

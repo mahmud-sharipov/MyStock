@@ -14,8 +14,8 @@
                   xmlns:pages="clr-namespace:MyStock.Pages"
                   xmlns:productControls="clr-namespace:MyStock.Pages.Products"
                   xmlns:viewModel="clr-namespace:MyStock.Application.Sale;assembly=MyStock.Application"
-                  Width="1150"
-                  Height="800"
+                  Width="1100"
+                  MinHeight="600"
                   d:DataContext="{d:DesignInstance Type=viewModel:SalesViewModel}"
                   d:DesignHeight="550"
                   d:DesignWidth="900"
@@ -44,6 +44,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="DateTextBlock"
@@ -77,8 +78,14 @@
                             </materialDesign:Card>
                         </Popup>
                     </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Button Grid.Column="2"
+                                Command="{Binding Report}"
+                                Style="{StaticResource MaterialDesignToolButton}">
+                            <iconPacks:PackIconBootstrapIcons Foreground="{DynamicResource MaterialDesignPaper}" Kind="FileEarmarkPdfFill" />
+                        </Button>
+                    </StackPanel>
                     <Button Grid.Column="2"
-                            HorizontalAlignment="Right"
                             Command="{Binding Close}"
                             Style="{StaticResource MaterialDesignToolButton}">
                         <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignDarkForeground}" Kind="Close" />
@@ -93,9 +100,9 @@
                 <materialDesign:Card>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel DataContext="{Binding NewLine}" Orientation="Horizontal">
-                            <productControls:ProductFullTextSearch Height="30"
+                            <productControls:ProductFullTextSearch Height="40"
                                                                    MinWidth="200"
-                                                                   Margin="10"
+                                                                   Margin="10,-10,10,0"
                                                                    DataContext="{Binding ProductSearchViewModel}"
                                                                    Hint="{x:Static langAsset:Translations.Product}"
                                                                    IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}" />
@@ -230,7 +237,7 @@
                             <RowDefinition />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <customerControls:CustomerFullTextSearch Height="35"
+                        <customerControls:CustomerFullTextSearch Height="40"
                                                                  Margin="0,10"
                                                                  DataContext="{Binding CustomerSearchViewModel}"
                                                                  Hint="{x:Static langAsset:Translations.Customer}"

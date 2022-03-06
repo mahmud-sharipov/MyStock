@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="MyStock.Pages.Products.ProductCategoryList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:common="clr-namespace:MyStock.Common"
+             xmlns:controls="clr-namespace:MyStock.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:domain="clr-namespace:MyStock.Domain;assembly=MyStock.Domain"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:langAsset="clr-namespace:MyStock.Application.Assets.Lang;assembly=MyStock.Application"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:MyStock.Pages"
+             xmlns:products="clr-namespace:MyStock.Application.Products;assembly=MyStock.Application"
+             xmlns:viewModel="clr-namespace:MyStock.Application.Settings;assembly=MyStock.Application"
+             d:DataContext="{d:DesignInstance Type=products:ProductListViewModel}"
+             d:DesignHeight="600"
+             d:DesignWidth="400"
+             mc:Ignorable="d">
+    <materialDesign:Card Width="250" Margin="10">
+        <Grid Margin="5,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="15,8,0,5"
+                           Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                           Text="{x:Static langAsset:Translations.Category}" />
+
+                <Button Margin="10,0,0,0"
+                        Command="{Binding AddCategory}"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="{x:Static langAsset:Translations.Add}">
+                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBody}" Kind="Plus" />
+                </Button>
+
+                <Button Command="{Binding ResetSelectedCategory}" Style="{StaticResource MaterialDesignIconButton}">
+                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBody}" Kind="Restart" />
+                </Button>
+
+            </StackPanel>
+            <TreeView Grid.Row="1"
+                      ItemsSource="{Binding ProductCategories}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <interactivity:Interaction.Triggers>
+                    <interactivity:EventTrigger EventName="MouseDoubleClick">
+                        <interactivity:InvokeCommandAction Command="{Binding OpenCategory}" />
+                    </interactivity:EventTrigger>
+                </interactivity:Interaction.Triggers>
+                <interactivity:Interaction.Behaviors>
+                    <controls:TreeViewSelectedItemBehavior SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
+                </interactivity:Interaction.Behaviors>
+                <TreeView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem">
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}" />
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Command="{Binding PlacementTarget.Tag.OpenCategory, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                              CommandParameter="{Binding}"
+                                              Header="{x:Static langAsset:Translations.Edit}"
+                                              Icon="{materialDesign:PackIcon Kind=Pencil}" />
+
+                                    <MenuItem Command="{Binding PlacementTarget.Tag.DeleteCategory, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                              CommandParameter="{Binding}"
+                                              Header="{x:Static langAsset:Translations.Delete}"
+                                              Icon="{materialDesign:PackIcon Kind=Delete}" />
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </TreeView.ItemsPanel>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type domain:ProductCategory}" ItemsSource="{Binding ChildCategories}">
+                        <TextBlock Margin="0,0,10,0"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

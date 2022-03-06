@@ -9,5 +9,6 @@ public class AppSettings
     }
 
     public string Language { get; set; }
+    public string CompanyName { get; set; }
     public UISettings UISettings { get; set; }
 }

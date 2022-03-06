@@ -2,27 +2,28 @@
 
 public class Document : EntityBase
 {
-    private DateTime date;
-    private string description;
-    private decimal discount;
-    private decimal paidAmount;
-    private bool processed;
+    private DateTime _date;
+    private string _description;
+    private decimal _discount;
+    private decimal _paidAmount;
+    private int _number;
+    private bool _processed;
 
     public Document()
     {
         Details = new HashSet<DocumentDetail>();
     }
 
-    public DateTime Date { get => date; set => SetProptery(ref date, value); }
-    public bool Processed { get => processed; set => SetProptery(ref processed, value); }
-    public string Description { get => description; set => SetProptery(ref description, value); }
-    
+    public DateTime Date { get => _date; set => SetProptery(ref _date, value); }
+    public bool Processed { get => _processed; set => SetProptery(ref _processed, value); }
+    public string Description { get => _description; set => SetProptery(ref _description, value); }
+    public int Number { get => _number; set => SetProptery(ref _number, value); }
     public decimal Discount
     {
-        get => discount;
+        get => _discount;
         set
         {
-            SetProptery(ref discount, value);
+            SetProptery(ref _discount, value);
             RaisePropertyChanged(nameof(Total));
             RaisePropertyChanged(nameof(Balance));
         }
@@ -30,9 +31,9 @@ public class Document : EntityBase
 
     public decimal PaidAmount
     {
-        get => paidAmount; set
+        get => _paidAmount; set
         {
-            SetProptery(ref paidAmount, value);
+            SetProptery(ref _paidAmount, value);
             RaisePropertyChanged(nameof(Balance));
         }
     }

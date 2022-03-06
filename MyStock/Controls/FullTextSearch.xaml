@@ -10,13 +10,13 @@
              mc:Ignorable="d">
     <Grid>
         <TextBox x:Name="uiSearch"
-                 Padding="10,7"
+                 Padding="0,5"
                  VerticalContentAlignment="Center"
                  materialDesign:HintAssist.Hint="{Binding ElementName=thisControl, Path=Hint}"
                  GotFocus="uiSearch_GotFocus"
                  IsEnabled="{Binding ElementName=thisControl, Path=IsEnabled}"
                  LostFocus="uiSearch_LostFocus"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
         <Popup x:Name="resultPopup"
                MaxHeight="350"

@@ -12,6 +12,7 @@ public abstract class ViewModel : ReactiveObject, IViewModel
 
     public Guid Token { get; }
     public IContext Context { get; private set; }
+    public bool IsNew { get; set; }
 
     public void Dispose()
     {

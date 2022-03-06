@@ -79,7 +79,7 @@
                                    FontSize="20"
                                    FontWeight="Medium"
                                    Foreground="{DynamicResource MaterialDesignDarkForeground}"
-                                   Text="My Stock" />
+                                   Text="{x:Static common:AppConfig.CompanyName}" />
                     </DataTemplate>
                 </mah:HamburgerMenu.HamburgerMenuHeaderTemplate>
                 <mah:HamburgerMenu.Content>

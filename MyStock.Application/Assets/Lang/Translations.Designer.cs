@@ -133,6 +133,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category cannot be deleted because it has product or subcategories.
+        /// </summary>
+        public static string CategoryCannotBeDeleted {
+            get {
+                return ResourceManager.GetString("CategoryCannotBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check.
         /// </summary>
         public static string Check {
@@ -313,6 +322,15 @@ namespace MyStock.Application.Assets.Lang {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string LastName {
@@ -390,6 +408,15 @@ namespace MyStock.Application.Assets.Lang {
         public static string PaidAmount {
             get {
                 return ResourceManager.GetString("PaidAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent.
+        /// </summary>
+        public static string ParentCategory {
+            get {
+                return ResourceManager.GetString("ParentCategory", resourceCulture);
             }
         }
         
@@ -543,6 +570,15 @@ namespace MyStock.Application.Assets.Lang {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
             }
         }
         

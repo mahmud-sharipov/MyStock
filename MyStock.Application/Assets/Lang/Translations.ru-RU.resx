@@ -304,4 +304,16 @@
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="CategoryCannotBeDeleted" xml:space="preserve">
+    <value>Категорию нельзя удалить, так как в ней есть товары или подкатегории.</value>
+  </data>
+  <data name="ParentCategory" xml:space="preserve">
+    <value>Родительская категория</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Данные</value>
+  </data>
 </root>

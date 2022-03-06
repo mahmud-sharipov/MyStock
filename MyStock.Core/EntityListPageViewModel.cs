@@ -66,6 +66,7 @@ public abstract class EntityListPageViewModel<TEntity, TPage> : EntityListViewMo
         {
             var entity = CreateNewEntity();
             var viewModel = CreateEntityViewModel(entity);
+            viewModel.IsNew = true;
             Context.AddToContext(entity);
             var result = await viewModel.DialogHost.Show(viewModel.EntityPage, IDialogHost.RootDialogIdentifier);
             if (true.Equals(result))

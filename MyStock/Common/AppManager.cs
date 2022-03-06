@@ -73,6 +73,7 @@ public static class AppConfig
     public static double Header3FontSize => AppManager.UISettings.AppFontSize + 6;
     public static double Header4FontSize => AppManager.UISettings.AppFontSize + 4;
     public static double Header5FontSize => AppManager.UISettings.AppFontSize + 2;
+    public static string CompanyName => AppManager.Settings.CompanyName;
 }
 
 public enum UITheme

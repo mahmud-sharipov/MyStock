@@ -10,8 +10,10 @@ public class EntityListPage<TViewModel> : BasePage<TViewModel>, IEntityListPage
     where TViewModel : class, IEntityListPageViewModel
 {
     public DataGrid CollectionDataGrid { get; set; }
-    public TextBlock TitleBlock { get; set; }
-    public UserControl ColletionFilters { get; set; }
+    public UserControl HeaderContent { get; set; }
+    public UserControl FooterContent { get; set; }
+    public UserControl RightContent { get; set; }
+    public UserControl LeftContent { get; set; }
 
     public EntityListPage(TViewModel viewModel) : base(viewModel)
     {
@@ -42,6 +44,10 @@ public class EntityListPage<TViewModel> : BasePage<TViewModel>, IEntityListPage
     protected void InitializeDefaulPage()
     {
         var tempPage = new EntityListPageTemplate() { DataContext = ViewModel };
+        tempPage.HeaderContent.Content = HeaderContent;
+        tempPage.FooterContent.Content = FooterContent;
+        tempPage.LeftContent.Content = LeftContent;
+        tempPage.RightContent.Content = RightContent;
         CollectionDataGrid = tempPage.EntityListGrid;
         SetupCollection(CollectionDataGrid);
         Content = tempPage;

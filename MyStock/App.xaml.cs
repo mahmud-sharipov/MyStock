@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MyStock.Application.Category;
 using MyStock.Application.Customers.Pages;
 using MyStock.Application.Dashboard;
 using MyStock.Application.Products.Pages;
@@ -67,6 +68,7 @@ public partial class App : System.Windows.Application
 
         builder.RegisterType<ProductListPage>().As<IProductListEntityPage>().InstancePerDependency();
         builder.RegisterType<ProductPage>().As<IProductEntityPage>().InstancePerDependency();
+        builder.RegisterType<ProductCategoryPage>().As<IProductCategoryEntityPage>().InstancePerDependency();
 
         builder.RegisterType<CustomerListPage>().As<ICustomerListEntityPage>().InstancePerDependency();
         builder.RegisterType<CustomerPage>().As<ICustomerEntityPage>().InstancePerDependency();
