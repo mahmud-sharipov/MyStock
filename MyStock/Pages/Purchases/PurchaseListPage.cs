@@ -1,5 +1,6 @@
 ﻿using MyStock.Application.Purchases;
 using MyStock.Application.Purchases.Pages;
+using MyStock.Pages.Sale;
 
 namespace MyStock.Pages.Purchases
 {
@@ -7,9 +8,7 @@ namespace MyStock.Pages.Purchases
     {
         public PurchaseListPage(PurchaseListViewModel viewModel) : base(viewModel)
         {
-            //var filter = new UomListFilter();
-            //filter.NameSearchTextBox.SetBinding(TextBox.TextProperty, new Binding(nameof(ViewModel.NameSearchText)) { Source = ViewModel, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
-            //ColletionFilters = filter;
+            HeaderContent = new SalesListFilter() { DataContext = viewModel }; ;
             InitializeDefaulPage();
         }
     }

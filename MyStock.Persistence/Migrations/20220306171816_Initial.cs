@@ -24,7 +24,8 @@ namespace MyStock.Persistence.Migrations
                     IsGeneral = table.Column<bool>(type: "bit", nullable: true),
                     IsAdmin = table.Column<bool>(type: "bit", nullable: true),
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<byte[]>(type: "varbinary(40)", maxLength: 40, nullable: true)
                 },
                 constraints: table =>
                 {

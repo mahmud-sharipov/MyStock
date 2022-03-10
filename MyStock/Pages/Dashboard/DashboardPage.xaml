@@ -5,6 +5,7 @@
                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                 xmlns:domain="clr-namespace:MyStock.Domain;assembly=MyStock.Domain"
                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                xmlns:langAsset="clr-namespace:MyStock.Application.Assets.Lang;assembly=MyStock.Application"
                 xmlns:local="clr-namespace:MyStock.Pages.Dashboard"
                 xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                 xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
@@ -14,7 +15,7 @@
                 xmlns:viewModel="clr-namespace:MyStock.Application.Dashboard;assembly=MyStock.Application"
                 d:DataContext="{d:DesignInstance Type=viewModel:DashboardViewModel}"
                 d:DesignHeight="450"
-                d:DesignWidth="800"
+                d:DesignWidth="1100"
                 x:TypeArguments="viewModel:DashboardViewModel"
                 mc:Ignorable="d">
 
@@ -25,7 +26,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Hidden">
             <Grid MaxHeight="350" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
@@ -45,7 +48,7 @@
                                 BorderThickness="0,0,0,1">
                             <TextBlock VerticalAlignment="Center"
                                        FontSize="{x:Static common:AppConfig.Header2FontSize}"
-                                       Text="Product details" />
+                                       Text="Информация о продукте" />
                         </Border>
                         <Grid Grid.Row="1"
                               Margin="0,15,20,0"
@@ -61,60 +64,36 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="Out of stock items" />
-                            <TextBlock Grid.Row="1" Text="Low stock items" />
-                            <TextBlock Grid.Row="2" Text="Over stock items" />
-                            <TextBlock Grid.Row="3" Text="All items" />
-                            <TextBlock Grid.Row="4" Text="Inactive items" />
+                            <TextBlock Grid.Row="0"
+                                       Foreground="#cc0000"
+                                       Text="Нет в наличии" />
+                            <TextBlock Grid.Row="1" Text="С низким уровням запаса" />
+                            <TextBlock Grid.Row="2" Text="Избыточный уровень запасов" />
+                            <TextBlock Grid.Row="3" Text="Все продукты" />
+                            <TextBlock Grid.Row="4" Text="Неактивные продукты" />
 
                             <TextBlock Grid.Row="0"
                                        Grid.Column="1"
                                        HorizontalAlignment="Right"
-                                       Text="2" />
+                                       Foreground="#cc0000"
+                                       Text="{Binding ProductsCountInfo.OutOfStockItemsCount}" />
                             <TextBlock Grid.Row="1"
                                        Grid.Column="1"
                                        HorizontalAlignment="Right"
-                                       Text="5" />
+                                       Text="{Binding ProductsCountInfo.LowStockItemsCount}" />
                             <TextBlock Grid.Row="2"
                                        Grid.Column="1"
                                        HorizontalAlignment="Right"
-                                       Text="16" />
+                                       Text="{Binding ProductsCountInfo.OverStockItemsCount}" />
 
                             <TextBlock Grid.Row="3"
                                        Grid.Column="1"
                                        HorizontalAlignment="Right"
-                                       Text="16" />
+                                       Text="{Binding ProductsCountInfo.AllProductsCount}" />
                             <TextBlock Grid.Row="4"
                                        Grid.Column="1"
                                        HorizontalAlignment="Right"
-                                       Text="16" />
-
-                            <!--<Grid Grid.RowSpan="5"
-                              Grid.Column="2"
-                              Margin="10,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock Margin="0,0,0,5"
-                                       HorizontalAlignment="Center"
-                                       Text="Active Items" />
-                            <lvc:Gauge Grid.Row="1"
-                                       GaugeActiveFill="{DynamicResource PrimaryHueDarkBrush}"
-                                       GaugeBackground="{DynamicResource PrimaryHueLightBrush}"
-                                       Uses360Mode="True"
-                                       Value="85"
-                                       From="0"
-                                       To="100">
-                                <lvc:Gauge.GaugeRenderTransform>
-                                    <TransformGroup>
-                                        <RotateTransform Angle="90" />
-                                        <ScaleTransform ScaleX="1" />
-                                    </TransformGroup>
-                                </lvc:Gauge.GaugeRenderTransform>
-
-                            </lvc:Gauge>
-                        </Grid>-->
+                                       Text="{Binding ProductsCountInfo.InactiveProductsCount}" />
                         </Grid>
                     </Grid>
                 </materialDesign:Card>
@@ -129,36 +108,42 @@
                             <Grid>
                                 <TextBlock VerticalAlignment="Center"
                                            FontSize="{x:Static common:AppConfig.Header2FontSize}"
-                                           Text="Top Selling Items" />
-                                <ComboBox HorizontalAlignment="Right"
-                                          FontSize="{x:Static common:AppConfig.Header5FontSize}"
-                                          SelectedIndex="0">
-                                    <ComboBox.Items>
-                                        <sys:String>Today</sys:String>
-                                        <sys:String>This week</sys:String>
-                                        <sys:String>This month</sys:String>
-                                        <sys:String>This year</sys:String>
-                                    </ComboBox.Items>
-                                </ComboBox>
+                                           Text="Самые продаваемые товары" />
                             </Grid>
 
                         </Border>
-                        <DataGrid MaxHeight="250" VerticalScrollBarVisibility="Visible">
+                        <DataGrid MaxHeight="250"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  ItemsSource="{Binding TopSellingProducts}"
+                                  VerticalScrollBarVisibility="Visible">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Product}"
-                                                    Header="Product"
+                                <DataGridTextColumn Binding="{Binding Code}"
+                                                    Header="{x:Static langAsset:Translations.Code}"
                                                     IsReadOnly="True" />
+
+                                <DataGridTextColumn Binding="{Binding Description}"
+                                                    Header="{x:Static langAsset:Translations.Description}"
+                                                    IsReadOnly="True" />
+
                                 <DataGridTextColumn Binding="{Binding Category}"
-                                                    Header="Category"
+                                                    Header="{x:Static langAsset:Translations.Category}"
                                                     IsReadOnly="True" />
-                                <DataGridTextColumn Binding="{Binding Quantity}"
-                                                    Header="Quantity"
-                                                    IsReadOnly="True" />
-                                <DataGridTextColumn Binding="{Binding Uom}"
-                                                    Header="Uom"
-                                                    IsReadOnly="True" />
+
+                                <DataGridTemplateColumn Header="{x:Static langAsset:Translations.Quantity}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Quantity, StringFormat=N2}" />
+                                                <TextBlock Margin="4,0,0,0" Text="{Binding Uom}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
                             </DataGrid.Columns>
-                            <DataGrid.Items>
+                            <d:DataGrid.Items>
                                 <ListItem />
                                 <ListItem />
                                 <ListItem />
@@ -168,7 +153,7 @@
                                 <ListItem />
                                 <ListItem />
                                 <ListItem />
-                            </DataGrid.Items>
+                            </d:DataGrid.Items>
                         </DataGrid>
                     </StackPanel>
                 </materialDesign:Card>
@@ -180,39 +165,40 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Border Padding="0,5"
-                                BorderBrush="{DynamicResource MaterialDesignDivider}"
-                                BorderThickness="0,0,0,1">
-                            <TextBlock VerticalAlignment="Center"
-                                       FontSize="{x:Static common:AppConfig.Header2FontSize}"
-                                       Text="Clients with overdue" />
+                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1">
+                            <Grid MinWidth="250">
+                                <TextBlock VerticalAlignment="Center"
+                                           FontSize="{x:Static common:AppConfig.Header2FontSize}"
+                                           Text="Клиенты с долгами" />
+                                <Button HorizontalAlignment="Right"
+                                        Command="{Binding ReportCustomersWithCredit}"
+                                        Style="{StaticResource MaterialDesignIconButton}">
+                                    <materialDesign:PackIcon Kind="Printer" />
+                                </Button>
+                            </Grid>
                         </Border>
-                        <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox Grid.Row="1"
+                                 ItemsSource="{Binding CustomerCredits}"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border x:Name="Border"
-                                            Padding="10,3"
-                                            BorderBrush="{DynamicResource MaterialDesignDivider}"
-                                            BorderThickness="0,0,0,1">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto" />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <iconPacks:PackIconMaterial Kind="Account" />
-                                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock FontSize="{x:Static common:AppConfig.Header5FontSize}" Text="My Client with overdue" />
-                                                    <TextBlock Margin="10,0,0,0"
-                                                               FontSize="{x:Static common:AppConfig.Header4FontSize}"
-                                                               Text="$850.00" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
+                                    <StackPanel Orientation="Horizontal">
+                                        <iconPacks:PackIconMaterial HorizontalAlignment="Left" Kind="Account" />
+                                        <TextBlock Grid.Column="1"
+                                                   Margin="10,0,0,0"
+                                                   FontSize="{x:Static common:AppConfig.Header5FontSize}"
+                                                   Text="{Binding Customer.FullName}" />
+                                        <TextBlock Grid.Column="2"
+                                                   Margin="10,0,0,0"
+                                                   HorizontalAlignment="Right"
+                                                   FontSize="{x:Static common:AppConfig.Header4FontSize}"
+                                                   FontWeight="Medium"
+                                                   Text="{Binding Credit, StringFormat=C2, ConverterCulture={x:Static common:AppManager.CultureInfo}}"
+                                                   TextAlignment="Right" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-                            <ListBox.Items>
+                            <d:ListBox.Items>
                                 <ListItem />
                                 <ListItem />
                                 <ListItem />
@@ -222,7 +208,7 @@
                                 <ListItem />
                                 <ListItem />
                                 <ListItem />
-                            </ListBox.Items>
+                            </d:ListBox.Items>
                         </ListBox>
                     </Grid>
                 </materialDesign:Card>
@@ -262,7 +248,17 @@
                         <lvc:DefaultTooltip Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}" />
                     </lvc:CartesianChart.DataTooltip>
                 </lvc:CartesianChart>
+
             </materialDesign:Card>
+            <Button Margin="0,10,10,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Command="{Binding ReportProfitAndLost}"
+                    Style="{StaticResource MaterialDesignIconButton}">
+                <materialDesign:PackIcon Width="40"
+                                         Height="40"
+                                         Kind="Printer" />
+            </Button>
         </Grid>
     </Grid>
 </pages:BasePage>

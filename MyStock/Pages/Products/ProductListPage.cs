@@ -7,7 +7,8 @@ namespace MyStock.Pages.Products
     {
         public ProductListPage(ProductListViewModel viewModel) : base(viewModel)
         {
-            LeftContent = new ProductCategoryList() { DataContext = ViewModel };
+            LeftContent = new ProductCategoryList() { DataContext = viewModel };
+            HeaderContent = new ProductFilter() { DataContext = viewModel }; ;
             InitializeDefaulPage();
         }
     }

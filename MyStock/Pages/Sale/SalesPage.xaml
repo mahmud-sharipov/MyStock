@@ -41,17 +41,36 @@
                                       Mode="PrimaryMid">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal">
+                        <StackPanel VerticalAlignment="Center"
+                                    Orientation="Horizontal"
+                                    TextBlock.FontSize="{x:Static common:AppConfig.Header2FontSize}">
+                            <TextBlock Text="{x:Static langAsset:Translations.Invoice}" />
+                            <TextBlock Text=": #" />
+                            <TextBlock Text="{Binding Entity.Number}" />
+                        </StackPanel>
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="1"
+                                Margin="20,0,0,0"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal">
+
+                        <materialDesign:PackIcon Width="21"
+                                                 Height="21"
+                                                 Margin="10,2,10,0"
+                                                 VerticalAlignment="Center"
+                                                 Kind="CalendarMonth" />
                         <TextBlock x:Name="DateTextBlock"
                                    VerticalAlignment="Center"
-                                   FontSize="24"
-                                   Text="{Binding Date, StringFormat=D, ConverterCulture={x:Static common:AppManager.CultureInfo}}" />
+                                   Text="{Binding Date, StringFormat={x:Static common:AppConfig.DateFormat}, ConverterCulture={x:Static common:AppManager.CultureInfo}}"
+                                   TextBlock.FontSize="{x:Static common:AppConfig.Header2FontSize}" />
 
-                        <ToggleButton x:Name="CalendarPopupToggle"
+                        <!--<ToggleButton x:Name="CalendarPopupToggle"
                                       Margin="10,0,0,0"
                                       IsEnabled="{Binding IsOpen}"
                                       Style="{StaticResource MaterialDesignFlatToggleButton}">
@@ -75,20 +94,24 @@
                                     </Viewbox>
                                 </Border>
                             </materialDesign:Card>
-                        </Popup>
+                        </Popup>-->
                     </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Button Grid.Column="2"
-                                Command="{Binding Report}"
-                                Style="{StaticResource MaterialDesignToolButton}">
-                            <iconPacks:PackIconBootstrapIcons Foreground="{DynamicResource MaterialDesignPaper}" Kind="FileEarmarkPdfFill" />
+                    <StackPanel Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+
+                        <Button Command="{Binding Report}" Style="{StaticResource MaterialDesignIconForegroundButton}">
+                            <iconPacks:PackIconMaterialDesign Width="20"
+                                                              Height="20"
+                                                              Kind="Print" />
+                        </Button>
+
+                        <Button Command="{Binding Close}" Style="{StaticResource MaterialDesignIconForegroundButton}">
+                            <materialDesign:PackIcon Width="20"
+                                                     Height="20"
+                                                     Kind="Close" />
                         </Button>
                     </StackPanel>
-                    <Button Grid.Column="2"
-                            Command="{Binding Close}"
-                            Style="{StaticResource MaterialDesignToolButton}">
-                        <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignDarkForeground}" Kind="Close" />
-                    </Button>
                 </Grid>
             </materialDesign:ColorZone>
             <Grid Grid.Row="1" Margin="10">
@@ -233,16 +256,23 @@
                     <Grid Margin="15,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                             <RowDefinition />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <customerControls:CustomerFullTextSearch Height="40"
+                        <DatePicker materialDesign:HintAssist.Hint="{x:Static langAsset:Translations.Date}"
+                                    materialDesign:TextFieldAssist.HasClearButton="True"
+                                    IsEnabled="{Binding IsOpen}"
+                                    SelectedDate="{Binding Date, ConverterCulture={x:Static common:AppManager.CultureInfo}, Mode=TwoWay}"
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+
+                        <customerControls:CustomerFullTextSearch Grid.Row="1"
                                                                  Margin="0,10"
                                                                  DataContext="{Binding CustomerSearchViewModel}"
                                                                  Hint="{x:Static langAsset:Translations.Customer}"
                                                                  IsEnabled="{Binding ElementName=thisPagee, Path=DataContext.IsOpen}"
                                                                  ShowSubtitle="False" />
-                        <StackPanel Grid.Row="1">
+                        <StackPanel Grid.Row="2">
                             <Grid TextBlock.FontSize="{x:Static common:AppConfig.Header4FontSize}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -351,7 +381,7 @@
                             </Grid>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="2" Margin="20">
+                        <StackPanel Grid.Row="3" Margin="20">
                             <Button Height="50"
                                     materialDesign:ButtonAssist.CornerRadius="25"
                                     Command="{Binding Process}"

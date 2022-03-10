@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using MyStock.Application.Assets.Lang;
+using System.Windows.Input;
 
 namespace MyStock.Windows
 {
@@ -8,6 +9,9 @@ namespace MyStock.Windows
         {
             InitializeComponent();
             DataContext = this;
+            txtUsername.Text = "Admin";
+            txtPassword.Password = "Admin";
+            loginBtn_Click(null, null);
         }
 
         private void exitApp(object sender, RoutedEventArgs e)
@@ -17,8 +21,12 @@ namespace MyStock.Windows
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
-            this.Close();
+            if (UserManager.Login(txtUsername.Text, txtPassword.Password))
+            {
+                new MainWindow().Show();
+                this.Close();
+            }
+            ErrorBlock.Text = Translations.LoginOrPasswordWrong;
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

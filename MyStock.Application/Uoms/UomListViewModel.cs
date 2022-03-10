@@ -40,9 +40,11 @@ namespace MyStock.Application.Uoms
 
         protected override IViewable CreateEntityViewModel(Uom entity) => new UomViewModel(entity, Context);
 
-        protected override bool FilereItem(Uom entity)
+        protected override Expression<Func<Uom, bool>> FilereItem()
         {
-            return string.IsNullOrEmpty(NameSearchText) || entity.Name.Contains(NameSearchText, StringComparison.CurrentCultureIgnoreCase);
+            if (string.IsNullOrEmpty(NameSearchText))
+                return e => true;
+            return e => e.Name.Contains(NameSearchText, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

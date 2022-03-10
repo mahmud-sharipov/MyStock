@@ -316,4 +316,55 @@
   <data name="Information" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="LoginOrPasswordWrong" xml:space="preserve">
+    <value>Username or login is incorrect!</value>
+  </data>
+  <data name="DocNumber" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="AppInstaceAlreadyIsRunning" xml:space="preserve">
+    <value>Already an instance of the app is running...</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Invoice</value>
+  </data>
+  <data name="Personalization" xml:space="preserve">
+    <value>Personalization</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Palette" xml:space="preserve">
+    <value>Palette</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="NotPaid" xml:space="preserve">
+    <value>Not paid</value>
+  </data>
+  <data name="DefaultAccountCannotBedeleted" xml:space="preserve">
+    <value>System account cannot be deleted</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
 </root>

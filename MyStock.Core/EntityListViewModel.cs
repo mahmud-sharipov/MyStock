@@ -1,5 +1,6 @@
 ﻿using DynamicData;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 
 namespace MyStock.Core;
 
@@ -17,7 +18,7 @@ public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewM
         get
         {
             _collection.Clear();
-            _collection.AddRange(Source.Where(FilereItem));
+            _collection.AddRange(Order(Source.Where(FilereItem())));
             return _collection;
         }
     }
@@ -33,8 +34,13 @@ public abstract class EntityListViewModel<TEntity> : ViewModel, IEntityListViewM
 
     public abstract bool CanDeleteEntity(TEntity entity, out string reason);
 
-    protected virtual bool FilereItem(TEntity entity)
+    protected virtual Expression<Func<TEntity, bool>> FilereItem()
     {
-        return true;
+        return entity => true;
+    }
+
+    protected virtual IOrderedQueryable<TEntity> Order(IQueryable<TEntity> source)
+    {
+        return source.OrderBy(e => e.Guid);
     }
 }

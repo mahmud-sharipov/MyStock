@@ -1,12 +1,16 @@
-﻿using System.Globalization;
+﻿using MaterialDesignColors;
+using MaterialDesignColors.ColorManipulation;
+using System.Globalization;
 using System.Threading;
+using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace MyStock.Common;
 
 public static class AppManager
 {
-    private static readonly PaletteHelper _paletteHelper = new PaletteHelper();
-    public static UISettings _uiSettings;
+    internal static readonly PaletteHelper _paletteHelper = new PaletteHelper();
+    static UISettings _uiSettings;
 
     public static Domain.Settings Settings => Global.Settings;
 
@@ -21,13 +25,18 @@ public static class AppManager
         {
             NumberFormat = new NumberFormatInfo()
             {
-                CurrencySymbol = "сом.",
+                CurrencySymbol = "с.",
                 CurrencyPositivePattern = 3,
                 CurrencyNegativePattern = 8
             }
         };
+        CultureInfo.DateTimeFormat.ShortDatePattern = Global.DateFormate;
         Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo;
+        FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
+            XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
         SetTheme(UISettings.Theme);
+        if (UISettings.Background != null)
+            ChangeColor(UISettings.Background.Value, UISettings.Foreground);
     }
 
     public static void Stop()
@@ -37,24 +46,30 @@ public static class AppManager
         Global.Context.SaveChanges();
     }
 
-    public static void ChangeTheme(UITheme theme)
-    {
-        if (theme != UISettings.Theme)
-        {
-            SetTheme(theme);
-            UISettings.Theme = theme;
-        }
-    }
-
     public static void SetTheme(UITheme theme)
     {
         ITheme newTheme = _paletteHelper.GetTheme();
-        newTheme.SetBaseTheme(Theme.Light);
 
         if (theme == UITheme.Dark)
             newTheme.SetBaseTheme(Theme.Dark);
+        else
+            newTheme.SetBaseTheme(Theme.Light);
 
+        UISettings.Theme = theme;
         _paletteHelper.SetTheme(newTheme);
+    }
+
+    public static void ChangeColor(Color background, Color? foreground = null)
+    {
+        ITheme theme = _paletteHelper.GetTheme();
+
+        theme.PrimaryLight = theme.SecondaryLight = new ColorPair(background.Lighten(), foreground);
+        theme.PrimaryMid = theme.SecondaryMid = new ColorPair(background, foreground);
+        theme.PrimaryDark = theme.SecondaryDark = new ColorPair(background.Darken(), foreground);
+
+        _paletteHelper.SetTheme(theme);
+        UISettings.Background = background;
+        UISettings.Foreground = theme.PrimaryMid.GetForegroundColor();
     }
 }
 
@@ -67,6 +82,7 @@ public static class AppConfig
     public static double Header4FontSize => AppManager.UISettings.AppFontSize + 4;
     public static double Header5FontSize => AppManager.UISettings.AppFontSize + 2;
     public static string CompanyName => AppManager.Settings.CompanyName;
+    public static string DateFormat => Global.DateFormate;
 }
 
 public enum UITheme

@@ -1,9 +1,10 @@
 ﻿using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using MyStock.Application.Assets.Lang;
 using MyStock.Application.Dashboard;
 using MyStock.Core.Interfaces;
-using System.Drawing;
+using System.Linq;
 using System.Windows.Media;
 
 namespace MyStock.Pages.Dashboard
@@ -18,55 +19,44 @@ namespace MyStock.Pages.Dashboard
         {
             InitializeComponent();
             Loaded += OnPageLoad;
-
+            var sales = new ChartValues<DateTimePoint>();
+            var expenses = new ChartValues<DateTimePoint>();
+            sales.AddRange(viewModel.Sales.Select(s => new DateTimePoint(s.Date, (double)s.Amount)));
+            expenses.AddRange(viewModel.Expenses.Select(s => new DateTimePoint(s.Date, (double)s.Amount)));
             Chart2.Series = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Title = "Sales",
+                    Title = Translations.Sales,
                     LabelPoint=c=>c.Y.ToString("C"),
-                    Values = GetData(),
+                    Values = sales,
                     Fill = null,
                     LineSmoothness=0,
-                    PointForeground=System.Windows.Media.Brushes.Purple,
+                    //PointForeground= new SolidColorBrush(AppManager._paletteHelper.GetTheme().PrimaryDark.Color),
+                    PointForeground=  Brushes.Green,
                     PointGeometry=DefaultGeometries.Diamond,
                     PointGeometrySize=20,
-                    Stroke = System.Windows.Media.Brushes.Purple,
+                    Stroke = Brushes.Green,
+                    //Stroke = new SolidColorBrush(AppManager._paletteHelper.GetTheme().PrimaryDark.Color),
                     StrokeThickness=4
                 },
 
                 new LineSeries
                 {
-                    Title = "Expenses",
+                    Title = Translations.Purchases,
                     LabelPoint=c=>c.Y.ToString("C"),
-                    Values = GetData(),
+                    Values =expenses,
                     Fill = null,
                     LineSmoothness=1,
-                    PointForeground=System.Windows.Media.Brushes.Red,
+                    PointForeground =  Brushes.Orange,
                     PointGeometrySize=15,
-                    Stroke=System.Windows.Media.Brushes.Red,
+                    Stroke= Brushes.Orange,
                     StrokeThickness=4
                 }
             };
 
             AxisX.LabelFormatter = val => new DateTime((long)val).ToString("dd MMM");
-            AxisY.LabelFormatter = val => val.ToString("C");
-        }
-
-        private ChartValues<DateTimePoint> GetData()
-        {
-            var r = new Random();
-            var trend = 50;
-            var values = new ChartValues<DateTimePoint>();
-
-            for (var i = 0; i < 50; i++)
-            {
-                var seed = r.NextDouble();
-                if (seed > .8) trend += seed > .9 ? 50 : -50;
-                values.Add(new DateTimePoint(DateTime.Now.AddDays(i), trend + r.Next(0, 10)));
-            }
-
-            return values;
+            AxisY.LabelFormatter = val => val.ToString("C2");
         }
 
         private void OnPageUnloaded(object sender, RoutedEventArgs e)

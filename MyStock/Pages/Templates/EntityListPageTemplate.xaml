@@ -37,20 +37,20 @@
             </Grid.RowDefinitions>
 
             <!--  Header  -->
-            <ContentControl x:Name="HeaderContent" Grid.ColumnSpan="3" />
+            <ContentControl x:Name="HeaderContent" Grid.Column="1" />
 
             <!--  Left  -->
-            <ContentControl x:Name="LeftContent" Grid.Row="1" />
+            <ContentControl x:Name="LeftContent" Grid.RowSpan="3" />
 
             <!--  Right  -->
             <ContentControl x:Name="RightContent"
-                            Grid.Row="1"
+                            Grid.RowSpan="3"
                             Grid.Column="2" />
 
             <!--  Footer  -->
             <ContentControl x:Name="FooterContent"
                             Grid.Row="2"
-                            Grid.ColumnSpan="3" />
+                            Grid.Column="2" />
 
             <!--  Content  -->
             <materialDesign:Card Grid.Row="1"

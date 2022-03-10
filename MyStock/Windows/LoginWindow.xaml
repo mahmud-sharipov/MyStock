@@ -15,10 +15,10 @@
         Background="{x:Null}"
         ResizeMode="NoResize"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Topmost="True"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         mc:Ignorable="d">
+    <!--  Topmost="True"  -->
     <Window.Resources>
         <ResourceDictionary>
             <localConvertors:StringToUpperConverter x:Key="StringToUpperConverter" />
@@ -76,6 +76,12 @@
                                Text="{x:Static langAsset:Translations.WelcomeBack}"
                                TextAlignment="Center"
                                TextWrapping="Wrap" />
+                    <TextBlock x:Name="ErrorBlock"
+                               HorizontalAlignment="Center"
+                               d:Text="Ettor"
+                               FontSize="16"
+                               Foreground="#cc0000"
+                               TextWrapping="Wrap" />
 
                     <TextBox x:Name="txtUsername"
                              Width="300"
@@ -104,7 +110,7 @@
                             Click="loginBtn_Click"
                             Content="{Binding Source={x:Static langAsset:Translations.Login}, Converter={StaticResource StringToUpperConverter}}"
                             FontSize="18"
-                            Style="{StaticResource MaterialDesignFlatDarkBgButton}" />
+                            Style="{StaticResource MaterialDesignFlatMidBgButton}" />
 
                 </StackPanel>
             </Grid>

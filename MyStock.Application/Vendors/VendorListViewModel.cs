@@ -20,6 +20,13 @@ namespace MyStock.Application.Vendors
         public override bool CanDeleteEntity(Vendor entity, out string reason)
         {
             reason = string.Empty;
+
+            if (entity.IsAnonymous)
+            {
+                reason = Translations.DefaultAccountCannotBedeleted;
+                return false;
+            }
+
             if (entity.Purchases.Any())
             {
                 reason = Translations.VendorCannotBeDeleted;
@@ -42,17 +49,16 @@ namespace MyStock.Application.Vendors
 
         protected override IViewable CreateEntityViewModel(Vendor entity) => new VendorViewModel(entity, Context);
 
-        protected override bool FilereItem(Vendor entity)
+        protected override Expression<Func<Vendor, bool>> FilereItem()
         {
-            if (string.IsNullOrWhiteSpace(nameSearchText)) return true;
+            if (string.IsNullOrWhiteSpace(nameSearchText)) return e => true;
 
-            return entity.FirstName.Contains(nameSearchText) ||
-                entity.LastName.Contains(nameSearchText) ||
-                entity.MiddleName.Contains(nameSearchText);
+            return e => e.FirstName.Contains(nameSearchText) ||
+                e.LastName.Contains(nameSearchText) ||
+                e.MiddleName.Contains(nameSearchText);
         }
 
         protected override Vendor CreateNewEntity() =>
             new Vendor();
     }
-
 }

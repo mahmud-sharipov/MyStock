@@ -10,10 +10,7 @@ namespace MyStock.Application.Sale
     {
         private Customer customer;
 
-        public SalesViewModel(Sales entity, IContext context) : base(entity, context)
-        {
-
-        }
+        public SalesViewModel(Sales entity, IContext context) : base(entity, context) { }
 
         public Customer Customer { get => customer; set => RaiseAndSetAndValidateIfChanged(ref customer, value); }
 
@@ -23,9 +20,6 @@ namespace MyStock.Application.Sale
             SearchText = Entity.Customer?.Title ?? ""
         };
 
-
-        public ICommand Report { get; set; }
-
         protected override void BuildCommands()
         {
             base.BuildCommands();
@@ -33,12 +27,12 @@ namespace MyStock.Application.Sale
             {
                 ReportBuilder.New(@"Assets\Reports\SalesInvoice.html")
                     .UseDefaultStyles()
-                    .AddParameter(SalesInvoiceReportParameters.ConpanyName, "MyStore")
-                    .AddParameter(SalesInvoiceReportParameters.CustomerName, Customer.FullName)
-                    .AddParameter(SalesInvoiceReportParameters.CustomerAddress, Customer.Address)
-                    .AddParameter(SalesInvoiceReportParameters.CustomerPhone, Customer.Phone)
-                    .AddParameter(SalesInvoiceReportParameters.Number, "____")
-                    .AddParameter(SalesInvoiceReportParameters.Date, Date.ToString("D"))
+                    .AddParameter(ReportGlobalConsts.ConpanyName, Global.Settings.CompanyName)
+                    .AddParameter(SalesInvoiceReportParameters.CustomerName, Customer?.FullName ?? "")
+                    .AddParameter(SalesInvoiceReportParameters.CustomerAddress, string.IsNullOrEmpty(Customer?.Address) ? "__________________" : Customer.Address)
+                    .AddParameter(SalesInvoiceReportParameters.CustomerPhone, string.IsNullOrEmpty(Customer?.Phone) ? "__________________" : Customer.Phone)
+                    .AddParameter(SalesInvoiceReportParameters.Number, Entity.Number.ToString())
+                    .AddParameter(SalesInvoiceReportParameters.Date, Date.ToString(Global.DateFormate))
                     .AddParameter(SalesInvoiceReportParameters.Details, string.Join("", Details.Select(GetDetailInfoForReport)))
                     .AddParameter(SalesInvoiceReportParameters.Subtotal, Subtotal.ToString("C2"))
                     .AddParameter(SalesInvoiceReportParameters.Discount, Discount.ToString("C2"))
@@ -50,11 +44,6 @@ namespace MyStock.Application.Sale
             }, outputScheduler: Scheduler.CurrentThread);
         }
 
-        string GetDetailInfoForReport(DocumentDetailViewModel detailViewModel, int index)
-        {
-            return $"<tr><td>{index++}</td><td>{detailViewModel.Product.Code}</td><td>{detailViewModel.Product.Description}</td><td>{detailViewModel.Product.Category.Name}</td><td>{detailViewModel.Quantity:N2}</td><td>{detailViewModel.UnitPrice:C2}</td><td>{detailViewModel.TotalPrice:C2}</td></tr>";
-        }
-
         protected override void OnProcess()
         {
             foreach (var detail in Details)
@@ -62,6 +51,7 @@ namespace MyStock.Application.Sale
                 var stockLevel = detail.Product.StockLevels.Single(sl => sl.WarehouseGuid == detail.Warehouse.Guid);
                 stockLevel.NetQuantity -= detail.Quantity;
                 detail.RaisePropertyChanged(nameof(detail.Product));
+                Entity.IsFullyPaid = Balance == 0;
             }
         }
 
@@ -72,16 +62,16 @@ namespace MyStock.Application.Sale
                 var stockLevel = detail.Product.StockLevels.Single(sl => sl.WarehouseGuid == detail.Warehouse.Guid);
                 stockLevel.NetQuantity += detail.Quantity;
                 detail.RaisePropertyChanged(nameof(detail.Product));
+                Entity.IsFullyPaid = Balance == 0;
             }
         }
     }
 
     public static class SalesInvoiceReportParameters
     {
-        public const string ConpanyName = "$CompanyName$";
         public const string CustomerName = "$CustomerName$";
         public const string CustomerAddress = "$CustomerAddress$";
-        public const string CustomerPhone = "$CompanyPhone$";
+        public const string CustomerPhone = "$CustomerPhone$";
         public const string Number = "$Number$";
         public const string Date = "$Date$";
         public const string Subtotal = "$Subtotal$";

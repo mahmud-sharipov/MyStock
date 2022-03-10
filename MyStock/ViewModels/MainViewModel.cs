@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using MaterialDesignColors;
+using MaterialDesignColors.ColorManipulation;
 using MyStock.Application.Assets.Lang;
 using MyStock.Application.Customers;
 using MyStock.Application.Dashboard;
@@ -11,6 +13,7 @@ using MyStock.Application.Vendors;
 using MyStock.Core.Interfaces;
 using System.Reactive.Concurrency;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MyStock.ViewModels;
 
@@ -32,8 +35,11 @@ public class MainViewModel : ReactiveObject
     {
         if (param is Type menu)
         {
-            var viewModel = Global.Container.Resolve(menu, new PositionalParameter(0, Global.Container.Resolve<IContext>())) as INavigatable;
-            SelectedPage = viewModel.EntityPage;
+            if (SelectedPage == null || menu.Name != SelectedPage.ViewModel.GetType().Name)
+            {
+                var viewModel = Global.Container.Resolve(menu, new PositionalParameter(0, Global.Container.Resolve<IContext>())) as INavigatable;
+                SelectedPage = viewModel.EntityPage;
+            }
         }
     }, outputScheduler: Scheduler.CurrentThread);
 
@@ -59,7 +65,7 @@ public class MainViewModel : ReactiveObject
         });
 
         OptionsMenu = new List<Common.MenuItem>();
-        OptionsMenu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Profile", "AccountCog", 1, ""));
+        //OptionsMenu.Add(new Common.MenuItem(typeof(IVendorListViewModel), "Profile", "AccountCog", 1, ""));
         OptionsMenu.Add(new Common.MenuItem(typeof(ISettingsViewModel), "Options", "Cog", 2, ""));
         OptionsMenu.ForEach(m =>
         {
@@ -68,6 +74,5 @@ public class MainViewModel : ReactiveObject
         });
 
         SelectedMenu = Menu[0];
-        SelectedMenu.Command.Execute(SelectedMenu.CommandParameter);
     }
 }

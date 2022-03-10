@@ -20,6 +20,12 @@ namespace MyStock.Application.Customers
         public override bool CanDeleteEntity(Customer entity, out string reason)
         {
             reason = string.Empty;
+            if (entity.IsAnonymous)
+            {
+                reason = Translations.DefaultAccountCannotBedeleted;
+                return false;
+            }
+
             if (entity.Sales.Any())
             {
                 reason = Translations.CustomerCannotBeDeletedMessage;
@@ -43,11 +49,11 @@ namespace MyStock.Application.Customers
 
         protected override IViewable CreateEntityViewModel(Customer entity) => new CustomerViewModel(entity, Context);
 
-        protected override bool FilereItem(Customer entity)
+        protected override Expression<Func<Customer, bool>> FilereItem()
         {
-            if (string.IsNullOrWhiteSpace(nameSearchText)) return true;
+            if (string.IsNullOrWhiteSpace(nameSearchText)) return e => true;
 
-            return entity.FirstName.Contains(nameSearchText) ||
+            return entity => entity.FirstName.Contains(nameSearchText) ||
                 entity.LastName.Contains(nameSearchText) ||
                 entity.MiddleName.Contains(nameSearchText);
         }

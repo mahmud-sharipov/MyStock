@@ -9,6 +9,7 @@
             Guid = Guid.NewGuid();
             Owner = owner;
             Severity = severity;
+            _choices = new Collection<IQuestionChoice>();
         }
 
         public string Owner { get; }

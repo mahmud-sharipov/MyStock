@@ -3,7 +3,7 @@ using System.Windows.Data;
 
 namespace MyStock.Converters
 {
-    class ToDocumentBalanceConvetor : IMultiValueConverter
+    public class ToDocumentBalanceConvetor : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -20,6 +20,19 @@ namespace MyStock.Converters
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    public class EnumToBooleanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return ((Enum)value).Equals((Enum)parameter);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return value.Equals(true) ? parameter : Binding.DoNothing;
         }
     }
 }

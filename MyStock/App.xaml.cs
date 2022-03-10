@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MyStock.Application.Assets.Lang;
 using MyStock.Application.Category;
 using MyStock.Application.Customers.Pages;
 using MyStock.Application.Dashboard;
@@ -19,6 +20,8 @@ using MyStock.Pages.Settings;
 using MyStock.Pages.Uoms;
 using MyStock.Pages.Vendors;
 using MyStock.Persistence.Seed;
+using System.Diagnostics;
+using System.Linq;
 
 namespace MyStock;
 
@@ -33,6 +36,9 @@ public partial class App : System.Windows.Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        if (Process.GetProcesses().Where(p => p.ProcessName == Process.GetCurrentProcess().ProcessName).Count() > 1)
+            App.Current.Shutdown();
+
         var builder = new ContainerBuilder();
         NativeInjectorBootStrapper.RegisterServices(builder);
         RegisterClientIoC(builder);

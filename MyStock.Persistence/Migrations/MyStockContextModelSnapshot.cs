@@ -41,6 +41,9 @@ namespace MyStock.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsFullyPaid")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
@@ -231,8 +234,20 @@ namespace MyStock.Persistence.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("DefaultAnonymousCustomerOnNewSales")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("DefaultAnonymousVendorOnNewPurchase")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Lagnuage")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NextPurchaseDocNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NextSalesDocNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("UISettings")
                         .HasColumnType("nvarchar(max)");
@@ -283,7 +298,7 @@ namespace MyStock.Persistence.Migrations
                 {
                     b.HasBaseType("MyStock.Domain.Person");
 
-                    b.Property<bool>("IsGeneral")
+                    b.Property<bool>("IsAnonymous")
                         .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("Customer");
@@ -326,12 +341,20 @@ namespace MyStock.Persistence.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Salt")
+                        .HasMaxLength(40)
+                        .HasColumnType("varbinary(40)");
+
                     b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("MyStock.Domain.Vendor", b =>
                 {
                     b.HasBaseType("MyStock.Domain.Person");
+
+                    b.Property<bool>("IsAnonymous")
+                        .HasColumnType("bit")
+                        .HasColumnName("Vendor_IsAnonymous");
 
                     b.HasDiscriminator().HasValue("Vendor");
                 });

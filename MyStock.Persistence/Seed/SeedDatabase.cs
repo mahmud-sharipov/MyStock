@@ -7,22 +7,34 @@ namespace MyStock.Persistence.Seed
         public static void Seed(IContext context)
         {
             SeedSettings(context);
+            SeedUser(context);
             SeedWarehouse(context);
             SeedUom(context);
             SeedProductCategory(context);
-            SeedGeneralCustomer(context);
+            SeedAnonymousCustomer(context);
+            SeedAnonymousVendor(context);
             context.SaveChanges();
         }
 
         static void SeedSettings(IContext context)
         {
             if (context.Set<Settings>().Any()) return;
-            context.AddToContext(new Settings() { CompanyName = "MyStock", Lagnuage = "tj-TJ" });
+            context.AddToContext(new Settings()
+            {
+                CompanyName = "MyStock",
+                Lagnuage = "tj-TJ",
+                NextPurchaseDocNumber = 1,
+                NextSalesDocNumber = 1,
+                DefaultAnonymousCustomerOnNewSales = true,
+                DefaultAnonymousVendorOnNewPurchase = true,
+                UISettings = ""
+            });
         }
 
         static void SeedUser(IContext context)
         {
             if (context.Set<User>().Any()) return;
+            var password = UserManager.EncryptPassword("Admin");
             context.AddToContext(new User()
             {
                 FirstName = "Admin",
@@ -30,7 +42,8 @@ namespace MyStock.Persistence.Seed
                 IsAdmin = true,
                 IsActive = true,
                 Login = "Admin",
-                PasswordHash = UserManager.EncryptPassword("Admin")
+                PasswordHash = password.Hash,
+                Salt = password.Salt
             });
         }
 
@@ -40,10 +53,18 @@ namespace MyStock.Persistence.Seed
             context.AddToContext(new Warehouse() { Name = "Главний", Description = "Склад по умолчанию" });
         }
 
-        static void SeedGeneralCustomer(IContext context)
+        static void SeedAnonymousCustomer(IContext context)
         {
-            if (context.Set<Customer>().Any(c => c.IsGeneral)) return;
-            context.AddToContext(new Customer() { Guid = Customer.GeneralCustomerGuid, FirstName = "Общий клиент", IsGeneral = true });
+            if (context.Set<Customer>().Any(c => c.IsAnonymous)) return;
+
+            context.AddToContext(new Customer() { Guid = Customer.AnonymousCustomerGuid, FirstName = "Общий", LastName = "клиент", IsAnonymous = true });
+        }
+
+        static void SeedAnonymousVendor(IContext context)
+        {
+            if (context.Set<Vendor>().Any(c => c.IsAnonymous)) return;
+
+            context.AddToContext(new Vendor() { Guid = Vendor.AnonymousVendorGuid, FirstName = "Общий", LastName = "продавец", IsAnonymous = true });
         }
 
         static void SeedUom(IContext context)

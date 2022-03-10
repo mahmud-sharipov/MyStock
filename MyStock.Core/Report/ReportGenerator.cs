@@ -95,6 +95,7 @@ public class ReportBuilder
 public static class ReportGlobalConsts
 {
     public const string StylesParamter = "$Styles$";
+    public const string ConpanyName = "$CompanyName$";
     public const string BootstrapCssPath = "Assets/Dist/bootstrap.min.css";
     public const string DefaultCssPath = "Assets/Dist/report.styles.css";
 

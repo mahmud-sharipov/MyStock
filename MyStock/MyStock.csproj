@@ -81,7 +81,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <SplashScreen Include="Assets/Images/SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>

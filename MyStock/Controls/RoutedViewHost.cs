@@ -1,13 +1,7 @@
-﻿using ReactiveUI;
-using System.Windows.Controls.Primitives;
+﻿using System.Windows.Controls.Primitives;
 
 namespace MyStock.Controls
 {
-    public class RoutedViewHost : ReactiveUI.RoutedViewHost
-    {
-
-    }
-
     public class SelectAllFocusBehavior
     {
         public static bool GetEnable(FrameworkElement frameworkElement)

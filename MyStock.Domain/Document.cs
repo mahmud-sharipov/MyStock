@@ -18,6 +18,7 @@ public class Document : EntityBase
     public bool Processed { get => _processed; set => SetProptery(ref _processed, value); }
     public string Description { get => _description; set => SetProptery(ref _description, value); }
     public int Number { get => _number; set => SetProptery(ref _number, value); }
+    public bool IsFullyPaid { get; set; }
 
     public decimal Discount
     {
@@ -38,6 +39,7 @@ public class Document : EntityBase
             RaisePropertyChanged(nameof(Balance));
         }
     }
+
     public decimal Subtotal => Details.Sum(d => d.UnitPrice * d.Quantity);
     public decimal Total => Subtotal - Discount;
     public decimal Balance => Total - PaidAmount;

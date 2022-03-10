@@ -36,7 +36,7 @@ public class EntityBase : IEntity, INotifyPropertyChanged
         return false;
     }
 
-    protected void RaisePropertyChanged([CallerMemberName] string propertyName = "") =>
+    internal void RaisePropertyChanged([CallerMemberName] string propertyName = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     #endregion

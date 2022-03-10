@@ -316,4 +316,55 @@
   <data name="Information" xml:space="preserve">
     <value>Данные</value>
   </data>
+  <data name="LoginOrPasswordWrong" xml:space="preserve">
+    <value>Имя пользователя или логин неверны!</value>
+  </data>
+  <data name="DocNumber" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="AppInstaceAlreadyIsRunning" xml:space="preserve">
+    <value>Уже запущен экземпляр приложения...</value>
+  </data>
+  <data name="Invoice" xml:space="preserve">
+    <value>Счет-Фактура</value>
+  </data>
+  <data name="Personalization" xml:space="preserve">
+    <value>Персонализация</value>
+  </data>
+  <data name="Palette" xml:space="preserve">
+    <value>Палитра</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Светлый</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Темный</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Пользовательский</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>До</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Оплаченные</value>
+  </data>
+  <data name="NotPaid" xml:space="preserve">
+    <value>Не оплаченные</value>
+  </data>
+  <data name="CommonSettings" xml:space="preserve">
+    <value>Общее</value>
+  </data>
+  <data name="DefaultAccountCannotBedeleted" xml:space="preserve">
+    <value>Системная учетная запись не может быть удалена</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
 </root>

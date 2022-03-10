@@ -18,7 +18,7 @@
              d:DesignHeight="600"
              d:DesignWidth="400"
              mc:Ignorable="d">
-    <materialDesign:Card Width="250" Margin="10">
+    <materialDesign:Card MinWidth="250" Margin="0,0,15,0">
         <Grid Margin="5,0,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -29,16 +29,20 @@
                            Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
                            Text="{x:Static langAsset:Translations.Category}" />
 
-                <Button Margin="10,0,0,0"
+                <Button Margin="0,0,0,0"
                         Command="{Binding AddCategory}"
                         Style="{StaticResource MaterialDesignIconButton}"
                         ToolTip="{x:Static langAsset:Translations.Add}">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBody}" Kind="Plus" />
+                    <materialDesign:PackIcon Kind="Plus" />
                 </Button>
 
                 <Button Command="{Binding ResetSelectedCategory}" Style="{StaticResource MaterialDesignIconButton}">
-                    <materialDesign:PackIcon Foreground="{DynamicResource MaterialDesignBody}" Kind="Restart" />
+                    <materialDesign:PackIcon Kind="Restart" />
                 </Button>
+
+                <!--<Button Command="{Binding Report}" Style="{StaticResource MaterialDesignIconButton}">
+                    <materialDesign:PackIcon Kind="Printer" />
+                </Button>-->
 
             </StackPanel>
             <TreeView Grid.Row="1"

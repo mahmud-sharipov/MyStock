@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="../dist/bootstrap.min.css" rel="stylesheet">
+    <link href="../dist/report.styles.css" rel="stylesheet">
+
+    $Styles$
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <span class="title text-grey">
+                Покупки по Товарам
+            </span>
+            <div class="float-right">
+                <img name="logo" width="40">
+                <div class="inline text-30-px align-middle">$CompanyName$</div>
+            </div>
+        </div>
+
+        <div class="px-0">
+            <div class="row">
+
+                <div class="col-12">
+                    <table class="table table-sm text-90">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th style="min-width: 120px;">Код</th>
+                                <th>Наименование</th>
+                                <th style="min-width: 140px;">Категория</th>
+                                <th>Кол-во</th>
+                                <th>Сумма</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            $Invoices$
+                        </tbody>
+                    </table>
+
+                    <div class="mt-3">
+                        <table style="margin-left: auto; margin-right: 0;">
+                            <tr class="text-110 font-weight-bold">
+                                <td class="text-right pr-3">Всего</td>
+                                <td class="text-right">$Total$</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

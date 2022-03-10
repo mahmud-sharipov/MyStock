@@ -39,6 +39,7 @@
         public ICommand AddDetail { get; protected set; }
         public ICommand IncremetQuantity { get; protected set; }
         public ICommand DecrementQuantity { get; protected set; }
+        public ICommand Report { get; set; }
 
         protected override void InitializeAssociatedProperties()
         {
@@ -153,5 +154,18 @@
 
         protected abstract void OnProcess();
         protected abstract void OnUnprocess();
+
+        protected string GetDetailInfoForReport(DocumentDetailViewModel detailViewModel, int index)
+        {
+            return $"<tr><td>{++index}</td><td>{detailViewModel.Product.Code}</td><td>{detailViewModel.Product.Description}</td><td>{detailViewModel.Product.Category.Name}</td><td>{detailViewModel.Quantity:N2} {detailViewModel.Product.Uom.Code}</td><td>{detailViewModel.UnitPrice:C2}</td><td>{detailViewModel.TotalPrice:C2}</td></tr>";
+        }
+
+    }
+
+    public enum DocumentStatus
+    {
+        All = 1,
+        Paid = 2,
+        NotPaid = 3
     }
 }

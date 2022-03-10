@@ -328,6 +328,10 @@ namespace MyStock.Persistence.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Salt")
+                        .HasMaxLength(40)
+                        .HasColumnType("varbinary(40)");
+
                     b.HasDiscriminator().HasValue("User");
                 });
 
