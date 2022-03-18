@@ -9,9 +9,9 @@ namespace MyStock.Windows
         {
             InitializeComponent();
             DataContext = this;
-            txtUsername.Text = "Admin";
-            txtPassword.Password = "Admin";
-            loginBtn_Click(null, null);
+            //txtUsername.Text = "Admin";
+            //txtPassword.Password = "Admin";
+            //loginBtn_Click(null, null);
         }
 
         private void exitApp(object sender, RoutedEventArgs e)

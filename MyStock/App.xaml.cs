@@ -39,6 +39,8 @@ public partial class App : System.Windows.Application
         if (Process.GetProcesses().Where(p => p.ProcessName == Process.GetCurrentProcess().ProcessName).Count() > 1)
             App.Current.Shutdown();
 
+        Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+
         var builder = new ContainerBuilder();
         NativeInjectorBootStrapper.RegisterServices(builder);
         RegisterClientIoC(builder);
@@ -48,6 +50,13 @@ public partial class App : System.Windows.Application
 
         AppManager.Start();
         base.OnStartup(e);
+    }
+
+    private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    {
+        MessageBox.Show(e.Exception.Message);
+        e.Handled = true;
+        App.Current.Shutdown();
     }
 
     protected override void OnExit(ExitEventArgs e)
